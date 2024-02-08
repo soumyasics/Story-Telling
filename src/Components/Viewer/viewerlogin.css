@@ -1,0 +1,19 @@
+.viewerloginform{
+    padding-left: 33%;
+    color: rgba(26, 114, 142, 1);
+    padding-right: 33%;
+
+}
+.viewermovetosignup{
+   float: right;
+   margin-top: -10%;
+}
+.viewerloginhead{
+    color: rgba(26, 114, 142, 1);
+}
+.viewerloginbtn{
+    background-color: rgba(26, 114, 142, 1);
+    color:white;
+    border:none;
+    border-radius: 18px;
+}
