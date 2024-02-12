@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Landingpage() {
+function ViewerLandingPage() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function Landingpage() {
   )
 }
 
-export default Landingpage
+export default ViewerLandingPage

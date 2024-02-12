@@ -8,6 +8,8 @@ import EditorRegister from "./Components/Editor/EditorRegister";
 import Landingpage from "./Components/Landingpage";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
+import Viewerforgotpassword from "./Components/Viewer/Viewerforgotpassword";
+import Editorforgotpassword from "./Components/Editor/Editorforgotpassword";
 
 function App() {
   return (
@@ -15,10 +17,13 @@ function App() {
       <Routes>
         <Route path="/adminlogin" element=<AdminLogin /> />
         <Route path="/viwerlogin" element={[<Header/>,<ViewerLogin />,<Footer/>]} />
-        <Route path="/editorlogin" element=<EditorLogin /> />
-        <Route path="/viwerregister" element=<ViewerRegister /> />
-        <Route path="/editorregister" element=<EditorRegister /> />
+        <Route path="/editorlogin" element={[<Header/>,<EditorLogin />,<Footer/>]} />
+        <Route path="/viwerregister" element={[<Header/>,<ViewerRegister /> ,<Footer/>]}/>
+        <Route path="/editorregister" element={[<Header/>,<EditorRegister />,<Footer/>]} />
         <Route path='/landingpage' element=<Landingpage/> />
+        <Route path="/viewerforgotpassword" element={[<Header/>,<Viewerforgotpassword /> ,<Footer/>]}/>
+        <Route path="/editorforgotpassword" element={[<Header/>,<Editorforgotpassword /> ,<Footer/>]}/>
+        <Route path="/landingpage" element={[<Header/>,<Landingpage/> ,<Footer/>]}/>
         <Route path='/header' element=<Header/> />
         <Route path='/footer' element=<Footer/> />
       </Routes>
