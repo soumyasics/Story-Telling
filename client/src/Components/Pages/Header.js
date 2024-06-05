@@ -2,8 +2,8 @@ import React from "react";
 import "./header.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import img1 from "../images/Logo (4).png";
-import img2 from "../images/Rectangle 1.png";
+import img1 from "../../Assets/Logo (4).png";
+// import img2 from "../images/Rectangle 1.png";
 import Dropdown from 'react-bootstrap/Dropdown';
 
 function Header() {

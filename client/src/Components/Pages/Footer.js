@@ -1,8 +1,8 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
-import img from "../images/Logo (4).png";
-import img2 from "../images/image 2 (1).png";
+import img from "../../Assets/Logo (4).png";
+import img2 from "../../Assets/image 2 (1).png";
 
 function Footer() {
   return (

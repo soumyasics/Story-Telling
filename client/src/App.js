@@ -5,9 +5,9 @@ import ViewerLogin from "./Components/Viewer/ViewerLogin";
 import ViewerRegister from "./Components/Viewer/ViewerRegister";
 import EditorLogin from "./Components/Editor/EditorLogin";
 import EditorRegister from "./Components/Editor/EditorRegister";
-import Landingpage from "./Components/Landingpage";
-import Header from "./Components/Header";
-import Footer from "./Components/Footer";
+import Landingpage from "./Components/Pages/Landingpage";
+import Header from "./Components/Pages/Header";
+import Footer from "./Components/Pages/Footer";
 import Viewerforgotpassword from "./Components/Viewer/Viewerforgotpassword";
 import Editorforgotpassword from "./Components/Editor/Editorforgotpassword";
 
