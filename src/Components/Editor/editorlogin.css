@@ -1,0 +1,19 @@
+.editorrloginform{
+    padding: 2% 23%;
+    color: rgba(26, 114, 142, 1);
+    
+
+}
+.editormovetosignup{
+   float: right;
+   margin-top: -10%;
+}
+.editorloginhead{
+    color: rgba(26, 114, 142, 1);
+}
+.editorloginbtn{
+    background-color: rgba(26, 114, 142, 1);
+    color:white;
+    border:none;
+    border-radius: 18px;
+}
