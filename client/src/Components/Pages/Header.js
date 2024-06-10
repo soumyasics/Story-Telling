@@ -1,39 +1,45 @@
 import React from "react";
 import "./header.css";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import img1 from "../../Assets/Logo (4).png";
-// import img2 from "../images/Rectangle 1.png";
-import Dropdown from 'react-bootstrap/Dropdown';
-
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import logo from "../../Assets/logo.png"
 function Header() {
   return (
-    <div className="header-container">
-      <Row>
-        <Col>1</Col>
-        <Col>2</Col>
-        <Col>
-          <img src={img1} alt=""></img>
-        </Col>
-        <Col>4</Col>
-        <Col>
-          <div className="circular-img">
-            <img className="profileimg" src="https://tse1.mm.bing.net/th?id=OIP.YAXlTjvtEKchdMVc5laZhwHaE8&pid=Api&P=0&h=180" alt=""></img>
+    <div>
+       <Navbar collapseOnSelect expand="lg" className="mainnav">
+      <Container>
+      <Navbar.Brand href="#home">
+            <img
+              alt=""
+              src={logo}
+              width="50"
+              height="50"
+              className="d-inline-block align-top"
+            />{' '}
+            <label className="text-light mt-3" fon>Collaborative Story Telling</label>
+          </Navbar.Brand>
+          <div className="bg-light text-light">        <Navbar.Toggle aria-controls="responsive-navbar-nav text-light  bg-light" />
           </div>
-          <div className="dropdown-container">
-            <Dropdown>
-              <Dropdown.Toggle id="dropdown-basic" style={{backgroundColor:"rgba(1, 30, 73, 0.97)",border:"none"}}>
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Settings</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Logout</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Stories</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
-        </Col>
-      </Row>
+        <Navbar.Collapse id="responsive-navbar-nav text-light  bg-light">
+          <Nav className="me-auto">
+          </Nav>
+          <Nav>
+            <Nav.Link href="#deets" className="text-light me-5">Connect</Nav.Link>
+            <Nav.Link eventKey={2} href="#memes" className="text-light me-5">
+            Blog
+            </Nav.Link><Nav.Link href="#deets" className="text-light me-5">Apps</Nav.Link>
+            <Nav.Link eventKey={2} href="#memes" className="text-light me-5">
+            Tools
+            </Nav.Link><Nav.Link href="#deets" className="text-light me-5">About</Nav.Link>
+            <Nav.Link eventKey={2} href="#memes">
+              
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
     </div>
   );
 }
