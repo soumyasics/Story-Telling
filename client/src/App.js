@@ -15,17 +15,17 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/adminlogin" element=<AdminLogin /> />
+        <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/viwerlogin" element={[<Header/>,<ViewerLogin />,<Footer/>]} />
         <Route path="/editorlogin" element={[<Header/>,<EditorLogin />,<Footer/>]} />
         <Route path="/viwerregister" element={[<Header/>,<ViewerRegister /> ,<Footer/>]}/>
         <Route path="/editorregister" element={[<Header/>,<EditorRegister />,<Footer/>]} />
-        <Route path='/landingpage' element=<Landingpage/> />
+        {/* <Route path='/landingpage' element={<Landingpage/>} /> */}
         <Route path="/viewerforgotpassword" element={[<Header/>,<Viewerforgotpassword /> ,<Footer/>]}/>
         <Route path="/editorforgotpassword" element={[<Header/>,<Editorforgotpassword /> ,<Footer/>]}/>
-        <Route path="/landingpage" element={[<Header/>,<Landingpage/> ,<Footer/>]}/>
-        <Route path='/header' element=<Header/> />
-        <Route path='/footer' element=<Footer/> />
+        <Route path="/" element={[<Landingpage/> ,<Footer/>]}/>
+        <Route path='/header' element={<Header/>} />
+        <Route path='/footer' element={<Footer/>} />
       </Routes>
     </BrowserRouter>
   );
