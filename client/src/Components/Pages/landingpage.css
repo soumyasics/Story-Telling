@@ -21,3 +21,37 @@ height: 100vh;
 .Landingsection8div1{
   background-color: black;
 }
+.Landingsection5{
+  background-image: url("../../Assets/Landingsection5img.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 15% 5%;
+}
+.Landingsection6{
+  background-image: url("../../Assets/Landingsection6img.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 15% 5%;
+}
+.Landingsection7{
+  background-image: url("../../Assets/Landingsection7img.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 15% 5%;
+}
+.Landingsection8{
+  background-image: url("../../Assets/Landingsection8img.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 15% 5%;
+}
+.Landingsection2img{
+  background-image: url("../../Assets/Landingsection2img.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 15% 5%;
+}
+
+.text-shadow {
+  text-shadow: 2px 2px 4px rgba(1, 6,6, 8);
+}

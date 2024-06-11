@@ -3,7 +3,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Landingsection8img1 from "../../Assets/Landingsection8img1.png";
 import Landingsection8img2 from "../../Assets/Landingsection8img2.png";
-import Landingsection8img3 from "../../Assets/Landingsection8img3.png";
+import middleone from "../../Assets/middleone.png";
 import Landingsection8img4 from "../../Assets/Landingsection8img4.png";
 import Landingsection8img5 from "../../Assets/Landingsection8img5.png";
 import storyimg from "../../Assets/storyimg.png";
@@ -29,7 +29,7 @@ function Landingsection8() {
             </Col>
             <Col>
               {" "}
-              <img src={Landingsection8img3} style={{ width: "100px" }}></img>
+              <img src={middleone} style={{ width: "150px" }}></img>
             </Col>
             <Col>
               {" "}
@@ -68,7 +68,7 @@ function Landingsection8() {
         </section>
       </div>
       <section className="Landingsection8div1">
-        <div className="container text-light text-center p-5">
+        <div className="container text-light text-center pt-5">
           <h3 className=" p-5">
             Where every voice matters and every story <br></br> is a shared
             adventure
