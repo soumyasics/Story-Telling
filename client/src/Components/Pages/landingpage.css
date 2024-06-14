@@ -1,0 +1,57 @@
+.Landingsection1img{
+  background-image: url("../../Assets/landing1.png");
+background-repeat: no-repeat;
+background-size: cover;
+height: 100vh;
+}
+.Landingsection1content{
+  margin: 13%;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.Landingsection3{
+  background-image: url("../../Assets/Landingsection3img.png");
+  padding: 2%;
+}
+.Landingsection4{
+  background-image: url("../../Assets/Landingsection4img.png");
+}
+.Landingsection8img{
+  background-color: #25252533;
+}
+.Landingsection8div1{
+  background-color: black;
+}
+.Landingsection5{
+  background-image: url("../../Assets/Landingsection5img.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 15% 5%;
+}
+.Landingsection6{
+  background-image: url("../../Assets/Landingsection6img.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 15% 5%;
+}
+.Landingsection7{
+  background-image: url("../../Assets/Landingsection7img.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 15% 5%;
+}
+.Landingsection8{
+  background-image: url("../../Assets/Landingsection8img.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 15% 5%;
+}
+.Landingsection2img{
+  background-image: url("../../Assets/Landingsection2img.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 15% 5%;
+}
+
+.text-shadow {
+  text-shadow: 2px 2px 4px rgba(1, 6,6, 8);
+}
