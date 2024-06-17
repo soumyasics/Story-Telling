@@ -4,8 +4,7 @@ const jwt=require('jsonwebtoken')
 const multer=require('multer');
 const ReaderSchema = require('../Model/ReaderSchema');
 const nodemailer = require('nodemailer');
-
-
+const config=require('./configuration')
 
 // Create a transporter object using Gmail SMTP
 const transporter = nodemailer.createTransport({
@@ -22,8 +21,8 @@ const transporter = nodemailer.createTransport({
     const mailOptions = {
       from: 'supprot.web.application@gmail.com',
       to: email,
-      subject: 'Reset Password From Stry_Telling Application',
-      text: `Dear ${data.name},${'\n'}please check this link : http://localhost:3000/story_telling/reset-password/${data._id} to reset your password`
+      subject: 'Reset Password From Story_Telling Application',
+      text: `Dear ${data.name},${'\n'}please check this link : ${config.serverUrl}${data._id} to reset your password`
     };
   
     transporter.sendMail(mailOptions, function (error, info) {
@@ -242,6 +241,7 @@ const forgotPassword = (req, res) => {
     Writer.findOne({ email: req.body.email })
         .exec()
         .then(data => {
+
             if (data != null){
                 testMail(data)
                 res.json({
@@ -266,23 +266,33 @@ const forgotPassword = (req, res) => {
 
 // Reset Password for Writer
 const resetPassword = async (req, res) => {
-    let pwdMatch = false;
-
-    await Writer.findById({ _id: req.params.id })
-        .exec()
-        .then(data => {
-            if (data.password === req.body.oldpassword)
-                pwdMatch = true;
+if(req.body.userRole=='reader')
+    {
+        await ReaderSchema.findByIdAndUpdate({ _id: req.params.id }, {
+            password: req.body.newpassword
         })
-        .catch(err => {
-            res.status(500).json({
-                status: 500,
-                msg: "Data not Updated",
-                Error: err
+            .exec()
+            .then(data => {
+                if (data != null)
+                    res.json({
+                        status: 200,
+                        msg: "Updated successfully"
+                    });
+                else
+                    res.json({
+                        status: 500,
+                        msg: "User Not Found"
+                    });
+            })
+            .catch(err => {
+                res.json({
+                    status: 500,
+                    msg: "Data not Updated",
+                    Error: err
+                });
             });
-        });
-
-    if (pwdMatch) {
+    }
+    else if(req.body.userRole=='writer'){
         await Writer.findByIdAndUpdate({ _id: req.params.id }, {
             password: req.body.newpassword
         })
@@ -300,7 +310,7 @@ const resetPassword = async (req, res) => {
                     });
             })
             .catch(err => {
-                res.status(500).json({
+                res.json({
                     status: 500,
                     msg: "Data not Updated",
                     Error: err
@@ -308,8 +318,8 @@ const resetPassword = async (req, res) => {
             });
     } else {
         res.json({
-            status: 405,
-            msg: "Your Old Password doesn't match"
+            status: 409,
+            msg: "Link Expired! Try Again",
         });
     }
 };
