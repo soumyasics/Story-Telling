@@ -1,38 +1,9 @@
-const Writer = require('../Model/WriterSchema');
-  const secret = 'Writer'; // Replace this with your own secret key
+const Reader = require('../Model/ReaderSchema');
+  const secret = 'Reader'; // Replace this with your own secret key
 const jwt=require('jsonwebtoken')
 const multer=require('multer');
-const ReaderSchema = require('../Model/ReaderSchema');
-const nodemailer = require('nodemailer');
-const config=require('./configuration')
+const WriterSchema = require('../Model/WriterSchema');
 
-// Create a transporter object using Gmail SMTP
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'supprot.web.application@gmail.com',
-      pass: 'ukyw olqq kuql jnty'
-    }
-  });
-  
-  
-  const testMail = (data) => {
-    let email=data.email
-    const mailOptions = {
-      from: 'supprot.web.application@gmail.com',
-      to: email,
-      subject: 'Reset Password From Story_Telling Application',
-      text: `Dear ${data.name},${'\n'}please check this link : ${config.serverUrl}${data._id} to reset your password`
-    };
-  
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log('Error:', error);
-      } else {
-        console.log('Email sent:', info.response);
-      }
-    });
-  }
 const storage = multer.diskStorage({
     destination: function (req, res, cb) {
       cb(null, "./upload");
@@ -46,11 +17,11 @@ const storage = multer.diskStorage({
     },
   });
   const upload = multer({ storage: storage }).single("profilePicture");
-const registerWriter = async (req, res) => {
+const registerReader = async (req, res) => {
     try {
          const { name,age,contact, email,password,userCategory } = req.body;
 
-        const newWriter = new Writer({
+        const newReader = new Reader({
             name,
             age,
             contact,
@@ -61,24 +32,24 @@ const registerWriter = async (req, res) => {
                 });
 
         
-        let existingWriter = await Writer.findOne({ contact });
-        if (existingWriter) {
+        let existingReader = await Reader.findOne({ contact });
+        if (existingReader) {
             return res.json({
                 status: 409,
                 msg: "contact Number Already Registered With Us !!",
                 data: null
             });
         }
-        let existingWriter1 = await Writer.findOne({ email });
-        let existingWriter2 = await ReaderSchema.findOne({ email });
-        if (existingWriter1 ||existingWriter2) {
+        let existingReader1 = await WriterSchema.findOne({ email });
+        let existingReader2 = await Reader.findOne({ email });
+        if (existingReader1 ||existingReader2) {
             return res.json({
                 status: 409,
                 msg: "Mail Id Already Registered With Us !!",
                 data: null
             });
         }
-        await newWriter.save()
+        await newReader.save()
             .then(data => {
                 return res.json({
                     status: 200,
@@ -106,9 +77,9 @@ const registerWriter = async (req, res) => {
 };
 
 
-// View all Writers
-const viewWriters = (req, res) => {
-    Writer.find()
+// View all Readers
+const viewReaders = (req, res) => {
+    Reader.find()
         .exec()
         .then(data => {
             if (data.length > 0) {
@@ -133,44 +104,38 @@ const viewWriters = (req, res) => {
         });
 };
 
-// Update Writer by ID
-const editWriterById =async (req, res) => {
+// Update Reader by ID
+const editReaderById =async (req, res) => {
     let flag=0
-    const { firstname, lastname, contact,gender,  dob, email, housename, street, state, nationality, pincode } = req.body;
-    let existingWriter = await Writer.find({ contact });
-    let WriterData = await Writer.findById({  _id: req.params.id  });
-await existingWriter.map(x=>{
-    if (x.contact!=WriterData.contact) {
+    const { name,age,contact, email } = req.body;    let existingReader = await Reader.find({ contact });
+    let ReaderData = await Reader.findById({  _id: req.params.id  });
+await existingReader.map(x=>{
+    if (x.contact!=ReaderData.contact) {
       flag=1        
     }
     
 })
 if(ReaderData.email!==req.body.email){
-    let existingWriter1 = await Writer.findOne({ email });
-        let existingWriter2 = await ReaderSchema.findOne({ email });
-        if (existingWriter1 ||existingWriter2) {
-        return res.json({
-            status: 409,
-            msg: "Mail Id Already Registered With Us !!",
-            data: null
-        });
-    }
-    }
-
+let existingReader1 = await WriterSchema.findOne({ email });
+let existingReader2 = await Reader.findOne({ email });
+if (existingReader1 ||existingReader2) {
+    return res.json({
+        status: 409,
+        msg: "Mail Id Already Registered With Us !!",
+        data: null
+    });
+}
+}
 if(flag==0){
    
-   await Writer.findByIdAndUpdate({ _id: req.params.id }, {
-        firstname,
-        lastname,
-        contact,
-        email,
-        dob,
-        gender,
-        housename,
-        street,
-        state,
-        nationality,
-        pincode
+   await Reader.findByIdAndUpdate({ _id: req.params.id }, {
+    name,
+    age,
+    contact,
+    email,
+    password,
+    profilePicture:req.file,
+    userCategory
     })
         .exec()
         .then(data => {
@@ -196,9 +161,9 @@ if(flag==0){
     }
 };
 
-// View Writer by ID
-const viewWriterById = (req, res) => {
-    Writer.findById({ _id: req.params.id })
+// View Reader by ID
+const viewReaderById = (req, res) => {
+    Reader.findById({ _id: req.params.id })
         .exec()
         .then(data => {
             res.json({
@@ -216,9 +181,9 @@ const viewWriterById = (req, res) => {
         });
 };
 
-// Delete Writer by ID
-const deleteWriterById = (req, res) => {
-    Writer.findByIdAndDelete({ _id: req.params.id })
+// Delete Reader by ID
+const deleteReaderById = (req, res) => {
+    Reader.findByIdAndDelete({ _id: req.params.id })
         .exec()
         .then(data => {
             res.json({
@@ -236,19 +201,18 @@ const deleteWriterById = (req, res) => {
         });
 };
 
-// Forgot Password for Writer
+// Forgot Password for Reader
 const forgotPassword = (req, res) => {
-    Writer.findOne({ email: req.body.email })
+    Reader.findOneAndUpdate({ email: req.body.email }, {
+        password: req.body.password
+    })
         .exec()
         .then(data => {
-
-            if (data != null){
-                testMail(data)
+            if (data != null)
                 res.json({
                     status: 200,
                     msg: "Updated successfully"
                 });
-            }
             else
                 res.json({
                     status: 500,
@@ -264,36 +228,26 @@ const forgotPassword = (req, res) => {
         });
 };
 
-// Reset Password for Writer
+// Reset Password for Reader
 const resetPassword = async (req, res) => {
-if(req.body.userRole=='reader')
-    {
-        await ReaderSchema.findByIdAndUpdate({ _id: req.params.id }, {
-            password: req.body.newpassword
+    let pwdMatch = false;
+
+    await Reader.findById({ _id: req.params.id })
+        .exec()
+        .then(data => {
+            if (data.password === req.body.oldpassword)
+                pwdMatch = true;
         })
-            .exec()
-            .then(data => {
-                if (data != null)
-                    res.json({
-                        status: 200,
-                        msg: "Updated successfully"
-                    });
-                else
-                    res.json({
-                        status: 500,
-                        msg: "User Not Found"
-                    });
-            })
-            .catch(err => {
-                res.json({
-                    status: 500,
-                    msg: "Data not Updated",
-                    Error: err
-                });
+        .catch(err => {
+            res.status(500).json({
+                status: 500,
+                msg: "Data not Updated",
+                Error: err
             });
-    }
-    else if(req.body.userRole=='writer'){
-        await Writer.findByIdAndUpdate({ _id: req.params.id }, {
+        });
+
+    if (pwdMatch) {
+        await Reader.findByIdAndUpdate({ _id: req.params.id }, {
             password: req.body.newpassword
         })
             .exec()
@@ -310,7 +264,7 @@ if(req.body.userRole=='reader')
                     });
             })
             .catch(err => {
-                res.json({
+                res.status(500).json({
                     status: 500,
                     msg: "Data not Updated",
                     Error: err
@@ -318,8 +272,8 @@ if(req.body.userRole=='reader')
             });
     } else {
         res.json({
-            status: 409,
-            msg: "Link Expired! Try Again",
+            status: 405,
+            msg: "Your Old Password doesn't match"
         });
     }
 };
@@ -331,7 +285,7 @@ const createToken = (user) => {
   const login = (req, res) => {
     const { email, password } = req.body;
   
-    Writer.findOne({ email }).then(user => {
+    Reader.findOne({ email }).then(user => {
      
   
       if (!user) {
@@ -383,11 +337,11 @@ const createToken = (user) => {
   //Login Custome --finished
 
 module.exports = {
-    registerWriter,
-    viewWriters,
-    editWriterById,
-    viewWriterById,
-    deleteWriterById,
+    registerReader,
+    viewReaders,
+    editReaderById,
+    viewReaderById,
+    deleteReaderById,
     forgotPassword,
     resetPassword,
     login,

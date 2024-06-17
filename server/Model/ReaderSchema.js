@@ -1,6 +1,6 @@
 const mongoose= require("mongoose");
 
-const writerSchema=mongoose.Schema({
+const readerSchema=mongoose.Schema({
     name:{
         type:String,
        
@@ -42,21 +42,14 @@ const writerSchema=mongoose.Schema({
         required:true
 
     },
-    paymentStatus:{
-        type:Boolean,
-        default:false
-    },
-    paymentPlan:{
-        type:String,
-
-        default:"Nil"
-
-    },
-    isActive:{
-        type:Boolean,
-        default:true
-    }
-    
+  profileStatus:{
+    type:Boolean,
+    default:true
+},
+isActive:{
+    type:Boolean,
+    default:true
+}
 });
-module.exports=mongoose.model('writers',writerSchema)
+module.exports=mongoose.model('readers',readerSchema)
 
