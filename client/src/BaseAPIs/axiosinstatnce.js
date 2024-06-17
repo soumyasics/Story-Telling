@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:4025"
+  baseURL: "http://localhost:4025/story_telling_api/"
   
   // baseURL:"http://hybrid.srishticampus.in/story_telling_api/"
 
