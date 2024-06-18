@@ -8,7 +8,7 @@ const Reader=require('./Controller/readerController')
 router.post('/registerWriter',Writer.upload,Writer.registerWriter)
 router.post('/loginWriter',Writer.login)
 router.post('/forgotPasswordWriter',Writer.forgotPassword)
-
+router.post('/reset-password/:id',Writer.resetPassword)
 
 //reader routes
 router.post('/registerReader',Reader.upload,Reader.registerReader)
