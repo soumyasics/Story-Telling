@@ -237,42 +237,39 @@ const deleteWriterById = (req, res) => {
 };
 
 // Forgot Password for Writer
-const forgotPassword = async(req, res) => {
+const forgotPWDsentMail=async(req,res)=>{
     let data=null
     try{
-         data = await ReaderSchema.findOne({ email:  req.body.email })
-        if(data==null){
          data = await Writer.findOne({ email:  req.body.email })
+        if(data==null){
+         data = await ReaderSchema.findOne({ email:  req.body.email })
         }
         
-        if (data != null)
+          if (data != null)
             {
               let id=data._id.toString()
               testMail(data)
-        .exec()
-        .then(data => {
-
-            if (data != null){
-                testMail(data)
-                res.json({
-                    status: 200,
-                    msg: "Updated successfully"
-                });
-            }
-            else
-                res.json({
-                    status: 500,
-                    msg: "User Not Found"
-                });
-        })
-        .catch(err => {
-            res.status(500).json({
-                status: 500,
-                msg: "Data not Updated",
-                Error: err
+            res.json({
+              status: 200,
+              msg: "Data Obtained successfully",
             });
-        });
-};
+          }
+          else
+            res.json({
+              status: 500,
+              msg: "Enter your Registered MailId",
+            });
+        }
+        catch(err) {
+          console.log(err);
+          res.json({
+            status: 500,
+            msg: "Data not Updated",
+            Error: err,
+          })
+        }
+    
+      }
 
 // Reset Password for Writer
 const resetPassword = async (req, res) => {
@@ -399,7 +396,7 @@ module.exports = {
     editWriterById,
     viewWriterById,
     deleteWriterById,
-    forgotPassword,
+    forgotPWDsentMail,
     resetPassword,
     login,
     requireAuth,

@@ -7,7 +7,7 @@ const Reader=require('./Controller/readerController')
 //Writer routes
 router.post('/registerWriter',Writer.upload,Writer.registerWriter)
 router.post('/loginWriter',Writer.login)
-router.post('/forgotPasswordWriter',Writer.forgotPassword)
+router.post('/forgotPasswordWriter',Writer.forgotPWDsentMail)
 router.post('/reset-password/:id',Writer.resetPassword)
 
 //reader routes
