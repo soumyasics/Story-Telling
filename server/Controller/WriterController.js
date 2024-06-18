@@ -266,7 +266,8 @@ const forgotPassword = (req, res) => {
 
 // Reset Password for Writer
 const resetPassword = async (req, res) => {
-if(req.body.userRole=='reader')
+    console.log(req.body);
+if(req.body.userrole=='reader')
     {
         await ReaderSchema.findByIdAndUpdate({ _id: req.params.id }, {
             password: req.body.newpassword
@@ -292,7 +293,7 @@ if(req.body.userRole=='reader')
                 });
             });
     }
-    else if(req.body.userRole=='writer'){
+    else if(req.body.userrole=='writer'){
         await Writer.findByIdAndUpdate({ _id: req.params.id }, {
             password: req.body.newpassword
         })

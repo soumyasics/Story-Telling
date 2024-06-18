@@ -6,7 +6,7 @@ import Header from "../Pages/Header";
 import img1 from "../../Assets/Rectangle 44 (1).png";
 import axiosInstance from "../../BaseAPIs/axiosinstatnce";
 
-function WriterRegister() {
+function WriterRegister({userrole}) {
   const [data, setData] = useState({
     name: "",
     age: "",
@@ -15,7 +15,7 @@ function WriterRegister() {
     password: "",
     profilePicture: "",
     userCategory: "",
-    confirmpassword: ""
+    confirmpassword: "",
   });
 
   const [errors, setErrors] = useState({
@@ -26,7 +26,7 @@ function WriterRegister() {
     password: "",
     profilePicture: "",
     userCategory: "",
-    confirmpassword: ""
+    confirmpassword: "",
   });
 
   const navigate = useNavigate();
@@ -117,19 +117,24 @@ function WriterRegister() {
       Object.keys(data).forEach((key) => {
         formData.append(key, data[key]);
       });
-console.log(formData,"p");
+      console.log(formData, "p");
+      const apiendpoint =
+        userrole === "writer" ? "/registerWriter" : "/registerReader";
       axiosInstance
-        .post("/registerWriter", formData, {
+        .post(apiendpoint, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         })
         .then((result) => {
-         console.log(result);
-         alert(result.data.msg)
-        })
-        .catch((err) => {
+          console.log(result);
+          alert(result.data.msg);
+          if(result.data.status==200){
+            navigate("/writerlogin")
+        }else{
           
+        }})
+        .catch((err) => {
           const errorMsg =
             err.response && err.response.data && err.response.data.msg
               ? err.response.data.msg
@@ -153,35 +158,45 @@ console.log(formData,"p");
               <div className="row mt-5">
                 <div className="col-6">
                   <input
+                    id="custom-input"
                     type="text"
                     className="form-control custom-input"
                     placeholder="Name"
                     name="name"
                     onChange={handleChange}
                   />
-                  {errors.name && <div className="text-danger">{errors.name}</div>}
+                  {errors.name && (
+                    <div className="text-danger">{errors.name}</div>
+                  )}
                   <input
                     type="email"
                     className="form-control custom-input"
                     placeholder="Email"
                     name="email"
                     onChange={handleChange}
+                    id="custom-input"
                   />
-                  {errors.email && <div className="text-danger">{errors.email}</div>}
+                  {errors.email && (
+                    <div className="text-danger">{errors.email}</div>
+                  )}
                   <input
                     type="password"
                     className="form-control custom-input"
                     placeholder="Enter Password"
                     name="password"
                     onChange={handleChange}
+                    id="custom-input"
                   />
-                  {errors.password && <div className="text-danger">{errors.password}</div>}
+                  {errors.password && (
+                    <div className="text-danger">{errors.password}</div>
+                  )}
                   <input
                     type="password"
                     className="form-control custom-input"
                     placeholder="Confirm password"
                     name="confirmpassword"
                     onChange={handleChange}
+                    id="custom-input"
                   />
                   {errors.confirmpassword && (
                     <div className="text-danger">{errors.confirmpassword}</div>
@@ -192,13 +207,11 @@ console.log(formData,"p");
                     className="form-control custom-input"
                     name="userCategory"
                     onChange={handleChange}
+                    id="custom-input"
                   >
                     <option value="">Choose user category</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
+                    <option value="writer">writer</option>
+                    <option value="reader">reader</option>
                   </select>
                   {errors.userCategory && (
                     <div className="text-danger">{errors.userCategory}</div>
@@ -209,16 +222,22 @@ console.log(formData,"p");
                     placeholder="Phone Number"
                     name="contact"
                     onChange={handleChange}
+                    id="custom-input"
                   />
-                  {errors.contact && <div className="text-danger">{errors.contact}</div>}
+                  {errors.contact && (
+                    <div className="text-danger">{errors.contact}</div>
+                  )}
                   <input
                     type="number"
                     className="form-control custom-input"
                     placeholder="Age"
                     name="age"
                     onChange={handleChange}
+                    id="custom-input"
                   />
-                  {errors.age && <div className="text-danger">{errors.age}</div>}
+                  {errors.age && (
+                    <div className="text-danger">{errors.age}</div>
+                  )}
                   <div className="custom-file-input">
                     <label htmlFor="profilePicture" className="file-label">
                       Profile Picture
@@ -230,7 +249,14 @@ console.log(formData,"p");
                       name="profilePicture"
                       onChange={handleFileChange}
                     />
-                    <button className="btn btn-secondary" onClick={() => document.getElementById('profilePicture').click()}>Upload</button>
+                    <button
+                      className="btn btn-secondary"
+                      onClick={() =>
+                        document.getElementById("profilePicture").click()
+                      }
+                    >
+                      Upload
+                    </button>
                   </div>
                   {errors.profilePicture && (
                     <div className="text-danger">{errors.profilePicture}</div>
@@ -238,11 +264,15 @@ console.log(formData,"p");
                 </div>
               </div>
               <div className="text-center mt-2">
-                <button className="btn btn-secondary px-5 py-2 mt-2" onClick={WriterrRegisterChange}>
+                <button
+                  className="btn btn-secondary px-5 py-2 mt-2"
+                  onClick={WriterrRegisterChange}
+                >
                   Register
                 </button>
                 <div className="mt-5">
-                  If already registered, <Link to="/writerlogin">Login</Link> Here!
+                  If already registered,  {userrole=="writer"? <Link to="/writerlogin">Login</Link>:<Link to="/readerlogin">login</Link>}{" "}
+                  Here!
                 </div>
               </div>
             </div>
