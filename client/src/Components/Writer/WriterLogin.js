@@ -7,7 +7,7 @@ import img1 from "../../Assets/Rectangle 44 (1).png";
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../../BaseAPIs/axiosinstatnce";
 
-function WriterLogin() {
+function WriterLogin({userrole}) {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -65,8 +65,10 @@ function WriterLogin() {
     setErrors(errors);
 
     if (!errors.email && !errors.password) {
+
+      const apiEndpoint = userrole === "writer" ? "/loginWriter" : "/loginReader";
       axiosInstance
-        .post("/loginWriter", data)
+        .post(apiEndpoint, data)
         .then((result) => {
 
           if(result.data.status == 405) {
@@ -75,19 +77,8 @@ function WriterLogin() {
             alert("login sucess");
             localStorage.setItem("token",result.data.token)
             localStorage.setItem("writer",result.data.data._id)
-          }
-          
-          // if (status === "pending") {
-          //   alert("Waiting for admin approval");
-          // } else if (status === "accepted") {
-          //   alert("Login successful");
-          //   // localStorage.setItem("shopowner", id);
-          //   // localStorage.setItem("shopownertoken", token);
-          //   // localStorage.setItem("shopname", shopname);
-          //   Navigate("/home");
-          // } else {
-          //   alert(msg);
-          // }
+            Navigate("Home")
+          }    
         })
         .catch((err) => {
           alert(err.response.data.msg);
@@ -132,6 +123,7 @@ function WriterLogin() {
                 )}
                 <div className="text-end mb-5">
                   {" "}
+                  
                   <Link className="" to="/writerforgot">
                     Forgot password
                   </Link>
@@ -145,7 +137,7 @@ function WriterLogin() {
                   LogIn
                 </div>
                 <div className="mt-4">
-                  New user?, <Link to="/writerRegister">Register</Link>
+                  New user?, {userrole=="writer"? <Link to="/writerRegister">Register</Link>:<Link to="/readerRegister">Register</Link>}
                   Here!
                 </div>
               </div>

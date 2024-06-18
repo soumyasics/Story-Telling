@@ -12,6 +12,14 @@
     align-items: center;
     margin-bottom: 1rem;
     width: 100%;
+
+  }
+  #custom-input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    width: 100%;
+
   }
   
   .file-label {
