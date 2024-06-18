@@ -237,8 +237,18 @@ const deleteWriterById = (req, res) => {
 };
 
 // Forgot Password for Writer
-const forgotPassword = (req, res) => {
-    Writer.findOne({ email: req.body.email })
+const forgotPassword = async(req, res) => {
+    let data=null
+    try{
+         data = await ReaderSchema.findOne({ email:  req.body.email })
+        if(data==null){
+         data = await Writer.findOne({ email:  req.body.email })
+        }
+        
+        if (data != null)
+            {
+              let id=data._id.toString()
+              testMail(data)
         .exec()
         .then(data => {
 
