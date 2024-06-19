@@ -14,7 +14,7 @@ function WriterRegister({userrole}) {
     email: "",
     password: "",
     profilePicture: "",
-    userCategory: "",
+    userCategory: userrole,
     confirmpassword: "",
   });
 
@@ -76,6 +76,7 @@ function WriterRegister({userrole}) {
   };
 
   const WriterrRegisterChange = (event) => {
+    console.log("kkk");
     event.preventDefault();
     let formIsValid = true;
     let validationErrors = {};
@@ -203,19 +204,10 @@ function WriterRegister({userrole}) {
                   )}
                 </div>
                 <div className="col-6">
-                  <select
-                    className="form-control custom-input"
-                    name="userCategory"
-                    onChange={handleChange}
-                    id="custom-input"
-                  >
-                    <option value="">Choose user category</option>
-                    <option value="writer">writer</option>
-                    <option value="reader">reader</option>
-                  </select>
-                  {errors.userCategory && (
-                    <div className="text-danger">{errors.userCategory}</div>
-                  )}
+                  <input className="form-control custom-input"
+                  name="userCategory"
+                  id="custom-input" value={userrole} disabled></input>
+                 
                   <input
                     type="number"
                     className="form-control custom-input"

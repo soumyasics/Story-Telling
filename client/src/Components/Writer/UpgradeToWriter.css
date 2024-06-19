@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Martel+Sans:wght@200;300;400;600;700;800;900&display=swap');
+
+.UpgradeToWriter-Div1 {
+
+    background-image: url('../../Assets/uograde.png');
+    background-color: #00000054;
+    background-size: cover;
+    height: 100vh;
+    color: white;
+    font-family: Martel Sans;
+    padding-top: 4%;
+    
+}
+
+.UpgradeToWriter-Div2 {
+
+    text-align: center;
+    background-color: #6B696954 ;
+    height: 580px;
+    width: 779px;
+    margin-left: 50%;
+    transform: translate(-50%);
+    
+}
+
+.UpgradeToWriter-h1-1 {
+    
+    font-weight: 700;
+    font-size: 26px;
+    padding-top: 4%;
+    
+
+}
+
+.UpgradeToWriter-Div3 {
+
+    font-weight: 400;
+    background-color: #ffffff  ;
+    color: black;
+    padding-top: 6%;
+    margin-bottom: 5%;
+    margin-top: 6%;
+    height: 361px;
+    width: 364px;
+    margin-left: 50%;
+    transform: translate(-50%);
+    box-shadow: 14px 10px  rgba(0, 0, 0, 0.155);
+
+}
+
+.UpgradeToWriter-h2-2 {
+
+    font-weight: 700;
+    font-size: 24px;
+    
+
+}
+
+.UpgradeToWriter-Div4 {
+
+    text-align: start;
+    margin-top: 11%;
+    margin-left: 50%;
+    transform: translate(-50%);
+    width: max-content;
+
+}
+
+.UpgradeToWriter-Div5 {
+
+    text-align: left;
+    margin-left: 50%;
+    transform: translate(-50%)
+
+}
+
+.UpgradeToWriter-Radio {
+
+    margin-top: 15%;
+    accent-color: rgb(111, 111, 111) ;
+
+}
+
