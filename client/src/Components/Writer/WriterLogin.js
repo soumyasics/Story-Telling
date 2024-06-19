@@ -124,7 +124,7 @@ function WriterLogin({userrole}) {
                 <div className="text-end mb-5">
                   {" "}
                   
-                  <Link className="" to="/writerforgot">
+                  <Link className="" to="/forgot">
                     Forgot password
                   </Link>
                 </div>
@@ -137,7 +137,7 @@ function WriterLogin({userrole}) {
                   LogIn
                 </div>
                 <div className="mt-4">
-                  New user?, {userrole=="writer"? <Link to="/writerRegister">Register</Link>:<Link to="/readerRegister">Register</Link>}
+                  New user?,<Link to="/register">Register</Link>
                   Here!
                 </div>
               </div>

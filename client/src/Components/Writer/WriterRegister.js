@@ -6,7 +6,7 @@ import Header from "../Pages/Header";
 import img1 from "../../Assets/Rectangle 44 (1).png";
 import axiosInstance from "../../BaseAPIs/axiosinstatnce";
 
-function WriterRegister({userrole}) {
+function WriterRegister({ userrole }) {
   const [data, setData] = useState({
     name: "",
     age: "",
@@ -14,7 +14,7 @@ function WriterRegister({userrole}) {
     email: "",
     password: "",
     profilePicture: "",
-    userCategory: userrole,
+    userCategory: "",
     confirmpassword: "",
   });
 
@@ -57,6 +57,7 @@ function WriterRegister({userrole}) {
     }
   };
   const validateField = (fieldName, value) => {
+    console.log(fieldName, value);
     if (typeof value === "string" && !value.trim()) {
       return `${fieldName} is required`;
     }
@@ -111,6 +112,11 @@ function WriterRegister({userrole}) {
       validationErrors.confirmpassword = "Passwords do not match";
     }
 
+    if (!data.userCategory.trim()) {
+      validationErrors.userCategory = "please choose a category";
+      formIsValid = false;
+    }
+
     setErrors(validationErrors);
 
     if (formIsValid) {
@@ -120,7 +126,7 @@ function WriterRegister({userrole}) {
       });
       console.log(formData, "p");
       const apiendpoint =
-        userrole === "writer" ? "/registerWriter" : "/registerReader";
+        data.userCategory === "writer" ? "/registerWriter" : "/registerReader";
       axiosInstance
         .post(apiendpoint, formData, {
           headers: {
@@ -128,13 +134,17 @@ function WriterRegister({userrole}) {
           },
         })
         .then((result) => {
-          console.log(result);
-          alert(result.data.msg);
-          if(result.data.status==200){
-            navigate("/writerlogin")
-        }else{
-          
-        }})
+          if (result.data.status === 409) {
+            alert(result.data.msg);
+          } else {
+            alert("Waiting for Admin approval..");
+            setTimeout(() => {
+              navigate("/login");
+            }, 1500);
+          }
+
+          // alert(result.data.msg);
+        })
         .catch((err) => {
           const errorMsg =
             err.response && err.response.data && err.response.data.msg
@@ -204,10 +214,20 @@ function WriterRegister({userrole}) {
                   )}
                 </div>
                 <div className="col-6">
-                  <input className="form-control custom-input"
-                  name="userCategory"
-                  id="custom-input" value={userrole} disabled></input>
-                 
+                  <select
+                    className="form-control custom-input"
+                    name="userCategory"
+                    id="custom-input"
+                    placeholder="scdvcf"
+                    onChange={handleChange}
+                  >
+                    <option value="">Choose A user Category </option>
+                    <option value="reader">reader</option>
+                    <option value="writer">writer</option>
+                  </select>
+                  {errors.userCategory && (
+                    <div className="text-danger">{errors.userCategory}</div>
+                  )}
                   <input
                     type="number"
                     className="form-control custom-input"
@@ -263,7 +283,7 @@ function WriterRegister({userrole}) {
                   Register
                 </button>
                 <div className="mt-5">
-                  If already registered,  {userrole=="writer"? <Link to="/writerlogin">Login</Link>:<Link to="/readerlogin">login</Link>}{" "}
+                  If already registered, <Link to="/login">Login</Link>
                   Here!
                 </div>
               </div>
