@@ -12,8 +12,10 @@ import SetupCard from "./Components/Writer/SetupCard";
 
 function App() {
 
+  const url= "http://hybrid.srishticampus.in:4025/"
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/story_telling">
       <Routes>
         <Route path="/writerlogin" element={<WriterLogin userrole={"writer"} />} />
         <Route path="/readerlogin" element={<WriterLogin userrole={"reader"} />} />
