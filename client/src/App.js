@@ -17,11 +17,9 @@ function App() {
   return (
     <BrowserRouter basename="/story_telling">
       <Routes>
-        <Route path="/writerlogin" element={<WriterLogin userrole={"writer"} />} />
-        <Route path="/readerlogin" element={<WriterLogin userrole={"reader"} />} />
-        <Route path="/writerRegister" element={<WriterRegister userrole={"writer"} />} />
-        <Route path="/readerRegister" element={<WriterRegister userrole={"reader"} />} />
-        <Route path="/writerforgot" element={<Writerforgotpassword />} />
+        <Route path="/login" element={<WriterLogin  />} />
+        <Route path="/register" element={<WriterRegister  />} />
+        <Route path="/forgot" element={<Writerforgotpassword />} />
         <Route path="/" element={[<Landingpage />, <Footer />]} />
         <Route path="/reset-password/:id" element={<WriterResetPassword />} />
         <Route path="/upgradetowriter" element={<UpgradeToWriter />} />
