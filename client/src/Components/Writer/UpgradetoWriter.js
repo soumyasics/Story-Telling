@@ -120,7 +120,7 @@ function UpgradeToWriter() {
 
         <div className="UpgradeToWriter-Div3">
           <input
-            id="custom-input"
+            id="custom-input1"
             type="number"
             className="form-control custom-input mx-5 w-75"
             placeholder="Card Number"
@@ -132,7 +132,7 @@ function UpgradeToWriter() {
             <div className="text-danger">{errors.CardNumber}</div>
           )}
           <input
-            id="custom-input"
+            id="custom-input1"
             type="date"
             className="form-control custom-input mx-5 w-75"
             placeholder="Expiry date"
@@ -144,7 +144,7 @@ function UpgradeToWriter() {
             <div className="text-danger">{errors.Expirydate}</div>
           )}
           <input
-            id="custom-input"
+            id="custom-input1"
             type="number"
             className="form-control custom-input mx-5 w-75"
             placeholder="CVV"
@@ -154,7 +154,7 @@ function UpgradeToWriter() {
           />
           {errors.CVV && <div className="text-danger">{errors.CVV}</div>}
           <input
-            id="custom-input"
+            id="custom-input1"
             type="text"
             className="form-control custom-input mx-5 w-75"
             placeholder="Name on Card"
