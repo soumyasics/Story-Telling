@@ -202,31 +202,61 @@ const deleteReaderById = (req, res) => {
 };
 
 // Forgot Password for Reader
-const forgotPassword = (req, res) => {
-    Reader.findOneAndUpdate({ email: req.body.email }, {
-        password: req.body.password
-    })
-        .exec()
-        .then(data => {
-            if (data != null)
-                res.json({
-                    status: 200,
-                    msg: "Updated successfully"
-                });
-            else
-                res.json({
-                    status: 500,
-                    msg: "User Not Found"
-                });
-        })
-        .catch(err => {
-            res.status(500).json({
-                status: 500,
-                msg: "Data not Updated",
-                Error: err
-            });
+const upgradeToWriter = async(req, res) => {
+  const datas= await Reader.findById({ _id: req.params.id })
+  console.log(datas)
+
+  if(datas!=null){
+    let flag=0
+  const { name,age,contact, email,password,userCategory } = datas;
+console.log(datas)
+
+  const newWriter = new WriterSchema({
+    name:datas.name,
+    age:datas.age,
+    contact:datas.contact,
+    email:datas.email,
+    password:datas.password,
+    profilePicture:datas.profilePicture,
+    userCategory:datas.userCategory
         });
-};
+
+
+
+await newWriter.save()
+    .then(data => {
+        flag=1
+        return res.json({
+            status: 200,
+            msg: "Inserted successfully",
+            data: data
+        });
+    })
+    .catch(err => {
+    
+        return res.json({
+            status: 500,
+            msg: "Data not Inserted",
+            data: err
+        });
+    });
+    if(flag==1)
+await Reader.findByIdAndDelete(req.params.id)
+
+  }
+  else{
+    return res.json({
+        status: 500,
+        msg: "Data not Inserted"
+        
+    });
+  }
+  }
+    
+  //Payment
+  
+
+
 
 // Reset Password for Reader
 const resetPassword = async (req, res) => {
@@ -282,33 +312,61 @@ const createToken = (user) => {
     return jwt.sign({ userId: user._id }, secret, { expiresIn: '1h' });
   };
   
-  const login = (req, res) => {
+  const login =async (req, res) => {
     const { email, password } = req.body;
-  
-    Reader.findOne({ email }).then(user => {
-     
-  
-      if (!user) {
-        return res.json({status:405,msg: 'User not found' });
-      }
-  
-        if (user.password!=password) {
-          return res.json({ status:405,msg: 'Password Mismatch !!' });
-        }
-  
+
+    let reader=null,writer=null
+    try{
+         reader = await Reader.findOne({ email:  req.body.email })
       
-        const token = createToken(user);
+
   
-        res.json({
-            status:200,
-            data:user, 
-            token });
+   if(reader!=null){
+    if (reader.password!=password) {
+        return res.json({ status:405,msg: 'Password Mismatch !!' });
+      }
+
+    
+      const token = createToken(reader);
+
+      res.json({
+          status:200,
+          data:reader, 
+          token });
+   }
+   else {
+    writer = await WriterSchema.findOne({ email:  req.body.email })
+      
+
+  
+    if(writer!=null){
+     if (writer.password!=password) {
+         return res.json({ status:405,msg: 'Password Mismatch !!' });
+       }
+ 
      
-    }).catch(err=>{
+       const token = createToken(writer);
+ 
+       res.json({
+           status:200,
+           data:writer, 
+           token });
+
+   }
+     
+  else{
+    return res.json({ status:405,msg: 'User Not Found !!' });
+  }
+    
+  
+        
+}
+    }
+   catch(err){
      console.log(err);
             return res.json({status:500,msg: 'Something went wrong' });
           
-    })
+   }
   };
      
   //validate
@@ -342,7 +400,7 @@ module.exports = {
     editReaderById,
     viewReaderById,
     deleteReaderById,
-    forgotPassword,
+    upgradeToWriter,
     resetPassword,
     login,
     requireAuth,

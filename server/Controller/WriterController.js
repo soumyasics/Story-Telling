@@ -390,6 +390,25 @@ const createToken = (user) => {
   
   //Login Custome --finished
 
+  // Delete Reader by ID
+const addPayment = (req, res) => {
+    Writer.findByIdAndUpdate({ _id: req.params.id },{paymentStatus:true,amount:req.body.amount})
+        .exec()
+        .then(data => {
+            res.json({
+                status: 200,
+                msg: "Data updated successfully",
+                data: data
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                status: 500,
+                msg: "No Data obtained",
+                Error: err
+            });
+        });
+};
 module.exports = {
     registerWriter,
     viewWriters,
@@ -400,5 +419,6 @@ module.exports = {
     resetPassword,
     login,
     requireAuth,
-    upload
+    upload,
+    addPayment
 };

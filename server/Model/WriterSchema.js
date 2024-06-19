@@ -46,16 +46,17 @@ const writerSchema=mongoose.Schema({
         type:Boolean,
         default:false
     },
-    paymentPlan:{
-        type:String,
+    amount:{
+        type:Number,
 
-        default:"Nil"
+        default:0
 
     },
     isActive:{
         type:Boolean,
         default:true
     }
+    
     
 });
 module.exports=mongoose.model('writers',writerSchema)
