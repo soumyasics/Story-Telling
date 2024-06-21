@@ -7,7 +7,7 @@ import img1 from "../../Assets/Rectangle 44 (1).png";
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../../BaseAPIs/axiosinstatnce";
 
-function WriterLogin({userrole}) {
+function WriterLogin({ userrole }) {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -65,23 +65,56 @@ function WriterLogin({userrole}) {
     setErrors(errors);
 
     if (!errors.email && !errors.password) {
+      const apiEndpoint = userrole === "writer" ? "/login" : "/loginReader";
 
-      const apiEndpoint = userrole === "writer" ? "/loginWriter" : "/loginReader";
       axiosInstance
         .post(apiEndpoint, data)
         .then((result) => {
+          console.log(result, "llll");
+          const apiEndpoint = userrole === "writer" ? "/login" : "/loginReader";
 
-          if(result.data.status == 405) {
-            alert("login failed");
-          } else {
-            alert("login sucess");
-            localStorage.setItem("token",result.data.token)
-            localStorage.setItem("writer",result.data.data._id)
-            Navigate("Home")
-          }    
-        })
-        .catch((err) => {
-          alert(err.response.data.msg);
+          axiosInstance
+            .post(apiEndpoint, data)
+            .then((result) => {
+              console.log(result, "llll");
+
+              if (result.data.status === 405) {
+                alert(result.data.msg);
+              } else {
+                localStorage.setItem("token", result.data.token);
+                localStorage.setItem("writer", result.data.data._id);
+
+                if (result.data.data.userCategory === "reader") {
+                    setTimeout(() => {
+                      Navigate("/readerhome");
+                    }, 1500);
+                } else {
+                    if (result.data.data.paymentStatus === true) {
+                      setTimeout(() => {
+                        Navigate("/home");
+                      }, 1500);
+                    } else {
+                      setTimeout(() => {
+                        Navigate("/upgradetowriter");
+                      }, 1500);
+                    }
+                  }
+                  
+                }
+
+                if (
+                  result.data.data.userCategory !== "reader" &&
+                  result.data.data.paymentStatus !== true
+                ) {
+                  alert("Waiting for Admin approval..");
+                }
+              
+            })
+            .catch((error) => {
+              console.error("Error during login:", error);
+              alert("An error occurred during login. Please try again.");
+            });
+        
         });
     }
   };
@@ -108,7 +141,9 @@ function WriterLogin({userrole}) {
                   name="email"
                 />{" "}
                 {errors.email && (
-                  <span className="span-required text-danger">{errors.email}</span>
+                  <span className="span-required text-danger">
+                    {errors.email}
+                  </span>
                 )}
                 <input
                   type="password"
@@ -119,11 +154,12 @@ function WriterLogin({userrole}) {
                   onChange={handleInputChange}
                 />{" "}
                 {errors.password && (
-                  <span className="span-required text-danger">{errors.password}</span>
+                  <span className="span-required text-danger">
+                    {errors.password}
+                  </span>
                 )}
                 <div className="text-end mb-5">
                   {" "}
-                  
                   <Link className="" to="/forgot">
                     Forgot password
                   </Link>

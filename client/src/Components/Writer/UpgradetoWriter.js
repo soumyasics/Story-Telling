@@ -5,6 +5,8 @@ import Header from "../Pages/Header";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import axiosInstance from "../../BaseAPIs/axiosinstatnce";
+import { useNavigate } from "react-router-dom";
 
 function UpgradeToWriter() {
   const [show, setShow] = useState(false);
@@ -21,6 +23,7 @@ function UpgradeToWriter() {
     CVV: "",
     NameonCard: "",
   });
+  const amount=199
 
   const [errors, setErrors] = useState({
     CardNumber: "",
@@ -41,6 +44,8 @@ function UpgradeToWriter() {
     }));
   };
 
+  const navigate=useNavigate()
+  
   const handleSubmit = () => {
 
     const { CardNumber, Expirydate, CVV, NameonCard } = data;
@@ -83,7 +88,17 @@ function UpgradeToWriter() {
     }
 
     if (valid) {
-      alert(" Successfully Upgraded to Writer")
+    axiosInstance.post("/addPayment/"+localStorage.getItem("writer"),amount).then((result)=>{
+      console.log(result);
+      alert(result.data.msg)
+      setTimeout(() => {
+        navigate("/writerhome");
+      }, 1500);
+
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
     }
   };
 
