@@ -392,19 +392,20 @@ const createToken = (user) => {
 
   // Delete Reader by ID
 const addPayment = (req, res) => {
+    console.log(req.body);
     Writer.findByIdAndUpdate({ _id: req.params.id },{paymentStatus:true,amount:req.body.amount})
         .exec()
         .then(data => {
             res.json({
                 status: 200,
-                msg: "Data updated successfully",
+                msg: "Payment Done successfully",
                 data: data
             });
         })
         .catch(err => {
             res.status(500).json({
                 status: 500,
-                msg: "No Data obtained",
+                msg: "payment failed",
                 Error: err
             });
         });
