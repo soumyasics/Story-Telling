@@ -48,7 +48,7 @@ const readerSchema=mongoose.Schema({
 },
 isActive:{
     type:Boolean,
-    default:true
+    default:false
 }
 });
 module.exports=mongoose.model('readers',readerSchema)
