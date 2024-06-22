@@ -11,6 +11,14 @@ router.post("/reset-password/:id", Writer.resetPassword);
 
 //Writer routes
 router.post("/registerWriter", Writer.upload, Writer.registerWriter);
+router.post("/rejectWriterById/:id", Writer.rejectWriterById);
+router.post("/acceptWriterById/:id", Writer.acceptWriterById);
+router.post("/activateWriterById/:id", Writer.activateWriterById);
+router.post("/deActivateWriterById/:id", Writer.deActivateWriterById);
+router.post("/viewWriterReqsforAdmin", Writer.viewWriterReqsforAdmin);
+router.post("/viewWriters", Writer.viewWriters);
+router.post("/viewWriterById/:id", Writer.viewWriterById);
+router.post("/editWriterById/:id",Writer.upload, Writer.editWriterById);
 
 router.post("/addPayment/:id", Writer.addPayment);
 
