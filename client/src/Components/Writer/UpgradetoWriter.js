@@ -14,16 +14,13 @@ function UpgradeToWriter() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-
-
-
   const [data, setData] = useState({
     CardNumber: "",
     Expirydate: "",
     CVV: "",
     NameonCard: "",
   });
-  const amount=199
+  const amount = 199;
 
   const [errors, setErrors] = useState({
     CardNumber: "",
@@ -44,10 +41,9 @@ function UpgradeToWriter() {
     }));
   };
 
-  const navigate=useNavigate()
-  
-  const handleSubmit = () => {
+  const navigate = useNavigate();
 
+  const handleSubmit = () => {
     const { CardNumber, Expirydate, CVV, NameonCard } = data;
 
     const enteredDateObj = new Date(Expirydate);
@@ -88,20 +84,22 @@ function UpgradeToWriter() {
     }
 
     if (valid) {
-    axiosInstance.post("/addPayment/"+localStorage.getItem("writer"),amount).then((result)=>{
-      console.log(result);
-      alert(result.data.msg)
-      setTimeout(() => {
-        navigate("/writerhome");
-      }, 1500);
-
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
+      axiosInstance
+        .post("/addPayment/" + localStorage.getItem("writer"), {
+          amount: amount,
+        })
+        .then((result) => {
+          console.log(result);
+          alert(result.data.msg);
+          setTimeout(() => {
+            navigate("/writerhome");
+          }, 1500);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
-
 
   return (
     <div>
@@ -120,7 +118,7 @@ function UpgradeToWriter() {
             </div>
 
             <div className="UpgradeToWriter-Div5 text-center">
-             <b> Price - 199 $</b> <br />
+              <b> Price - 199 $</b> <br />
             </div>
           </div>
 
@@ -129,66 +127,62 @@ function UpgradeToWriter() {
           </button>
         </div>
         <Modal className="bg-transparent" show={show} onHide={handleClose}>
-          
-        <div className="UpgradeToWriter-Div2">
-        <h1 className="UpgradeToWriter-h1-1">Set up your card</h1>
+          <div className="UpgradeToWriter-Div2">
+            <h1 className="UpgradeToWriter-h1-1">Set up your card</h1>
 
-        <div className="UpgradeToWriter-Div3">
-          <input
-            id="custom-input1"
-            type="number"
-            className="form-control custom-input mx-5 w-75"
-            placeholder="Card Number"
-            name="CardNumber"
-            onChange={handleChange}
-            value={data.CardNumber}
-          />
-          {errors.CardNumber && (
-            <div className="text-danger">{errors.CardNumber}</div>
-          )}
-          <input
-            id="custom-input1"
-            type="date"
-            className="form-control custom-input mx-5 w-75"
-            placeholder="Expiry date"
-            name="Expirydate"
-            onChange={handleChange}
-            value={data.Expirydate}
-          />
-          {errors.Expirydate && (
-            <div className="text-danger">{errors.Expirydate}</div>
-          )}
-          <input
-            id="custom-input1"
-            type="number"
-            className="form-control custom-input mx-5 w-75"
-            placeholder="CVV"
-            name="CVV"
-            onChange={handleChange}
-            value={data.CVV}
-          />
-          {errors.CVV && <div className="text-danger">{errors.CVV}</div>}
-          <input
-            id="custom-input1"
-            type="text"
-            className="form-control custom-input mx-5 w-75"
-            placeholder="Name on Card"
-            name="NameonCard"
-            onChange={handleChange}
-            value={data.NameonCard}
-          />
-          {errors.NameonCard && (
-            <div className="text-danger">{errors.NameonCard}</div>
-          )}
-        </div>
+            <div className="UpgradeToWriter-Div3">
+              <input
+                id="custom-input1"
+                type="number"
+                className="form-control custom-input mx-5 w-75"
+                placeholder="Card Number"
+                name="CardNumber"
+                onChange={handleChange}
+                value={data.CardNumber}
+              />
+              {errors.CardNumber && (
+                <div className="text-danger">{errors.CardNumber}</div>
+              )}
+              <input
+                id="custom-input1"
+                type="date"
+                className="form-control custom-input mx-5 w-75"
+                placeholder="Expiry date"
+                name="Expirydate"
+                onChange={handleChange}
+                value={data.Expirydate}
+              />
+              {errors.Expirydate && (
+                <div className="text-danger">{errors.Expirydate}</div>
+              )}
+              <input
+                id="custom-input1"
+                type="number"
+                className="form-control custom-input mx-5 w-75"
+                placeholder="CVV"
+                name="CVV"
+                onChange={handleChange}
+                value={data.CVV}
+              />
+              {errors.CVV && <div className="text-danger">{errors.CVV}</div>}
+              <input
+                id="custom-input1"
+                type="text"
+                className="form-control custom-input mx-5 w-75"
+                placeholder="Name on Card"
+                name="NameonCard"
+                onChange={handleChange}
+                value={data.NameonCard}
+              />
+              {errors.NameonCard && (
+                <div className="text-danger">{errors.NameonCard}</div>
+              )}
+            </div>
 
-        <button
-          className="btn btn-dark px-5 py-2"
-          onClick={handleSubmit}
-        >
-          Start Membership
-        </button>
-      </div>
+            <button className="btn btn-dark px-5 py-2" onClick={handleSubmit}>
+              Start Membership
+            </button>
+          </div>
         </Modal>
       </div>
       <Footer />
