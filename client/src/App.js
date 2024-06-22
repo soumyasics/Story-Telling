@@ -9,6 +9,8 @@ import Writerforgotpassword from "./Components/Writer/Writerforgotpassword";
 import WriterResetPassword from "./Components/Writer/WriterResetPassword";
 import UpgradeToWriter from "./Components/Writer/UpgradetoWriter";
 import SetupCard from "./Components/Writer/SetupCard";
+import WriterHome from "./Components/Writer/WriterHome";
+import ReaderHome from "./Components/Viewer/ReaderHome";
 
 function App() {
 
@@ -23,7 +25,8 @@ function App() {
         <Route path="/" element={[<Landingpage />, <Footer />]} />
         <Route path="/reset-password/:id" element={<WriterResetPassword />} />
         <Route path="/upgradetowriter" element={<UpgradeToWriter />} />
-        <Route path="/setupcard" element={<SetupCard />} />
+        <Route path="/writerhome" element={<WriterHome />} />
+        <Route path="/readerhome" element={<ReaderHome />} />
 
       </Routes>
     </BrowserRouter>

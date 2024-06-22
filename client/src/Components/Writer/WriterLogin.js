@@ -59,65 +59,70 @@ function WriterLogin({ userrole }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formErrors = validateForm();
-    let errors = {};
-    errors.email = formValidating("Email", data.email);
-    errors.password = formValidating("Password", data.password);
+    let errors = {
+      email: formValidating("Email", data.email),
+      password: formValidating("Password", data.password)
+    };
     setErrors(errors);
-
+  
     if (!errors.email && !errors.password) {
       const apiEndpoint = userrole === "writer" ? "/login" : "/loginReader";
-
+  
       axiosInstance
         .post(apiEndpoint, data)
         .then((result) => {
-          console.log(result, "llll");
-          const apiEndpoint = userrole === "writer" ? "/login" : "/loginReader";
-
-          axiosInstance
-            .post(apiEndpoint, data)
-            .then((result) => {
-              console.log(result, "llll");
-
-              if (result.data.status === 405) {
-                alert(result.data.msg);
-              } else {
+          console.log(result, "Response received");
+  
+          if (result.data.status === 405) {
+            alert(result.data.msg);
+            return;
+          }
+  
+          const userData = result.data.data;
+          const userCategory = userData.userCategory;
+  
+          if (userCategory === "reader") {
+            if (userData.isActive) {
+              alert("Login Success")
+              localStorage.setItem("token", result.data.token);
+              localStorage.setItem("reader", userData._id);
+              setTimeout(() => {
+                Navigate("/readerhome");
+              }, 1500);
+            } else {
+              alert("Waiting for admin approval");
+            }
+          } else if (userCategory === "writer") {
+            if (userData.isActive) {
+              if (userData.paymentStatus) {
+                alert("Login Success")
                 localStorage.setItem("token", result.data.token);
-                localStorage.setItem("writer", result.data.data._id);
-
-                if (result.data.data.userCategory === "reader") {
-                    setTimeout(() => {
-                      Navigate("/readerhome");
-                    }, 1500);
-                } else {
-                    if (result.data.data.paymentStatus === true) {
-                      setTimeout(() => {
-                        Navigate("/home");
-                      }, 1500);
-                    } else {
-                      setTimeout(() => {
-                        Navigate("/upgradetowriter");
-                      }, 1500);
-                    }
-                  }
+                localStorage.setItem("writer", userData._id);
+                setTimeout(() => {
                   
-                }
-
-                if (
-                  result.data.data.userCategory !== "reader" &&
-                  result.data.data.paymentStatus !== true
-                ) {
-                  alert("Waiting for Admin approval..");
-                }
-              
-            })
-            .catch((error) => {
-              console.error("Error during login:", error);
-              alert("An error occurred during login. Please try again.");
-            });
-        
+                  Navigate("/writerhome");
+                }, 1500);
+              } else {
+                setTimeout(() => {
+                  Navigate("/upgradetowriter");
+                }, 1500);
+              }
+            } else {
+              alert("Waiting for admin approval");
+            }
+          }
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 405) {
+            alert(error.response.data.msg);
+          } else {
+            console.error("Error during login:", error);
+            alert("An error occurred during login. Please try again.");
+          }
         });
     }
   };
+  
 
   return (
     <div>
@@ -188,41 +193,40 @@ function WriterLogin({ userrole }) {
 
 export default WriterLogin;
 
-// <div>
-// <div>
-// <p className="editorloginhead text-center fs-2 m-3">Sign In</p>
-// <div >
-//   <form className="editorloginform" style={{padding:"2% 30%"}}>
-//   <label className="m-2">Email</label>
-
-//     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-//       <Form.Control
-//         type="email"
-//         placeholder="Email Address"
-//         value={email}
-//         onChange={(e) => setEmail(e.target.value)}
-//       />
-//     </Form.Group>
-//     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-//     <label className="m-2">Password</label>
-//       <Form.Control
-//         type="password"
-//         placeholder="password"
-//         value={password}
-//         onChange={(e) => setPassword(e.target.value)}
-//       />
-//     </Form.Group>
-//    <p>Reset password </p>
-//    <p className="editormovetosignup">Sign up</p>
-
-//     <div id="alertuser"></div>
-//     <div className="text-center">
-//       <button type="submit" className="editorloginbtn ps-5 pe-5 p-2">
-//         Log in
-//       </button>{" "}
-//     </div>
-//   </form>
-// </div>
-// </div>
-
-// </div>
+// if (a == reader) {
+//   if (result.data.status === 405) {
+//     alert(result.data.msg);
+//   } else {
+//     if (isActive == true) {
+//       localStorage.setItem("token", result.data.token);
+//       localStorage.setItem("writer", result.data.data._id);
+//       setTimeout(() => {
+//         Navigate("/readerhome");
+//       }, 1500);
+//     } else {
+//       alert("waiting for admin aproval");
+//     }
+//   }
+// } else {
+//   if (a === writer) {
+//     if (result.data.status === 405) {
+//       alert(result.data.msg);
+//     } else {
+//       if (isActive == true) {
+//         if (payment == true) {
+//           localStorage.setItem("token", result.data.token);
+//           localStorage.setItem("writer", result.data.data._id);
+//           setTimeout(() => {
+//             Navigate("/writerhome");
+//           }, 1500);
+//         } else {
+//           setTimeout(() => {
+//             Navigate("/upgrade");
+//           }, 1500);
+//         }
+//       } else {
+//         alert("waiting for admin");
+//       }
+//     }
+//   }
+// }
