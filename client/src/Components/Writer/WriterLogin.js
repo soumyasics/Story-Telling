@@ -66,7 +66,7 @@ function WriterLogin({ userrole }) {
     setErrors(errors);
   
     if (!errors.email && !errors.password) {
-      const apiEndpoint = userrole === "writer" ? "/login" : "/loginReader";
+      const apiEndpoint = userrole === "Writer" ? "/login" : "/loginReader";
   
       axiosInstance
         .post(apiEndpoint, data)
@@ -82,7 +82,7 @@ function WriterLogin({ userrole }) {
           const userCategory = userData.userCategory;
   
           if (userCategory === "reader") {
-            if (userData.isActive) {
+            if (userData.adminApproved==true) {
               alert("Login Success")
               localStorage.setItem("token", result.data.token);
               localStorage.setItem("reader", userData._id);
@@ -93,11 +93,12 @@ function WriterLogin({ userrole }) {
               alert("Waiting for admin approval");
             }
           } else if (userCategory === "writer") {
-            if (userData.isActive) {
-              if (userData.paymentStatus) {
+            localStorage.setItem("token", result.data.token);
+            localStorage.setItem("writer", userData._id)
+            if (userData.adminApproved == true) {
+              if (userData.paymentStatus == true) {
                 alert("Login Success")
-                localStorage.setItem("token", result.data.token);
-                localStorage.setItem("writer", userData._id);
+               
                 setTimeout(() => {
                   
                   Navigate("/writerhome");

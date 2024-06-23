@@ -5,7 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import logo from "../../Assets/logo.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,Link } from "react-router-dom";
 function Header() {
   const navigate = useNavigate();
   const Login = () => {
@@ -15,17 +15,18 @@ function Header() {
     <div>
       <Navbar collapseOnSelect expand="lg" className="mainnav">
         <Container>
-          <Navbar.Brand href="#home">
-            <img
-              alt=""
-              src={logo}
-              width="50"
-              height="50"
-              className="d-inline-block align-top"
-            />{" "}
-            <label className="text-light mt-3" fon>
-              Collaborative Story Telling
-            </label>
+          <Navbar.Brand href="">
+          <Link to="/"> <img
+          alt=""
+          src={logo}
+          width="50"
+          height="50"
+          className="d-inline-block align-top"
+        />{" "}
+        <label className="text-light mt-3" fon>
+          Collaborative Story Telling
+        </label></Link>
+           
           </Navbar.Brand>
           <div className="bg-light text-light">
             {" "}

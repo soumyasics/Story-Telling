@@ -48,6 +48,10 @@ const readerSchema=mongoose.Schema({
 },
 isActive:{
     type:Boolean,
+    default:true
+}
+, adminApproved:{
+    type:Boolean,
     default:false
 }
 });
