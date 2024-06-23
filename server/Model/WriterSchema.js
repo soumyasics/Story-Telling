@@ -55,6 +55,10 @@ const writerSchema=mongoose.Schema({
     isActive:{
         type:Boolean,
         default:false
+    },
+    adminApproved:{
+        type:Boolean,
+        default:false
     }
     
     

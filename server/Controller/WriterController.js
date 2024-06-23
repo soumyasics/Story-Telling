@@ -133,18 +133,45 @@ const viewWriters = (req, res) => {
         });
 };
 
+// View all Writers
+const viewWriterReqsforAdmin = (req, res) => {
+    Writer.find({adadminApproved:false})
+        .exec()
+        .then(data => {
+            if (data.length > 0) {
+                res.json({
+                    status: 200,
+                    msg: "Data obtained successfully",
+                    data: data
+                });
+            } else {
+                res.json({
+                    status: 200,
+                    msg: "No Data obtained"
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).json({
+                status: 500,
+                msg: "Data not obtained",
+                Error: err
+            });
+        });
+};
+
 // Update Writer by ID
 const editWriterById =async (req, res) => {
     let flag=0
     const { firstname, lastname, contact,gender,  dob, email, housename, street, state, nationality, pincode } = req.body;
-    let existingWriter = await Writer.find({ contact });
+    let existingWriter = await Writer.findOne({ contact });
     let WriterData = await Writer.findById({  _id: req.params.id  });
-await existingWriter.map(x=>{
-    if (x.contact!=WriterData.contact) {
+    if (contact!=existingWriter.contact) {
+        if(contact==WriterData.contact)
       flag=1        
     }
     
-})
+
 if(ReaderData.email!==req.body.email){
     let existingWriter1 = await Writer.findOne({ email });
         let existingWriter2 = await ReaderSchema.findOne({ email });
@@ -216,8 +243,69 @@ const viewWriterById = (req, res) => {
         });
 };
 
-// Delete Writer by ID
-const deleteWriterById = (req, res) => {
+// accept
+const acceptWriterById = (req, res) => {
+    Writer.findByIdAndUpdate({ _id: req.params.id },{adminApproved:true,isActive:true})
+        .exec()
+        .then(data => {
+            res.json({
+                status: 200,
+                msg: "Data updated successfully",
+                data: data
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                status: 500,
+                msg: "No Data obtained",
+                Error: err
+            });
+        });
+};
+
+
+// accept
+const activateWriterById = (req, res) => {
+    Writer.findByIdAndUpdate({ _id: req.params.id },{isActive:true})
+        .exec()
+        .then(data => {
+            res.json({
+                status: 200,
+                msg: "Data updated successfully",
+                data: data
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                status: 500,
+                msg: "No Data obtained",
+                Error: err
+            });
+        });
+};
+
+// accept
+const deActivateWriterById = (req, res) => {
+    Writer.findByIdAndUpdate({ _id: req.params.id },{isActive:false})
+        .exec()
+        .then(data => {
+            res.json({
+                status: 200,
+                msg: "Data updated successfully",
+                data: data
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                status: 500,
+                msg: "No Data obtained",
+                Error: err
+            });
+        });
+};
+// reject
+
+const rejectWriterById = (req, res) => {
     Writer.findByIdAndDelete({ _id: req.params.id })
         .exec()
         .then(data => {
@@ -415,11 +503,16 @@ module.exports = {
     viewWriters,
     editWriterById,
     viewWriterById,
-    deleteWriterById,
+    rejectWriterById,
     forgotPWDsentMail,
     resetPassword,
     login,
     requireAuth,
     upload,
-    addPayment
+    addPayment,
+    viewWriterReqsforAdmin,
+activateWriterById,
+deActivateWriterById,
+acceptWriterById
+    
 };
