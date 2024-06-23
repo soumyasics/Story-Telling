@@ -86,7 +86,7 @@ function UpgradeToWriter() {
     if (valid) {
       axiosInstance
         .post("/addPayment/" + localStorage.getItem("writer"), {
-          amount: amount,
+          amount: amount
         })
         .then((result) => {
           console.log(result);
@@ -106,7 +106,7 @@ function UpgradeToWriter() {
       <Header />
       <div className="UpgradeToWriter-Div1">
         <div className=" UpgradeToWriter-Div2">
-          <h1 className="UpgradeToWriter-h1-1">Upgrade To Writer!</h1>
+          <h1 className="UpgradeToWriter-h1-1"></h1>
 
           <div className="UpgradeToWriter-Div3">
             <h2 className="UpgradeToWriter-h2-2">Premium</h2>
@@ -118,7 +118,7 @@ function UpgradeToWriter() {
             </div>
 
             <div className="UpgradeToWriter-Div5 text-center">
-              <b> Price - 199 $</b> <br />
+              <b> Pay Rs.199</b> <br />
             </div>
           </div>
 
@@ -127,7 +127,7 @@ function UpgradeToWriter() {
           </button>
         </div>
         <Modal className="bg-transparent" show={show} onHide={handleClose}>
-          <div className="UpgradeToWriter-Div2">
+          <div className="fff">
             <h1 className="UpgradeToWriter-h1-1">Set up your card</h1>
 
             <div className="UpgradeToWriter-Div3">
@@ -180,7 +180,7 @@ function UpgradeToWriter() {
             </div>
 
             <button className="btn btn-dark px-5 py-2" onClick={handleSubmit}>
-              Start Membership
+            Pay Rs.199
             </button>
           </div>
         </Modal>
