@@ -81,9 +81,8 @@ function Landingsection8() {
             world of co-created tales, where every voice matters and every story
             is a shared adventure."
           </p>
-          <div><span className="m-5 fs-4">Reedsy</span> <span className="m-5 fs-4">Classic</span> <span className="m-5 fs-4">Romance</span></div>
-          <p className="p-5">Select a theme to preview</p>
-          <div className="text-center">
+          
+          <div className="text-center mt-5 pt-5">
             <img src={storyimg}></img>
           </div>
         </div>
