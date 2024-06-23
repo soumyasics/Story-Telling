@@ -5,8 +5,12 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import logo from "../../Assets/logo.png";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function Header() {
+  const navigate = useNavigate();
+  const Login = () => {
+    navigate("/login");
+  };
   return (
     <div>
       <Navbar collapseOnSelect expand="lg" className="mainnav">
@@ -31,26 +35,20 @@ function Header() {
             <Nav className="me-auto"></Nav>
             <Nav>
               <Nav.Link href="#deets" className="text-light me-5">
-                Connect
+                About Us
               </Nav.Link>
               <Nav.Link eventKey={2} href="#memes" className="text-light me-5">
-                Blog
+                Stories
               </Nav.Link>
               <Nav.Link href="#deets" className="text-light me-5">
-                Apps
+                Categories
               </Nav.Link>
               <Nav.Link eventKey={2} href="#memes" className="text-light me-5">
-                Tools
+                Contact Us
               </Nav.Link>
-              <Nav.Link href="#deets" className="text-light me-5">
-                About
-              </Nav.Link>
-              <Nav.Link eventKey={2} href="#memes">
-                <Nav.Link className="text-light me-5">
-                  <Link to="/login" className="text-decoration-none text-light">
-                    Log In
-                  </Link>
-                </Nav.Link>
+
+              <Nav.Link className="text-light me-5" onClick={Login}>
+                Sign In
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
