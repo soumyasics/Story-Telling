@@ -24,7 +24,7 @@ function WriterRegister({ userrole }) {
     contact: "",
     email: "",
     password: "",
-    profilePicture: "",
+    profilePicture: "", 
     userCategory: "",
     confirmpassword: "",
   });
@@ -122,6 +122,12 @@ function WriterRegister({ userrole }) {
       formIsValid = false;
     }
 
+    const regex = /^[a-zA-Z\s]*$/;
+    if (!regex.test(data.name)) {
+      formIsValid = false;
+      validationErrors.name = 'Input should contain alphabets or spaces only';
+    }
+
     setErrors(validationErrors);
 
     if (formIsValid) {
@@ -200,9 +206,7 @@ function WriterRegister({ userrole }) {
                     onChange={handleChange}
                     id="custom-input"
                   />
-                  {errors.password && (
-                    <div className="text-danger">{errors.password}</div>
-                  )}
+                 
                   <input
                     type="password"
                     className="form-control custom-input"
