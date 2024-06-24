@@ -1,0 +1,27 @@
+.adminloginbackgrount{
+    background-color: rgb(186, 230, 221);
+    height: 90vh;
+
+}
+.adminloginbackgrountform{
+    background: linear-gradient(45deg,rgba(217, 217, 217, 1),rgb(14, 163, 135));
+    padding: 8%;
+}
+.r{
+    padding: 5% 30%;
+}
+.adminsidebarmain{
+    
+    border-radius: 9px;
+    background-color: rgb(14, 163, 135);
+    min-height: 100vh;
+    margin: 5% 7%;
+}
+.admindashboardbackground{
+    background-color: rgb(186, 230, 221);
+}
+.sidebardashboard{
+    width: 100%;
+    border-radius: 6px;
+    border: none;
+}
