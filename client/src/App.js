@@ -11,6 +11,8 @@ import UpgradeToWriter from "./Components/Writer/UpgradetoWriter";
 import SetupCard from "./Components/Writer/SetupCard";
 import WriterHome from "./Components/Writer/WriterHome";
 import ReaderHome from "./Components/Viewer/ReaderHome";
+import AdminLogin from "./Components/Admin/AdminLogin";
+import AdminDashBoard from "./Components/Admin/AdminDashBoard";
 
 function App() {
 
@@ -27,6 +29,11 @@ function App() {
         <Route path="/upgradetowriter" element={<UpgradeToWriter />} />
         <Route path="/writerhome" element={<WriterHome />} />
         <Route path="/readerhome" element={<ReaderHome />} />
+
+
+        {/* Admin */}
+        <Route path="/adminlogin" element={<AdminLogin />} />
+        <Route path="/admindashboard" element={<AdminDashBoard />} />
 
       </Routes>
     </BrowserRouter>
