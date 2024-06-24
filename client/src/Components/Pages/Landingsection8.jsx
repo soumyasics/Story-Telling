@@ -33,7 +33,7 @@ function Landingsection8() {
             </Col>
             <Col>
               {" "}
-              <img src={Landingsection8img4} style={{ width: "100px" }}></img>
+              <img src={Landingsection8img4} style={{ width: "180px" }}></img>
             </Col>
             <Col>
               {" "}
@@ -50,11 +50,11 @@ function Landingsection8() {
             </Col>
             <Col>
               {" "}
-              <h5 className="text-center">Versioning</h5>
+              <h5 className="text-center ms-4">Versioning</h5>
             </Col>
             <Col>
               {" "}
-              <h5 className="text-center">Commenting</h5>
+              <h5 className="text-center ms-5">Commenting</h5>
             </Col>
             <Col>
               {" "}

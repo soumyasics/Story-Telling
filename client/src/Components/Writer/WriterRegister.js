@@ -24,10 +24,12 @@ function WriterRegister({ userrole }) {
     contact: "",
     email: "",
     password: "",
-    profilePicture: "",
+    profilePicture: "", 
     userCategory: "",
     confirmpassword: "",
   });
+
+  const [selectedFileName, setSelectedFileName] = useState("");
 
   const navigate = useNavigate();
 
@@ -50,14 +52,18 @@ function WriterRegister({ userrole }) {
         ...prevData,
         profilePicture: files[0],
       }));
+      setSelectedFileName(files[0].name);
       setErrors((prevErrors) => ({
         ...prevErrors,
         profilePicture: "",
       }));
     }
   };
+
   const validateField = (fieldName, value) => {
-    console.log(fieldName, value);
+    if (fieldName === "name" && /^\d/.test(value)) {
+      return "Name must not start with a number.";
+    }
     if (typeof value === "string" && !value.trim()) {
       return `${fieldName} is required`;
     }
@@ -77,7 +83,6 @@ function WriterRegister({ userrole }) {
   };
 
   const WriterrRegisterChange = (event) => {
-    console.log("kkk");
     event.preventDefault();
     let formIsValid = true;
     let validationErrors = {};
@@ -117,6 +122,12 @@ function WriterRegister({ userrole }) {
       formIsValid = false;
     }
 
+    const regex = /^[a-zA-Z\s]*$/;
+    if (!regex.test(data.name)) {
+      formIsValid = false;
+      validationErrors.name = 'Input should contain alphabets or spaces only';
+    }
+
     setErrors(validationErrors);
 
     if (formIsValid) {
@@ -124,7 +135,6 @@ function WriterRegister({ userrole }) {
       Object.keys(data).forEach((key) => {
         formData.append(key, data[key]);
       });
-      console.log(formData, "p");
       const apiendpoint =
         data.userCategory === "writer" ? "/registerWriter" : "/registerReader";
       axiosInstance
@@ -142,8 +152,6 @@ function WriterRegister({ userrole }) {
               navigate("/login");
             }, 1500);
           }
-
-          // alert(result.data.msg);
         })
         .catch((err) => {
           const errorMsg =
@@ -198,9 +206,7 @@ function WriterRegister({ userrole }) {
                     onChange={handleChange}
                     id="custom-input"
                   />
-                  {errors.password && (
-                    <div className="text-danger">{errors.password}</div>
-                  )}
+                 
                   <input
                     type="password"
                     className="form-control custom-input"
@@ -221,9 +227,9 @@ function WriterRegister({ userrole }) {
                     placeholder="scdvcf"
                     onChange={handleChange}
                   >
-                    <option value="">Choose A user Category </option>
-                    <option value="reader">reader</option>
-                    <option value="writer">writer</option>
+                    <option value="">Choose category </option>
+                    <option value="reader">Reader</option>
+                    <option value="writer">Writer</option>
                   </select>
                   {errors.userCategory && (
                     <div className="text-danger">{errors.userCategory}</div>
@@ -251,9 +257,19 @@ function WriterRegister({ userrole }) {
                     <div className="text-danger">{errors.age}</div>
                   )}
                   <div className="custom-file-input">
-                    <label htmlFor="profilePicture" className="file-label">
-                      Profile Picture
-                    </label>
+                    {selectedFileName == "" ? (
+                      <label htmlFor="profilePicture" className="file-label">
+                        Profile Picture
+                      </label>
+                    ) : (
+                      <label htmlFor="profilePicture" className="file-label">
+                        {selectedFileName && (
+                          <div className="selected-file-name">
+                            {selectedFileName}
+                          </div>
+                        )}
+                      </label>
+                    )}
                     <input
                       type="file"
                       id="profilePicture"
@@ -270,6 +286,7 @@ function WriterRegister({ userrole }) {
                       Upload
                     </button>
                   </div>
+
                   {errors.profilePicture && (
                     <div className="text-danger">{errors.profilePicture}</div>
                   )}
@@ -283,8 +300,7 @@ function WriterRegister({ userrole }) {
                   Register
                 </button>
                 <div className="mt-5">
-                  If already registered, <Link to="/login">Login</Link>
-                  Here!
+                  If already registered , <Link to="/login"> Login</Link>&nbsp; Here!
                 </div>
               </div>
             </div>

@@ -4,7 +4,7 @@ function Landingsection9() {
   return (
     <div>
       <div className="Landingsection4 text-center p-5 ">
-        <h2 className="mt-5">You'll be surprised how good your Explore it</h2>
+        <h2 className="mt-5"> You'll be surprised how well you explore it'</h2>
         <p>
         Start write and read Today
         </p>
