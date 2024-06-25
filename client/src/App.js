@@ -13,6 +13,8 @@ import WriterHome from "./Components/Writer/WriterHome";
 import ReaderHome from "./Components/Viewer/ReaderHome";
 import AdminLogin from "./Components/Admin/AdminLogin";
 import AdminDashBoard from "./Components/Admin/AdminDashBoard";
+import AdminDashboardSub from "./Components/Pages/AdminDashboardSub";
+import WritersRequestList from "./Components/Pages/WritersRequestList";
 
 function App() {
 
@@ -34,6 +36,8 @@ function App() {
         {/* Admin */}
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/admindashboard" element={<AdminDashBoard />} />
+        <Route path="/admindashboardsub" element={<AdminDashboardSub />} />
+        <Route path="/request" element={<WritersRequestList />} />
 
       </Routes>
     </BrowserRouter>

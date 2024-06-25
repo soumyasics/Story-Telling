@@ -1,6 +1,7 @@
 import React from "react";
 import AdminLoginMainNav from "../Pages/AdminLoginMainNav";
 import AdminSidebar from "../Pages/AdminSidebar";
+import AdminDashboardSub from "../Pages/AdminDashboardSub";
 
 function AdminDashBoard() {
   return (
@@ -8,7 +9,7 @@ function AdminDashBoard() {
       <AdminLoginMainNav />
      <div className="row">
         <div className="col-3"> <AdminSidebar/></div>
-        <div className="col-8 ms-5">klouihuygu</div>
+        <div className="col"><AdminDashboardSub/></div>
        </div>
     </div>
   );

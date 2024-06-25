@@ -135,7 +135,7 @@ const viewWriters = (req, res) => {
 
 // View all Writers
 const viewWriterReqsforAdmin = (req, res) => {
-    Writer.find({adadminApproved:false})
+    Writer.find({adminApproved:false})
         .exec()
         .then(data => {
             if (data.length > 0) {
