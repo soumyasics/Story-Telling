@@ -250,7 +250,7 @@ const acceptWriterById = (req, res) => {
         .then(data => {
             res.json({
                 status: 200,
-                msg: "Data updated successfully",
+                msg: "Accepted successfully",
                 data: data
             });
         })
@@ -271,7 +271,7 @@ const activateWriterById = (req, res) => {
         .then(data => {
             res.json({
                 status: 200,
-                msg: "Data updated successfully",
+                msg: "Rejected successfully",
                 data: data
             });
         })

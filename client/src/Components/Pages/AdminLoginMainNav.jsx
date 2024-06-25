@@ -8,36 +8,46 @@ import logo from "../../Assets/logo.png";
 import { useNavigate } from "react-router-dom";
 
 function AdminLoginMainNav() {
+  const navigate = useNavigate();
+  const AdminLogout = () => {
+    localStorage.removeItem("admin");
+    navigate("/AdminLogin");
+  };
+
   return (
-    <div>      <Navbar collapseOnSelect expand="lg" className="mainnav">
-    <Container>
-      <Navbar.Brand href="#home">
-        <img
-          alt=""
-          src={logo}
-          width="50"
-          height="50"
-          className="d-inline-block align-top"
-        />{" "}
-        <label className="text-light mt-3" fon>
-          Collaborative Story Telling
-        </label>
-      </Navbar.Brand>
-      <div className="bg-light text-light">
-        {" "}
-        <Navbar.Toggle aria-controls="responsive-navbar-nav text-light  bg-light" />
-      </div>
-      <Navbar.Collapse id="responsive-navbar-nav text-light  bg-light">
-        <Nav className="me-auto"></Nav>
-        <Nav>
-         <div className='btn btn-light px-3'> Log out</div>
-         
-        </Nav>
-      </Navbar.Collapse>
-    </Container>
-  </Navbar>
-</div>
-  )
+    <div>
+      {" "}
+      <Navbar collapseOnSelect expand="lg" className="mainnav">
+        <Container>
+          <Navbar.Brand href="#home">
+            <img
+              alt=""
+              src={logo}
+              width="50"
+              height="50"
+              className="d-inline-block align-top"
+            />{" "}
+            <label className="text-light mt-3" fon>
+              Collaborative Story Telling
+            </label>
+          </Navbar.Brand>
+          <div className="bg-light text-light">
+            {" "}
+            <Navbar.Toggle aria-controls="responsive-navbar-nav text-light  bg-light" />
+          </div>
+          <Navbar.Collapse id="responsive-navbar-nav text-light  bg-light">
+            <Nav className="me-auto"></Nav>
+            <Nav>
+              <div className="btn btn-light px-3" onClick={AdminLogout}>
+                {" "}
+                Log out
+              </div>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </div>
+  );
 }
 
-export default AdminLoginMainNav
+export default AdminLoginMainNav;

@@ -8,7 +8,18 @@ import writer from "../../Assets/Vector (9).png";
 import user from "../../Assets/ph_users-fill.png";
 import Report from "../../Assets/Vector (11).png";
 import Challengers from "../../Assets/Vector (12).png";
+import { useNavigate } from "react-router-dom";
+import AdminDashBoard from "../Admin/AdminDashBoard";
 function AdminSidebar() {
+  const navigate=useNavigate()
+
+  const writerRequest=()=>{
+    navigate("/request")
+  } 
+  const AdminDashBoardicon=()=>{
+    navigate("/admindashboard")
+  }
+  
   return (
     <div className="adminsidebarmain">
       <div>
@@ -24,7 +35,7 @@ function AdminSidebar() {
         <hr className="text-light"></hr>
         <div className="fs-3 text-light ms-4">Admin</div>
         <div className="row sidebardashboard p-1 ms-2 ">
-          <div className="col-10">
+          <div className="col-10" onClick={AdminDashBoardicon}>
             <img src={Admindashboardimg} className="ms-3"></img>
             <label className="ms-2 "><b>Dashboard</b></label>
           </div>
@@ -55,7 +66,7 @@ function AdminSidebar() {
           </div>
         </div>
         <div className="row sidebardashboard p-1 ms-2 ">
-          <div className="col-10">
+          <div className="col-10" onClick={writerRequest}>
             <img src={user} className="ms-3"></img>
             <label className="ms-2 mt-2"><b>Requests</b></label>
           </div>
