@@ -6,7 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import { Card, Row, Col } from "react-bootstrap";
 import axiosInstance from "../../BaseAPIs/axiosinstatnce";
 
-function WritersRequestList({ url }) {
+function WriterList() {
   const [data, setData] = useState([]);
   const [writerdetails, setwriterdetails] = useState({});
   const [show, setShow] = useState(false);
@@ -25,11 +25,9 @@ function WritersRequestList({ url }) {
       });
   };
 
-
-
   function getData() {
     axiosInstance
-      .post("/viewWriterReqsforAdmin")
+      .post("/viewWriters")
       .then((res) => {
         console.log(res, "res");
         if (res.status === 200) {
@@ -43,7 +41,7 @@ function WritersRequestList({ url }) {
 
   const handleAccept = (id) => {
     axiosInstance
-      .post("/acceptWriterById/" + id)
+      .post("/activateWriterById/" + id)
       .then((res) => {
         console.log(res, "res");
         if (res.status === 200) {
@@ -58,7 +56,7 @@ function WritersRequestList({ url }) {
 
   const handleReject = (id) => {
     axiosInstance
-      .post("/rejectWriterById/" + id)
+      .post("/deActivateWriterById/" + id)
       .then((res) => {
         console.log(res, "res");
         if (res.status === 200) {
@@ -73,7 +71,7 @@ function WritersRequestList({ url }) {
   useEffect(() => {
     getData();
   }, []);
-  
+
   return (
     <div className="m-3">
       <div className="">
@@ -237,4 +235,4 @@ function WritersRequestList({ url }) {
   );
 }
 
-export default WritersRequestList;
+export default WriterList;

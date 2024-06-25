@@ -48,6 +48,7 @@ function AdminLoginform() {
     if (!errors.email && !errors.password && formValid) {
       if (loginData.email == Adminemail) {
         if (loginData.password == Adminpassword) {
+          localStorage.setItem("admin","admin")
           alert("Admin Login successfully ");
           navigate("/admindashboard");
         } else {

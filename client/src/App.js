@@ -15,10 +15,12 @@ import AdminLogin from "./Components/Admin/AdminLogin";
 import AdminDashBoard from "./Components/Admin/AdminDashBoard";
 import AdminDashboardSub from "./Components/Pages/AdminDashboardSub";
 import WritersRequestList from "./Components/Pages/WritersRequestList";
+import Requests from "./Components/Admin/Requests";
 
 function App() {
+  const url="http://localhost:4025/"
 
-  const url= "http://hybrid.srishticampus.in:4025/"
+  // const url= "http://hybrid.srishticampus.in:4025/"
 
   return (
     <BrowserRouter basename="/story_telling">
@@ -37,7 +39,7 @@ function App() {
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/admindashboard" element={<AdminDashBoard />} />
         <Route path="/admindashboardsub" element={<AdminDashboardSub />} />
-        <Route path="/request" element={<WritersRequestList />} />
+        <Route path="/request" element={<Requests url={url} />} />
 
       </Routes>
     </BrowserRouter>
