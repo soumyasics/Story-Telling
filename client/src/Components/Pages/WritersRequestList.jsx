@@ -25,8 +25,6 @@ function WritersRequestList({ url }) {
       });
   };
 
-
-
   function getData() {
     axiosInstance
       .post("/viewWriterReqsforAdmin")
@@ -73,7 +71,7 @@ function WritersRequestList({ url }) {
   useEffect(() => {
     getData();
   }, []);
-  
+
   return (
     <div className="m-3">
       <div className="">
@@ -105,7 +103,10 @@ function WritersRequestList({ url }) {
                 {data.map((item, index) => (
                   <div
                     className="row rounded-pill m-5 p-2"
-                    style={{ backgroundColor: "rgb(186, 230, 221)" }}
+                    style={{
+                      backgroundColor: "rgba(217, 217, 217, 1)",
+                      boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15p",
+                    }}
                   >
                     <div className="col-2">{item.name}</div>
                     <div className="col-2">{item.email}</div>
@@ -114,20 +115,20 @@ function WritersRequestList({ url }) {
                     <div className="col-4">
                       <button
                         onClick={() => handleAccept(writerdetails._id)}
-                        className="btn btn-outline-success "
+                        className="rounded-pill border-none border border-success text-success px-3 "
                       >
                         Accept
                       </button>{" "}
                       <button
                         onClick={() => handleReject(writerdetails._id)}
-                        className="btn btn-outline-danger  "
+                        className="rounded-pill border-none border border-danger text-danger px-3"
                       >
                         Reject
                       </button>{" "}
                     </div>
                     <div className="col-1">
                       <button
-                        className="rounded-pill px-3 btn btn-secondary"
+                        className="rounded-pill border-none border border-dark text-secondary px-4"
                         onClick={() => handleShow(item._id)}
                       >
                         view
@@ -146,25 +147,35 @@ function WritersRequestList({ url }) {
             backdrop="static"
             keyboard={false}
           >
-            <Modal.Header closeButton></Modal.Header>
+            <Modal.Header
+              style={{ backgroundColor: "rgb(186, 230, 221)" }}
+              closeButton
+            ></Modal.Header>
             <div>
               <div>
                 {" "}
-                <div className="text-center">
+                <div
+                  className="text-center"
+                  style={{ backgroundColor: "rgb(186, 230, 221)" }}
+                >
                   <img
-                    className="text-center"
+                    className="text-center rounded-pill"
                     alt="img"
                     style={{
-                      width: "50%",
-                      height: "280px",
+                      width: "40%",
+                      height: "200px",
                       boarderRadius: "25px",
+                      boxShadow: " rgba(0, 0, 0, 0.35) 0px 5px 15px",
                     }}
                     src={`${url}${writerdetails.profilePicture?.filename}`}
                   ></img>
                 </div>
-                <div className="ms-5">
-                  <table>
-                    <div className="p-4">
+                <div
+                  className=""
+                  style={{ backgroundColor: "rgb(186, 230, 221)" }}
+                >
+                  <table className="ms-5">
+                    <div className="p-4 ms-3">
                       <tr>
                         <td>
                           <Card.Subtitle className="mb-2 text-muted">
