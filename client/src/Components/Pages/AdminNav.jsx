@@ -33,10 +33,6 @@ function AdminNav() {
           <Navbar.Collapse id="responsive-navbar-nav text-light  bg-light">
             <Nav className="me-auto"></Nav>
             <Nav>
-              <Nav.Link href="#deets" className="text-light me-5">
-                About Us
-              </Nav.Link>
-             
             </Nav>
           </Navbar.Collapse>
         </Container>

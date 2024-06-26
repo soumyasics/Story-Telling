@@ -16,6 +16,8 @@ import AdminDashBoard from "./Components/Admin/AdminDashBoard";
 import AdminDashboardSub from "./Components/Pages/AdminDashboardSub";
 import WritersRequestList from "./Components/Pages/WritersRequestList";
 import Requests from "./Components/Admin/Requests";
+import WriterList from "./Components/Pages/WriterList";
+import AdminviewWriters from "./Components/Admin/AdminviewWriters";
 
 function App() {
   const url="http://localhost:4025/"
@@ -40,6 +42,7 @@ function App() {
         <Route path="/admindashboard" element={<AdminDashBoard />} />
         <Route path="/admindashboardsub" element={<AdminDashboardSub />} />
         <Route path="/request" element={<Requests url={url} />} />
+        <Route path="/writers" element={<AdminviewWriters  url={url} />} />
 
       </Routes>
     </BrowserRouter>

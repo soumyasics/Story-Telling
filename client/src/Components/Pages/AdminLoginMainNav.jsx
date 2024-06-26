@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 function AdminLoginMainNav() {
   const navigate = useNavigate();
   const AdminLogout = () => {
+    alert("Please Login Again")
     localStorage.removeItem("admin");
     navigate("/AdminLogin");
   };

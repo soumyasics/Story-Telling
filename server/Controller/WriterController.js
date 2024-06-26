@@ -108,7 +108,7 @@ const registerWriter = async (req, res) => {
 
 // View all Writers
 const viewWriters = (req, res) => {
-    Writer.find()
+    Writer.find({adminApproved:true})
         .exec()
         .then(data => {
             if (data.length > 0) {
