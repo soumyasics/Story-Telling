@@ -51,7 +51,7 @@ function Writerforgotpassword() {
 
     if (!errors.email) {
       axiosInstance
-        .post("/forgotPasswordWriter", {email:data.email})
+        .post("/forgotPassword", {email:data.email})
         .then((result) => {
           console.log(result);
           if (result.data.status == 200) {

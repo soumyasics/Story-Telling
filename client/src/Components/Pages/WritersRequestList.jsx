@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Table from "react-bootstrap/Table";
-import { Link, useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { Card, Row, Col } from "react-bootstrap";
+import { Modal, Card } from "react-bootstrap";
 import axiosInstance from "../../BaseAPIs/axiosinstatnce";
 
 function WritersRequestList({ url }) {
   const [data, setData] = useState([]);
-  const [writerdetails, setwriterdetails] = useState({});
+  const [writerdetails, setWriterDetails] = useState({});
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -18,7 +14,7 @@ function WritersRequestList({ url }) {
       .post("/viewWriterById/" + id)
       .then((res) => {
         console.log(res, "view");
-        setwriterdetails(res.data.data);
+        setWriterDetails(res.data.data); // Assuming res.data.data contains writer details
       })
       .catch((err) => {
         console.log("err", err);
@@ -31,7 +27,7 @@ function WritersRequestList({ url }) {
       .then((res) => {
         console.log(res, "res");
         if (res.status === 200) {
-          setData(res.data.data);
+          setData(res.data.data || []); // Ensure setting to empty array if data is undefined
         }
       })
       .catch((err) => {
@@ -46,7 +42,7 @@ function WritersRequestList({ url }) {
         console.log(res, "res");
         if (res.status === 200) {
           alert(res.data.msg);
-          getData();
+          getData(); // Refresh data after accepting
         }
       })
       .catch((err) => {
@@ -61,189 +57,136 @@ function WritersRequestList({ url }) {
         console.log(res, "res");
         if (res.status === 200) {
           alert(res.data.msg);
-          getData();
+          getData(); // Refresh data after rejecting
         }
       })
       .catch((err) => {
         alert("Failed to reject");
       });
   };
+
   useEffect(() => {
-    getData();
+    getData(); // Fetch initial data on component mount
   }, []);
 
   return (
     <div className="m-3">
-      <div className="">
-        <div className="shopownerpendingrequestdiv">
-          <div className="">
-            {data?.length === 0 && (
-              <h1 className="text-center"> No Writers Found</h1>
-            )}
-            {data?.length > 0 && (
-              <div>
-                <h3 className="text-center pt-4 ">All Writers Request List</h3>
-                <div
-                  className="row rounded-pill m-5 p-2"
-                  style={{ backgroundColor: "rgb(186, 230, 221)" }}
-                >
-                  <div className="col-2">
-                    <b>Name</b>
-                  </div>
-                  <div className="col-2">
-                    <b> Mail I’d</b>
-                  </div>
-                  <div className="col-2">
-                    <b>Contact</b>
-                  </div>
-                  <div className="col-4">
-                    <b>Accept/Declain</b>
-                  </div>
-                </div>
-                {data.map((item, index) => (
-                  <div
-                    className="row rounded-pill m-5 p-2"
-                    style={{
-                      backgroundColor: "rgba(217, 217, 217, 1)",
-                      boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15p",
-                    }}
-                  >
-                    <div className="col-2">{item.name}</div>
-                    <div className="col-2">{item.email}</div>
-                    <div className="col-2">{item.contact} </div>
-
-                    <div className="col-4">
-                      <button
-                        onClick={() => handleAccept(writerdetails._id)}
-                        className="rounded-pill border-none border border-success text-success px-3 "
-                      >
-                        Accept
-                      </button>{" "}
-                      <button
-                        onClick={() => handleReject(writerdetails._id)}
-                        className="rounded-pill border-none border border-danger text-danger px-3"
-                      >
-                        Reject
-                      </button>{" "}
-                    </div>
-                    <div className="col-1">
-                      <button
-                        className="rounded-pill border-none border border-dark text-secondary px-4"
-                        onClick={() => handleShow(item._id)}
-                      >
-                        view
-                      </button>
-                    </div>
-                  </div>
-                ))}
+      <div className="shopownerpendingrequestdiv">
+        {data.length === 0 ? (
+          <h1 className="text-center">No Writers Found</h1>
+        ) : (
+          <div>
+            <h3 className="text-center pt-4">All Writers Request List</h3>
+            <div className="row rounded-pill m-5 p-2 w-100" style={{ backgroundColor: "rgb(186, 230, 221)" }}>
+              <div className="col-2">
+                <b>Name</b>
               </div>
-            )}
-          </div>
-        </div>
-        <>
-          <Modal
-            show={show}
-            onHide={handleClose}
-            backdrop="static"
-            keyboard={false}
-          >
-            <Modal.Header
-              style={{ backgroundColor: "rgb(186, 230, 221)" }}
-              closeButton
-            ></Modal.Header>
-            <div>
-              <div>
-                {" "}
-                <div
-                  className="text-center"
-                  style={{ backgroundColor: "rgb(186, 230, 221)" }}
-                >
-                  <img
-                    className="text-center rounded-pill"
-                    alt="img"
-                    style={{
-                      width: "40%",
-                      height: "200px",
-                      boarderRadius: "25px",
-                      boxShadow: " rgba(0, 0, 0, 0.35) 0px 5px 15px",
-                    }}
-                    src={`${url}${writerdetails.profilePicture?.filename}`}
-                  ></img>
-                </div>
-                <div
-                  className=""
-                  style={{ backgroundColor: "rgb(186, 230, 221)" }}
-                >
-                  <table className="ms-5">
-                    <div className="p-4 ms-3">
-                      <tr>
-                        <td>
-                          <Card.Subtitle className="mb-2 text-muted">
-                            Name
-                          </Card.Subtitle>
-                        </td>
-                        <td className="ps-3">
-                          <Card.Subtitle className="mb-2 text-muted">
-                            {writerdetails.name}
-                          </Card.Subtitle>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <Card.Subtitle className="mb-2 text-muted">
-                            email
-                          </Card.Subtitle>
-                        </td>
-                        <td className="ps-3">
-                          <Card.Subtitle className="mb-2 text-muted">
-                            {writerdetails.email}
-                          </Card.Subtitle>
-                        </td>
-                      </tr>{" "}
-                      <tr>
-                        <td>
-                          <Card.Subtitle className="mb-2 text-muted">
-                            contact
-                          </Card.Subtitle>
-                        </td>
-                        <td className="ps-3">
-                          <Card.Subtitle className="mb-2 text-muted">
-                            {writerdetails.contact}
-                          </Card.Subtitle>
-                        </td>
-                      </tr>{" "}
-                      <tr>
-                        <td>
-                          <Card.Subtitle className="mb-2 text-muted">
-                            userCategory
-                          </Card.Subtitle>
-                        </td>
-                        <td className="ps-3">
-                          <Card.Subtitle className="mb-2 text-muted">
-                            {writerdetails.userCategory}
-                          </Card.Subtitle>
-                        </td>
-                      </tr>{" "}
-                      <tr>
-                        <td>
-                          <Card.Subtitle className="mb-2 text-muted">
-                            age
-                          </Card.Subtitle>
-                        </td>
-                        <td className="ps-3">
-                          <Card.Subtitle className="mb-2 text-muted">
-                            {writerdetails.age}
-                          </Card.Subtitle>
-                        </td>
-                      </tr>
-                    </div>
-                  </table>
-                </div>
+              <div className="col-4">
+                <b>Mail Id</b>
+              </div>
+              <div className="col-2">
+                <b>Contact</b>
+              </div>
+              <div className="col-4">
+                <b>Accept/Decline</b>
               </div>
             </div>
-          </Modal>
-        </>
+            {data.map((item, index) => (
+              <div key={index} className="row rounded-pill m-5 p-2 w-100" style={{ backgroundColor: "rgba(217, 217, 217, 1)", boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
+                <div className="col-2">{item.name}</div>
+                <div className="col-4">{item.email}</div>
+                <div className="col-2">{item.contact}</div>
+                <div className="col-3">
+                  <button
+                    onClick={() => handleAccept(item._id)}
+                    className="rounded-pill border-none border border-success text-success px-2"
+                  >
+                    Accept
+                  </button>{" "}
+                  <button
+                    onClick={() => handleReject(item._id)}
+                    className="rounded-pill border-none border border-danger text-danger ps-2 "
+                  >
+                    Reject
+                  </button>{" "}
+                </div>
+                <div className="col-1">
+                  <button
+                    className="rounded-pill border-none border border-dark text-secondary ps-2 "
+                    onClick={() => handleShow(item._id)}
+                  >
+                    View
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+        <Modal.Header style={{ backgroundColor: "rgb(186, 230, 221)" }} closeButton></Modal.Header>
+        <div>
+          <div className="text-center" style={{ backgroundColor: "rgb(186, 230, 221)" }}>
+            <img
+              className="text-center rounded-pill"
+              alt="img"
+              style={{
+                width: "40%",
+                height: "200px",
+                borderRadius: "25px",
+                boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+              }}
+              src={`${url}${writerdetails.profilePicture?.filename}`}
+            />
+          </div>
+          <div style={{ backgroundColor: "rgb(186, 230, 221)" }}>
+            <table className="ms-5">
+              <tbody className="p-4 ms-3">
+                <tr>
+                  <td>
+                    <Card.Subtitle className="mb-2 text-muted">Name</Card.Subtitle>
+                  </td>
+                  <td className="ps-3">
+                    <Card.Subtitle className="mb-2 text-muted">{writerdetails.name}</Card.Subtitle>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <Card.Subtitle className="mb-2 text-muted">Email</Card.Subtitle>
+                  </td>
+                  <td className="ps-3">
+                    <Card.Subtitle className="mb-2 text-muted">{writerdetails.email}</Card.Subtitle>
+                  </td>
+                </tr>{" "}
+                <tr>
+                  <td>
+                    <Card.Subtitle className="mb-2 text-muted">Contact</Card.Subtitle>
+                  </td>
+                  <td className="ps-3">
+                    <Card.Subtitle className="mb-2 text-muted">{writerdetails.contact}</Card.Subtitle>
+                  </td>
+                </tr>{" "}
+                <tr>
+                  <td>
+                    <Card.Subtitle className="mb-2 text-muted">User Category</Card.Subtitle>
+                  </td>
+                  <td className="ps-3">
+                    <Card.Subtitle className="mb-2 text-muted">{writerdetails.userCategory}</Card.Subtitle>
+                  </td>
+                </tr>{" "}
+                <tr>
+                  <td>
+                    <Card.Subtitle className="mb-2 text-muted">Age</Card.Subtitle>
+                  </td>
+                  <td className="ps-3">
+                    <Card.Subtitle className="mb-2 text-muted">{writerdetails.age}</Card.Subtitle>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }
