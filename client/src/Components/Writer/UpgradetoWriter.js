@@ -86,7 +86,7 @@ function UpgradeToWriter() {
     if (valid) {
       axiosInstance
         .post("/addPayment/" + localStorage.getItem("writer"), {
-          amount: amount
+          amount: amount,
         })
         .then((result) => {
           console.log(result);
@@ -180,7 +180,7 @@ function UpgradeToWriter() {
             </div>
 
             <button className="btn btn-dark px-5 py-2" onClick={handleSubmit}>
-            Pay Rs.199
+              Pay Rs.199
             </button>
           </div>
         </Modal>

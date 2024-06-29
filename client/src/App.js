@@ -18,36 +18,35 @@ import WritersRequestList from "./Components/Pages/WritersRequestList";
 import Requests from "./Components/Admin/Requests";
 import WriterList from "./Components/Pages/WriterList";
 import AdminviewWriters from "./Components/Admin/AdminviewWriters";
+import ViewerMainNav from "./Components/Viewer/ViewerMainNav";
 
 function App() {
-  const url="http://localhost:4025/"
+  const url = "http://localhost:4025/";
 
   // const url= "http://hybrid.srishticampus.in:4025/"
 
   return (
     <BrowserRouter basename="/story_telling">
       <Routes>
-        <Route path="/login" element={<WriterLogin  />} />
-        <Route path="/register" element={<WriterRegister  />} />
+        <Route path="/login" element={<WriterLogin />} />
+        <Route path="/register" element={<WriterRegister />} />
         <Route path="/forgot" element={<Writerforgotpassword />} />
         <Route path="/" element={[<Landingpage />, <Footer />]} />
         <Route path="/reset-password/:id" element={<WriterResetPassword />} />
         <Route path="/upgradetowriter" element={<UpgradeToWriter />} />
         <Route path="/writerhome" element={<WriterHome />} />
         <Route path="/readerhome" element={<ReaderHome />} />
-
+        <Route path="/readernav" element={<ViewerMainNav />} />
 
         {/* Admin */}
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/admindashboard" element={<AdminDashBoard />} />
         <Route path="/admindashboardsub" element={<AdminDashboardSub />} />
         <Route path="/request" element={<Requests url={url} />} />
-        <Route path="/writers" element={<AdminviewWriters  url={url} />} />
-
+        <Route path="/writers" element={<AdminviewWriters url={url} />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
-
