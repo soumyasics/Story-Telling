@@ -1,10 +1,11 @@
 import React from "react";
+import './Writer.css'
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import logo from "../../Assets/logo.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function WritterMainNav() {
   const Navigate=useNavigate()
@@ -39,7 +40,11 @@ function WritterMainNav() {
             </div>
             <Navbar.Collapse id="responsive-navbar-nav text-light  bg-light">
               <Nav className="me-auto"></Nav>
-              <Nav><div onClick={handleLogout}>Logout</div></Nav>
+              <Nav><Link to='/writer-profile' className="writer-mainnav-link">Profile</Link></Nav>
+              <Nav><div className="ms-3">Stories</div></Nav>
+              <Nav><div className="ms-3">Challenges</div></Nav>
+              <Nav><div className="ms-3">Contact Us</div></Nav>
+              <Nav><div className="ms-3">Logout</div></Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>

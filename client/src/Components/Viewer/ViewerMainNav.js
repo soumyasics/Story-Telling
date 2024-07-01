@@ -5,7 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import logo from "../../Assets/logo.png";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 function ViewerMainNav() {
     const Navigate=useNavigate()
 
@@ -38,7 +38,11 @@ function ViewerMainNav() {
           </div>
           <Navbar.Collapse id="responsive-navbar-nav text-light  bg-light">
             <Nav className="me-auto"></Nav>
-            <Nav><div onClick={handleLogout}>Logout</div></Nav>
+            <Nav><Link className="raeder-profile-link" to='/reader-profile'>Profile</Link></Nav>
+            <Nav><div className="ms-3">Upgrade to writer</div></Nav>
+            <Nav><div className="ms-3">Stories</div></Nav>
+            <Nav><div className="ms-3">Challenges</div></Nav>
+            <Nav><div onClick={handleLogout} className="ms-3">Logout</div></Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
