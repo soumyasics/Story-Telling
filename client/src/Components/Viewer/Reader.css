@@ -1,0 +1,58 @@
+/* Reader MAinNAv */
+
+.raeder-profile-link{
+    text-decoration: none;
+    color: white;
+}
+
+/* Reader PRofile */
+
+.reader-profile-back-img{
+    height: 38vh;
+    width: 100%;
+}
+.reader-profile-front-img{
+    height: 320px; 
+    width: 330px;
+    margin-top: -160px;
+    margin-left: 15px;
+}
+.reader-profile-editbtn{
+    height: 50px;
+    width: 40%;
+    background-color: #646262;
+    color: white;
+    border: none;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    border-radius: 10px;
+}
+
+/* Reader Edit Profile */
+
+
+.reader-edit-profile-front-img{
+    height: 290px; 
+    width: 310px;
+    margin-top: -140px;
+    margin-left: 3px;
+    border-radius: 170px;
+}
+.reader-edit-profile-icon{
+    color:grey ; 
+    margin-left: -95px;
+    height: 40px;
+    width: 40px;  
+}
+.reader-edit-profile-back-img{
+    height: 38vh;
+    width: 100%;    
+}
+.reader-edit-profile-editbtn{
+    height: 50px;
+    width: 40%;
+    background-color: #646262;
+    color: white;
+    border: none;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    border-radius: 10px;
+}

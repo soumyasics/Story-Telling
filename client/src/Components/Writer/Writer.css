@@ -1,0 +1,123 @@
+/* Writer Profile */
+
+.writer-profile-back-img{
+    height: 38vh;
+    width: 100%;
+}
+.writer-profile-front-img{
+    height: 290px; 
+    width: 310px;
+    margin-top: -140px;
+    margin-left: 3px;
+    border-radius: 160px;
+}
+.writer-profile-editbtn{
+    height: 50px;
+    width: 40%;
+    background-color: #646262;
+    color: white;
+    border: none;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    border-radius: 10px;
+}
+
+/* Writer Main Navbar  */
+
+.writer-mainnav-link{
+    text-decoration: none;
+    color: white;
+}
+
+/* Writer Edit Profile */
+
+.writer-edit-profile-icon{
+    color:grey ; 
+    margin-left: -95px;
+    height: 40px;
+    width: 40px;
+    
+}
+.writer-edit-profile-back-img{
+    height: 38vh;
+    width: 100%;    
+}
+.writer-edit-profile-front-img{
+    height: 290px; 
+    width: 310px;
+    margin-top: -140px;
+    margin-left: 3px;
+    border-radius: 160px;
+}
+.writer-edit-profile-editbtn{
+    height: 50px;
+    width: 40%;
+    background-color: #646262;
+    color: white;
+    border: none;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    border-radius: 10px;
+}
+
+/* Writer Story Add Page */
+
+.writer-story-addpage-maindiv{
+    background-color: #535252;
+    height: 15vh;
+    width: 100%;
+ 
+}
+.writer-story-addpage-secdiv{
+    background-color: #535252;
+    height: 79vh;
+    width: 125%;
+}
+.writer-story-addpage-secdiv1{
+    background-color: #F9F9F9;
+    height: 80vh;
+    width: 100%;
+}
+.writer-story-addpage-label{
+    background-color: white;
+    height: 7vh;
+    width: 100%;
+    font-size: 20px;
+}
+.writer-story-addpage-img{
+    height: 50px;
+    width: 50px;
+}
+.writer-story-addpage-div2{
+    background-color: #F4EDE5;
+    height: 60vh;
+    width: 80%;
+}
+.writer-story-addpage-sideimg{
+    height: 60vh;
+    width: 90%;
+    margin-left: -12px;
+}
+.writer-story-addpage-publishbtn{
+    background: linear-gradient(180deg, #B9B7B7 0%, #535252 67%);
+    height: 40px;
+    width: 100px;
+    border: 1px solid #000000;
+    margin-left: 200px;
+}
+.writer-story-addpage-profileimg{
+    height: 60px;
+    width: 60px;
+    border-radius: 50px;
+}
+.writer-story-addpage-labeladd{
+    font-size: 35px;
+}
+.writer-story-addpage-dropdown{
+    background-color: #F4EDE5;
+    color: black;
+}
+#dropdown{
+    background-color: #F4EDE5;
+    border: none;
+    color: #000000;
+    font-size: 20px;
+}
