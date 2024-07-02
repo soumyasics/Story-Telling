@@ -44,7 +44,7 @@ function WritterMainNav() {
               <Nav><div className="ms-3">Stories</div></Nav>
               <Nav><div className="ms-3">Challenges</div></Nav>
               <Nav><div className="ms-3">Contact Us</div></Nav>
-              <Nav><div className="ms-3">Logout</div></Nav>
+              <Nav><div onClick={handleLogout} className="ms-3">Logout</div></Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>

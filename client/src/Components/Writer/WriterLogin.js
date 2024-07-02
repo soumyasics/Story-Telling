@@ -82,16 +82,14 @@ function WriterLogin({ userrole }) {
           const userCategory = userData.userCategory;
   
           if (userCategory === "reader") {
-            if (userData.adminApproved==true) {
+           
               alert("Login Success")
               localStorage.setItem("token", result.data.token);
               localStorage.setItem("reader", userData._id);
               setTimeout(() => {
                 Navigate("/readerhome");
               }, 1500);
-            } else {
-              alert("Waiting for admin approval");
-            }
+            
           } else if (userCategory === "writer") {
             localStorage.setItem("token", result.data.token);
             localStorage.setItem("writer", userData._id)
