@@ -26,5 +26,5 @@ router.post("/addPayment/:id", Writer.addPayment);
 router.post("/registerReader", Reader.upload, Reader.registerReader);
 router.post("/loginReader", Reader.login);
 router.post("/upgradeToWriter/:id", Reader.upgradeToWriter);
-
+router.post("/viewreaderprofile/:id", Reader.viewReaderById);
 module.exports = router;
