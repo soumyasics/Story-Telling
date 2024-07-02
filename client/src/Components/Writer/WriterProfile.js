@@ -6,7 +6,7 @@ import axiosInstance from '../../BaseAPIs/axiosinstatnce';
 function WriterProfile() {
 
     const[data,setData]=useState();
-    const id=localStorage.getItem('reader')
+    const id=localStorage.getItem('writer')
     console.log(id);
 
     useEffect(() => {
@@ -36,7 +36,7 @@ function WriterProfile() {
                     <label>Name</label>
                 </div>
                 <div className='col'>
-                    <label className='ms-3'>{data.name}</label>
+                    <label className='ms-3'>{data?.name}</label>
                     <hr></hr>
                 </div>
             </div>
@@ -45,7 +45,7 @@ function WriterProfile() {
                     <label>Email ID</label>
                 </div>
                 <div className='col'>
-                    <label className='ms-3'>{data.email}</label>
+                    <label className='ms-3'>{data?.email}</label>
                     <hr></hr>
                 </div>
             </div>
@@ -54,7 +54,7 @@ function WriterProfile() {
                     <label>Category</label>
                 </div>
                 <div className='col'>
-                    <label className='ms-3'>{data.userCategory}</label>
+                    <label className='ms-3'>{data?.userCategory}</label>
                     <hr></hr>
                 </div>
             </div>
@@ -63,7 +63,7 @@ function WriterProfile() {
                     <label>Phone Number</label>
                 </div>
                 <div className='col'>
-                    <label className='ms-3'>{data.contact}</label>
+                    <label className='ms-3'>{data?.contact}</label>
                     <hr></hr>
                 </div>
             </div>
@@ -72,7 +72,7 @@ function WriterProfile() {
                     <label>Age </label>
                 </div>
                 <div className='col'>
-                    <label className='ms-3'>{data.age}</label>
+                    <label className='ms-3'>{data?.age}</label>
                     <hr></hr>
                 </div>
             </div>

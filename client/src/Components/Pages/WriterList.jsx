@@ -77,7 +77,7 @@ function WriterList({ url }) {
                   <div className="col-2">{item.contact}</div>
                   <div className="col-1">{item.age}</div>
                   <div className="col-2">
-                    <div className="btn btn-secondary">Deactivated</div>
+                    <div className="btn btn-secondary">To Deactivate</div>
                   </div>
                 </div>
               ))}

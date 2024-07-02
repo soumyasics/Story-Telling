@@ -39,7 +39,7 @@ function ViewerMainNav() {
           <Navbar.Collapse id="responsive-navbar-nav text-light  bg-light">
             <Nav className="me-auto"></Nav>
             <Nav><Link className="raeder-profile-link" to='/reader-profile'>Profile</Link></Nav>
-            <Nav><div className="ms-3">Upgrade to writer</div></Nav>
+            <Nav><Link to="/readerupgrade" className="ms-3 text-light text-decoration-none">Upgrade to writer</Link></Nav>
             <Nav><div className="ms-3">Stories</div></Nav>
             <Nav><div className="ms-3">Challenges</div></Nav>
             <Nav><div onClick={handleLogout} className="ms-3">Logout</div></Nav>

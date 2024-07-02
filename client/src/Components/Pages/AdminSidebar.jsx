@@ -74,7 +74,7 @@ function AdminSidebar() {
             <img className="" src={Adminarrow}></img>
           </div>
         </div>
-        <div className="row sidebardashboard p-1 ms-2 ">
+        <div className="row sidebardashboard text-center p-1 ms-2">
           <div className="col-10">
             <img src={user} className="ms-3"></img>
             <label className="ms-2 mt-2">
