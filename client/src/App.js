@@ -49,12 +49,12 @@ function App() {
 
         {/* Writer */}
         <Route path="/writer-profile" element={[<WritterMainNav/>,<WriterProfile/>,<Footer/>]} />
-        <Route path="/writer-edit-profile" element={[<WritterMainNav/>,<WriterEditProfile/>,<Footer/>]} />
+        <Route path="/writer-edit-profile/:id" element={[<WritterMainNav/>,<WriterEditProfile/>,<Footer/>]} />
         <Route path="/writer-add-story" element={[<WritterMainNav/>,<WriterStoryAddPage/>,<Footer/>]} />
 
         {/* Reader */}
         <Route path="/reader-profile" element={[<ViewerMainNav/>,<ReaderProfile/>,<Footer/>]} />
-        <Route path="/reader-edit-profile" element={[<ViewerMainNav/>,<ReaderEditProfile/>,<Footer/>]} />
+        <Route path="/reader-edit-profile/:id" element={[<ViewerMainNav/>,<ReaderEditProfile/>,<Footer/>]} />
 
         {/* Admin */}
         <Route path="/adminlogin" element={<AdminLogin />} />

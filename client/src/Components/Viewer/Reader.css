@@ -12,10 +12,10 @@
     width: 100%;
 }
 .reader-profile-front-img{
-    height: 320px; 
-    width: 330px;
-    margin-top: -160px;
-    margin-left: 15px;
+    height: 270px; 
+    width: 270px;
+    margin-top: -120px;
+    border-radius: 50%;
 }
 .reader-profile-editbtn{
     height: 50px;
@@ -31,11 +31,11 @@
 
 
 .reader-edit-profile-front-img{
-    height: 290px; 
-    width: 310px;
-    margin-top: -140px;
-    margin-left: 3px;
-    border-radius: 170px;
+    height: 270px; 
+    width: 270px;
+    margin-top: -120px;
+    /* margin-left: 13px; */
+    border-radius: 50%;
 }
 .reader-edit-profile-icon{
     color:grey ; 

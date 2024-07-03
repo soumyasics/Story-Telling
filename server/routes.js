@@ -25,6 +25,8 @@ router.post("/addPayment/:id", Writer.addPayment);
 //reader routes
 router.post("/registerReader", Reader.upload, Reader.registerReader);
 router.post("/loginReader", Reader.login);
+router.post("/viewReaderById/:id", Reader.viewReaderById);
+router.post("/editReaderById/:id", Reader.editReaderById);
 router.post("/upgradeToWriter/:id", Reader.upgradeToWriter);
 
 module.exports = router;

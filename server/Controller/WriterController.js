@@ -163,8 +163,8 @@ const viewWriterReqsforAdmin = (req, res) => {
 // Update Writer by ID
 const editWriterById =async (req, res) => {
     let flag=0
-    const { firstname, lastname, contact,gender,  dob, email, housename, street, state, nationality, pincode } = req.body;
-    let existingWriter = await Writer.findOne({ contact });
+    const { name,contact, email,age } = req.body;
+    let existingWriter = await Writer.find({ contact });
     let WriterData = await Writer.findById({  _id: req.params.id  });
     if (contact!=existingWriter.contact) {
         if(contact==WriterData.contact)
@@ -172,7 +172,7 @@ const editWriterById =async (req, res) => {
     }
     
 
-if(ReaderData.email!==req.body.email){
+if(WriterData.email!==req.body.email){
     let existingWriter1 = await Writer.findOne({ email });
         let existingWriter2 = await ReaderSchema.findOne({ email });
         if (existingWriter1 ||existingWriter2) {
@@ -187,23 +187,18 @@ if(ReaderData.email!==req.body.email){
 if(flag==0){
    
    await Writer.findByIdAndUpdate({ _id: req.params.id }, {
-        firstname,
-        lastname,
+        name,
         contact,
         email,
-        dob,
-        gender,
-        housename,
-        street,
-        state,
-        nationality,
-        pincode
+        age,
+        profilePicture:req.file
     })
         .exec()
         .then(data => {
             res.json({
                 status: 200,
-                msg: "Updated successfully"
+                msg: "Updated successfully",
+                data:data
             });
         })
         .catch(err => {

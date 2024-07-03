@@ -5,25 +5,32 @@ import writerprofilefrontimg from '../../Assets/bg.png'
 import { FaCamera } from "react-icons/fa";
 import cameraeditprofile from '../../Assets/cameraeditprofile.png'
 import axiosInstance from '../../BaseAPIs/axiosinstatnce';
+import {useParams,useNavigate} from 'react-router-dom'
+import { imageUrl } from '../../BaseAPIs/ImageUrl/imgApi';
+
 function WriterEditProfile() {
 
     const[data,setData]=useState({
         name:"",
         email:"",
-        category:"",
+        userCategory:"",
         contact:"",
         age:"",
         password:"",
         profilePicture:{filename:''}
     });
 
-    const id=localStorage.getItem('reader')
+    const {id}=useParams();
+
+    // const id=localStorage.getItem('reader')
     const [profileImage, setProfileImage] = useState(null);
 
     useEffect(() => {
         axiosInstance.post(`viewWriterById/${id}`)
         .then((res) => {
-            setData.apply(res.data.data)
+            setData(res.data.data)
+            console.log(res.data.data,"data");
+
         })
         .catch((err) => {
             console.log(err);
@@ -37,7 +44,7 @@ function WriterEditProfile() {
             setProfileImage(file);
             setData((prevData) => ({
                 ...prevData,
-                profile: { filename: file.name }
+                profilePicture: { filename: file.name }
             }));
         } else {
             setData((prevData) => ({
@@ -46,6 +53,8 @@ function WriterEditProfile() {
             }));
         }
     };
+
+    
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -56,17 +65,16 @@ function WriterEditProfile() {
         formData.append('userCategory',data.userCategory)
         formData.append('contact',data.contact)
         formData.append('age',data.age)
-        formData.append('password',data.password)
         if(profileImage){
             formData.append('profilePicture'.data.profilePicture)
         }
         try{
-            const res = await axiosInstance.post(`editWriterById/${id}`,formData);
+            const res = await axiosInstance.post(`editWriterById/${id}`,data);
             if (res.data.status === 200) {
                 alert("Updated Successfully")
             }
             else{
-                alert("Failed")
+                alert("Contact Already in Use")
             }
         }
         catch(err){
@@ -81,14 +89,20 @@ function WriterEditProfile() {
       </div>
       <div className='text-center'>
       <div className='text-center'>
-            <img src={profileImage ? URL.createObjectURL(profileImage) :writerprofilefrontimg } style={{position:'relative'}} alt='Profile' className='writer-edit-profile-front-img' />
+            <img src={`${imageUrl}/${data.profilePicture.filename}`} alt='Profile' className='writer-edit-profile-front-img' />
             <label className='upload-icon'>
             {/* <img src={cameraeditprofile}className='writer-edit-profile-cameraimg me-5' style={{position:'absolute'}} ></img> */}
-                <FaCamera className='writer-edit-profile-icon' style={{position:'absolute'}}/>           
+                <FaCamera className='writer-edit-profile-icon' 
+                style={{position:'absolute'}}
+                onClick={() =>
+                    document.getElementById("profilePicture").click()
+                  }
+                />    
             <input
                 type='file'
                 style={{ display: 'none' }}
                 name='profilePicture'
+                id="profilePicture"
                 onChange={handleChange}
                 />
             </label>
@@ -98,49 +112,76 @@ function WriterEditProfile() {
       <div className='row'>
         <div className='col-4'></div>
         <div className='col-4 mb-5 mt-5'>
-            <form>
+            <form onSubmit={(e)=>{handleSubmit(e);}}>
+            
                 <div className='row'>
-                    <div className='col'>
+                    <div className='col mt-2'>
                         <label>Name</label>
                     </div>
                     <div className='col'>
-                        <label className='ms-3'></label>
+                        <input 
+                        className='ms-3 writer_edit_pro_input'
+                        name='name'
+                        value={data.name}
+                        placeholder={data.name}
+                        onChange={handleChange}
+                        />
                         <hr></hr>
                     </div>
                 </div>
                 <div className='row'>
-                    <div className='col'>
+                    <div className='col mt-2'>
                         <label>Email ID</label>
                     </div>
                     <div className='col'>
-                        <label className='ms-3'></label>
+                    <input className='ms-3 writer_edit_pro_input'
+                    name='email'
+                    value={data.email}
+                    placeholder={data.email}
+                    onChange={handleChange}
+                    />
                         <hr></hr>
                     </div>
                 </div>
                 <div className='row'>
-                    <div className='col'>
+                    <div className='col mt-2'>
                         <label>Category</label>
                     </div>
                     <div className='col'>
-                        <label className='ms-3'></label>
+                    <input className='ms-3 writer_edit_pro_input'
+                    name='userCategory'
+                    value={data.userCategory}
+                    placeholder={data.userCategory}
+                    onChange={handleChange}
+                    />
                         <hr></hr>
                     </div>
                 </div>
                 <div className='row'>
-                    <div className='col'>
+                    <div className='col mt-2'>
                         <label>Phone Number</label>
                     </div>
                     <div className='col'>
-                        <label className='ms-3'></label>
+                    <input className='ms-3 writer_edit_pro_input'
+                    name='contact'
+                    value={data.contact}
+                    placeholder={data.contact}
+                    onChange={handleChange}
+                    />
                         <hr></hr>
                     </div>
                 </div>
                 <div className='row'>
-                    <div className='col'>
+                    <div className='col mt-2'>
                         <label>Age </label>
                     </div>
                     <div className='col'>
-                        <label className='ms-3'></label>
+                    <input className='ms-3 writer_edit_pro_input'
+                    name='age'
+                    value={data.age}
+                    placeholder={data.age}
+                    onChange={handleChange}
+                    />
                         <hr></hr>
                     </div>
                 </div>
