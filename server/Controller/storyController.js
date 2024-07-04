@@ -17,12 +17,12 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage: storage }).single("audio");
+const upload = multer({ storage: storage }).array("files");
 
 const addStory = (req, res) => {
  
 
-    const { writerId, title, summary, storyCategory, type } = req.body;
+    const { writerId, title, summary, storyCategory, type,text } = req.body;
     const audio = type === 'audio' && req.file ? req.file.path : null;
 
     if (type === 'audio' && !audio) {
@@ -36,7 +36,10 @@ const addStory = (req, res) => {
       date:new Date(),
       storyCategory,
       type,
-      audio
+      text,
+      coverPicture:req.file[0],
+      audio:req.file[1],
+      
     });
 
     newStory.save()
