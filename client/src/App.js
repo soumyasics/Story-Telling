@@ -48,8 +48,8 @@ function App() {
 
 
         {/* Writer */}
-        <Route path="/writer-profile" element={[<WritterMainNav/>,<WriterProfile/>,<Footer/>]} />
-        <Route path="/writer-edit-profile" element={[<WritterMainNav/>,<WriterEditProfile/>,<Footer/>]} />
+        <Route path="/writer-profile" element={[<WritterMainNav/>,<WriterProfile url={url} />,<Footer/>]} />
+        <Route path="/writer-edit-profile" element={[<WritterMainNav/>,<WriterEditProfile url={url} />,<Footer/>]} />
         <Route path="/writer-add-story" element={[<WritterMainNav/>,<WriterStoryAddPage/>,<Footer/>]} />
 
         {/* Reader */}

@@ -93,7 +93,7 @@ function UpgradeToWriter() {
           alert(result.data.msg);
           setTimeout(() => {
             navigate("/writerhome");
-          }, 1500);
+          }, 2500);
         })
         .catch((err) => {
           console.log(err);
@@ -103,7 +103,7 @@ function UpgradeToWriter() {
 
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <div className="UpgradeToWriter-Div1">
         <div className=" UpgradeToWriter-Div2">
           <h1 className="UpgradeToWriter-h1-1"></h1>

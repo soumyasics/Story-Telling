@@ -161,68 +161,77 @@ const viewWriterReqsforAdmin = (req, res) => {
 };
 
 // Update Writer by ID
-const editWriterById =async (req, res) => {
-    let flag=0
-    const { firstname, lastname, contact,gender,  dob, email, housename, street, state, nationality, pincode } = req.body;
-    let existingWriter = await Writer.findOne({ contact });
-    let WriterData = await Writer.findById({  _id: req.params.id  });
-    if (contact!=existingWriter.contact) {
-        if(contact==WriterData.contact)
-      flag=1        
-    }
-    
-
-if(ReaderData.email!==req.body.email){
-    let existingWriter1 = await Writer.findOne({ email });
-        let existingWriter2 = await ReaderSchema.findOne({ email });
-        if (existingWriter1 ||existingWriter2) {
-        return res.json({
+const editWriterById = async (req, res) => {
+    try {
+      const { name, age, contact, email, userCategory, profilePicture, paymentStatus, amount, isActive, adminApproved } = req.body;
+  
+      // Find the writer by ID
+      const writerData = await Writer.findById(req.params.id);
+      if (!writerData) {
+        return res.status(404).json({
+          status: 404,
+          msg: "Writer not found",
+          data: null,
+        });
+      }
+  
+      // Check if contact number has changed and if the new contact number is already registered
+      if (writerData.contact !== contact) {
+        const existingWriterByContact = await Writer.findOne({ contact });
+        if (existingWriterByContact) {
+          return res.status(409).json({
             status: 409,
-            msg: "Mail Id Already Registered With Us !!",
-            data: null
-        });
-    }
-    }
-
-if(flag==0){
-   
-   await Writer.findByIdAndUpdate({ _id: req.params.id }, {
-        firstname,
-        lastname,
-        contact,
-        email,
-        dob,
-        gender,
-        housename,
-        street,
-        state,
-        nationality,
-        pincode
-    })
-        .exec()
-        .then(data => {
-            res.json({
-                status: 200,
-                msg: "Updated successfully"
-            });
-        })
-        .catch(err => {
-            res.status(500).json({
-                status: 500,
-                msg: "Data not Updated",
-                Error: err
-            });
-        });
-    }
-    else{
-        return res.json({
+            msg: "Contact number already registered with us!",
+            data: null,
+          });
+        }
+      }
+  
+      // Check if email has changed and if the new email is already registered
+      if (writerData.email !== email) {
+        const existingWriterByEmail = await Writer.findOne({ email });
+        const existingReaderByEmail = await ReaderSchema.findOne({ email });
+        if (existingWriterByEmail || existingReaderByEmail) {
+          return res.status(409).json({
             status: 409,
-            msg: "contact Number Already Registered With Us !!",
-            data: null
-        });
+            msg: "Email already registered with us!",
+            data: null,
+          });
+        }
+      }
+  
+      // Update writer data
+      const updatedWriter = await Writer.findByIdAndUpdate(
+        req.params.id,
+        {
+          name,
+          age,
+          contact,
+          email,
+          userCategory,
+          profilePicture,
+          paymentStatus,
+          amount,
+          isActive,
+          adminApproved
+        },
+        { new: true }
+      );
+  
+      return res.status(200).json({
+        status: 200,
+        msg: "Updated successfully",
+        data: updatedWriter,
+      });
+    } catch (error) {
+      res.status(500).json({
+        status: 500,
+        msg: "Data not updated",
+        error: error.message,
+      });
     }
-};
-
+  };
+  
 // View Writer by ID
 const viewWriterById = (req, res) => {
     Writer.findById({ _id: req.params.id })

@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import './Reader.css'
 import writerprofilebackimg from '../../Assets/writerprofilebackimg.png'
 import writerprofilefrontimg from '../../Assets/writerprofilefrontimg.png'
+
+import { Link } from 'react-router-dom'
+
 function ReaderProfile() {
     const[data,setData]=useState();
     // const id=localStorage.getItem('')
@@ -66,7 +69,7 @@ function ReaderProfile() {
                 </div>
             </div>
             <div className='text-center mt-5'>
-                <button type='submit' className='reader-profile-editbtn'>Edit Profile</button>
+                <Link to="/reader-edit-profile" type='submit' className='reader-profile-editbtn'>Edit Profile</Link>
             </div>
         </div>
         <div className='col-4'></div>
