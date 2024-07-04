@@ -22,7 +22,7 @@ const upload = multer({ storage: storage }).array("files",2);
 const addStory = (req, res) => {
  
 
-    const { writerId, title, summary, storyCategory, type,text } = req.body;
+    const {title, summary, storyCategory, type,text } = req.body;
     const audio = type === 'audio' && req.file ? req.file.path : null;
 
     if (type === 'audio' && !audio) {
@@ -30,13 +30,14 @@ const addStory = (req, res) => {
     }
 
     const newStory = new Story({
-      writerId,
+      
       title,
       summary,
       date:new Date(),
       storyCategory,
       type,
       text,
+      writerId:req.params.id,
       coverPicture:req.files[0],
       audio:req.files[1],
     });
