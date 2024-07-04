@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useEffect} from "react";
 import "../Writer/UpgradeToWriter.css";
 import Footer from "../Pages/Footer";
 import Header from "../Pages/Header";
@@ -9,6 +9,14 @@ import axiosInstance from "../../BaseAPIs/axiosinstatnce";
 import { useNavigate } from "react-router-dom";
 
 function Readerupgrade() {
+    useEffect(() => {
+        if (
+          localStorage.getItem("token") == null &&
+          localStorage.getItem("reader") == null
+        ) {
+          navigate("/login");
+        }
+      }, [navigate]);
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);

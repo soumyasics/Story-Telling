@@ -3,7 +3,7 @@ const mongoose= require("mongoose");
 const sSchema=mongoose.Schema({
     writerId:{
         type:mongoose.Schema.Types.ObjectId,
-       ref:'writers',
+        ref:'writers',
         required:true,
        
     },
@@ -16,7 +16,6 @@ const sSchema=mongoose.Schema({
     },
     summary:{
         type:String,
-        
         required:true,
     },
    
@@ -28,16 +27,22 @@ const sSchema=mongoose.Schema({
         type:String,
         required:true
     },
-   
-
-    type:{
+   type:{
         type:String,
         required:true
+
+    },
+    text:{
+        type:String,
 
     },
     audio:{
         type:Object,
 
+    },
+    coverPicture:{
+        type:Object,
+        required:true
     },
     isActive:{
         type:Boolean,

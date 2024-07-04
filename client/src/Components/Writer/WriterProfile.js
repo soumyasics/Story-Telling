@@ -3,30 +3,55 @@ import './Writer.css'
 import writerprofilebackimg from '../../Assets/writerprofilebackimg.png'
 import writerprofilefrontimg from '../../Assets/writerprofilefrontimg.png'
 import axiosInstance from '../../BaseAPIs/axiosinstatnce';
+import { useNavigate } from 'react-router-dom'
+import { imageUrl } from '../../BaseAPIs/ImageUrl/imgApi';
+
+
 function WriterProfile() {
 
-    const[data,setData]=useState();
+    const[data,setData]=useState({profilePicture:{filename:''}});
     const id=localStorage.getItem('writer')
     console.log(id);
 
-    useEffect(() => {
-        axiosInstance.post(`viewWriterById/${id}`)
-        .then((res) => {
-            console.log(res);
-            setData(res.data.data)
-            console.log(res.data.data);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-    },[])
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (
+      localStorage.getItem("token") == null &&
+      localStorage.getItem("writer") == null
+    ) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  useEffect(() => {
+    axiosInstance.post(`viewWriterById/${id}`)
+    .then((res) => {
+        console.log(res);
+        setData(res.data.data)
+        console.log(res.data.data,"data");
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+},[id])
+
+const profile=data.profilePicture
+console.log(profile,"profile");
+
+const navigateToeditprofile=(id)=>{
+    navigate(`/writer-edit-profile/${id}`)
+}
+  
+    
   return (
     <div>
       <div >
         <img src={writerprofilebackimg} className='writer-profile-back-img'></img>
       </div>
       <div className='text-center'>
-      <img src={writerprofilefrontimg} className='writer-profile-front-img'></img>
+     <img src={`${imageUrl}/${data.profilePicture.filename}`} className='writer-profile-front-img'></img>
       </div>
       <div className='row'>
         <div className='col-4'></div>
@@ -77,7 +102,7 @@ function WriterProfile() {
                 </div>
             </div>
             <div className='text-center mt-5'>
-                <button type='submit' className='writer-profile-editbtn'>Edit Profile</button>
+                <button type='submit' onClick={()=>{navigateToeditprofile(data._id)}} className='writer-profile-editbtn'>Edit Profile</button>
             </div>
         </div>
         <div className='col-4'></div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import './WriterHomePage.css'
 import img from '../../Assets/img2.jpg'
 import img2 from '../../Assets/Drama.png'
@@ -9,8 +9,18 @@ import img6 from '../../Assets/Fantasy.png'
 import img7 from '../../Assets/img3.jpg'
 import WritterMainNav from './WritterMainNav'
 import Footer from '../Pages/Footer'
+import {useNavigate} from 'react-router-dom'
 
 function WriterHome() {
+    const navigate =useNavigate()
+    useEffect(() => {
+        if (
+          localStorage.getItem("token") == null &&
+          localStorage.getItem("writer") == null
+        ) {
+          navigate("/login");
+        }
+      }, [navigate]);
   return (
     <div><WritterMainNav/>
     <div> <div className="App">

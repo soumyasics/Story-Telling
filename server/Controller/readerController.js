@@ -107,7 +107,8 @@ const viewReaders = (req, res) => {
 // Update Reader by ID
 const editReaderById =async (req, res) => {
     let flag=0
-    const { name,age,contact, email } = req.body;    let existingReader = await Reader.find({ contact });
+    const { name,age,contact, email,userCategory } = req.body;    
+    let existingReader = await Reader.find({ contact });
     let ReaderData = await Reader.findById({  _id: req.params.id  });
 await existingReader.map(x=>{
     if (x.contact!=ReaderData.contact) {
@@ -133,7 +134,6 @@ if(flag==0){
     age,
     contact,
     email,
-    password,
     profilePicture:req.file,
     userCategory
     })
