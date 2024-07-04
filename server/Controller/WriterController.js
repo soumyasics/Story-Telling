@@ -161,6 +161,7 @@ const viewWriterReqsforAdmin = (req, res) => {
 };
 
 // Update Writer by ID
+<<<<<<< HEAD
 const editWriterById = async (req, res) => {
     try {
       const { name, age, contact, email, userCategory, profilePicture, paymentStatus, amount, isActive, adminApproved } = req.body;
@@ -193,6 +194,58 @@ const editWriterById = async (req, res) => {
         const existingReaderByEmail = await ReaderSchema.findOne({ email });
         if (existingWriterByEmail || existingReaderByEmail) {
           return res.status(409).json({
+=======
+const editWriterById =async (req, res) => {
+    let flag=0
+    const { name,contact, email,age } = req.body;
+    let existingWriter = await Writer.find({ contact });
+    let WriterData = await Writer.findById({  _id: req.params.id  });
+    if (contact!=existingWriter.contact) {
+        if(contact==WriterData.contact)
+      flag=1        
+    }
+    
+
+if(WriterData.email!==req.body.email){
+    let existingWriter1 = await Writer.findOne({ email });
+        let existingWriter2 = await ReaderSchema.findOne({ email });
+        if (existingWriter1 ||existingWriter2) {
+        return res.json({
+            status: 409,
+            msg: "Mail Id Already Registered With Us !!",
+            data: null
+        });
+    }
+    }
+
+if(flag==0){
+   
+   await Writer.findByIdAndUpdate({ _id: req.params.id }, {
+        name,
+        contact,
+        email,
+        age,
+        profilePicture:req.file
+    })
+        .exec()
+        .then(data => {
+            res.json({
+                status: 200,
+                msg: "Updated successfully",
+                data:data
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                status: 500,
+                msg: "Data not Updated",
+                Error: err
+            });
+        });
+    }
+    else{
+        return res.json({
+>>>>>>> 49089e35e7ae2852089c0949aff53a2febcdd23a
             status: 409,
             msg: "Email already registered with us!",
             data: null,

@@ -36,7 +36,7 @@ function WriterEditProfile() {
             setProfileImage(file);
             setData((prevData) => ({
                 ...prevData,
-                profilePicture: { filename: file.name } // Fixing this line
+                profilePicture: { filename: file.name }
             }));
         } else {
             setData((prevData) => ({
@@ -66,7 +66,10 @@ function WriterEditProfile() {
             } else {
                 alert("Failed");
             }
-        } catch (err) {
+
+           
+        }
+        catch(err){
             console.log(err);
             alert("An error occurred");
         }

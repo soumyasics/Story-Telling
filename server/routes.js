@@ -28,6 +28,8 @@ router.post("/addPayment/:id", Writer.addPayment);
 //reader routes
 router.post("/registerReader", Reader.upload, Reader.registerReader);
 router.post("/loginReader", Reader.login);
+router.post("/viewReaderById/:id", Reader.viewReaderById);
+router.post("/editReaderById/:id", Reader.editReaderById);
 router.post("/upgradeToWriter/:id", Reader.upgradeToWriter);
 router.post("/editReaderById/:id", Reader.editReaderById);
 router.post("/deleteReaderById/:id", Reader.deleteReaderById);
@@ -36,7 +38,7 @@ router.post("/viewReaderById/:id", Reader.viewReaderById);
 
 
 //Story
-router.post("/addStory", Story.upload,Story.addStory);
+router.post("/addStory/:id", Story.upload,Story.addStory);
 router.post("/editStory/:id", Story.editStory);
 router.post("/viewStoryById/:id", Story.viewStoryById);
 router.post("/viewStoriesByWriterId/:id", Story.viewStoriesByWriterId);
