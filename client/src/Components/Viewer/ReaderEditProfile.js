@@ -8,6 +8,16 @@ import {useParams,useNavigate} from 'react-router-dom'
 import { imageUrl } from '../../BaseAPIs/ImageUrl/imgApi';
 
 function ReaderEditProfile() {
+
+    const navigate =useNavigate()
+    useEffect(() => {
+        if (
+          localStorage.getItem("token") == null &&
+          localStorage.getItem("reader") == null
+        ) {
+          navigate("/login");
+        }
+      }, [navigate]);
     const[data,setData]=useState({
         name:"",
         email:"",
@@ -34,33 +44,24 @@ function ReaderEditProfile() {
         })
     },[id]);
 
-    // const handleChange = (e) => {
-    //     const { name, value, files, type } = e.target;
-    //     if (type === 'file') {
-    //         const file = files[0];
-    //         setProfileImage(file);
-    //         setData((prevData) => ({
-    //             ...prevData,
-    //             profile: { filename: file.name }
-    //         }));
-    //     } else {
-    //         setData((prevData) => ({
-    //             ...prevData,
-    //             [name]: value
-    //         }));
-    //     }
-    // };
-
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setData({ ...data, [name]: value });
-      };
-      const handleFileChange = (e) => {
-        const { name, files } = e.target;
-        setData({ ...data, [name]: files[0] });
+        const { name, value, files, type } = e.target;
+        if (type === 'file') {
+            const file = files[0];
+            setProfileImage(file);
+            setData((prevData) => ({
+                ...prevData,
+                profile: { filename: file.name }
+            }));
+        } else {
+            setData((prevData) => ({
+                ...prevData,
+                [name]: value
+            }));
+        }
+    };
+
     
-        console.log(files);
-      };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -118,7 +119,7 @@ function ReaderEditProfile() {
                 style={{ display: 'none' }}
                 name='profilePicture'
                 id='profilePicture'
-                onChange={handleFileChange}
+                onChange={handleChange}
                 />
                 <div className='row'>
                     <div className='col'>

@@ -10,6 +10,16 @@ import { imageUrl } from '../../BaseAPIs/ImageUrl/imgApi';
 
 function WriterEditProfile() {
 
+    const navigate =useNavigate()
+    useEffect(() => {
+        if (
+          localStorage.getItem("token") == null &&
+          localStorage.getItem("writer") == null
+        ) {
+          navigate("/login");
+        }
+      }, [navigate]);
+
     const[data,setData]=useState({
         name:"",
         email:"",

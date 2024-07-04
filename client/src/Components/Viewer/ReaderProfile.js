@@ -18,7 +18,7 @@ function ReaderProfile() {
   useEffect(() => {
     if (
       localStorage.getItem("token") == null &&
-      localStorage.getItem("writer") == null
+      localStorage.getItem("reader") == null
     ) {
       navigate("/login");
     }
