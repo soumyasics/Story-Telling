@@ -7,27 +7,164 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import { FaCamera } from "react-icons/fa";
 import { Form, Radio, Input } from "antd";
 import { useState } from 'react';
+import axiosMultipartInstance from '../../BaseAPIs/AxiosMultipartInstance';
+import {useNavigate} from 'react-router-dom'
 function WriterStoryAddPage() {
+
+    const navigate=useNavigate();
+    
     const draftStory={}
 
     
       const [textb, setState] =useState({
         showTextBox: false,
-        showFileUpload:false
+        showFileUpload:false,
       });
     
       const handleOnChange = e => {
         setState({
-          showTextBox: e.target.value === 1,
-          showFileUpload:e.target.value ===2
+          showTextBox: e.target.value === 'text',
+          showFileUpload:e.target.value ==='audio'
         });
       };
 
-      const [addstorydata,setAddStoryData]=useState();
-      
+      const [addstorydata,setAddStoryData]=useState({
+        title:"",
+        summary:"",
+        storyCategory:"",
+        type:"",
+        text:"",
+        coverPicture:"",
+        audio:""
+      });
+
+      const [errors, setErrors] = useState({
+        title:"",
+        summary:"",
+        storyCategory:"",
+        type:"",
+        text:"",
+        coverPicture:"",
+        audio:""
+      });
+
+
+
+      const handleChange = (event) => {
+        const { name, value } = event.target;
+        setAddStoryData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: "",
+        }));
+      };
+      console.log(addstorydata,'addstorydata');
+    
+
+const [errorcover , setErrorCover]=useState(null)
+const [erroraudio , setErrorAudio]=useState(null)
+
+const handleFileCoverChange = (coverPicture) => {
+    if(!coverPicture.name.match(/\.(jpg|jpeg|png|gif)$/)){
+        const error="Only upload JPG JPEG PNG GIF file type ";
+        setErrorCover(error);
+        return
+    }
+    setErrorCover(null)
+    setAddStoryData({...addstorydata,coverPicture});
+    };
+const handleFileAudioChange = (audio) => {
+    if(!audio.name.match(/\.(mp3|wav|aac|flac)$/)){
+        const error="Only upload MP3 WAV AAC FLAC file type ";
+        setErrorAudio(error);
+        return
+    }
+    setErrorAudio(null)
+    setAddStoryData({...addstorydata,audio});
+    };
+
+const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        let errors = {};
+    
+        let formValid = true;
+    
+        if (!addstorydata.title.trim()) {
+          formValid = false;
+          errors.title = "Title is required";
+        }
+        if (!addstorydata.storyCategory==null) {
+            formValid = false;
+            console.log("3",formValid);
+            errors.storyCategory = "Story Category is required";
+        }
+        if (!addstorydata.summary.trim()) {
+            formValid = false;
+            console.log("z4",formValid);
+            errors.summary = "Summary is required";
+        }
+        if (!addstorydata.coverPicture) {
+            formValid = false;
+            console.log("z5",formValid);
+            errors.description = "Cover Picture is required";
+        }
+          setErrors(errors);
+
+    if (
+        addstorydata.title &&
+        addstorydata.summary &&
+        addstorydata.storyCategory &&
+        addstorydata.coverPicture 
+    ) {
+      formValid = true;
+    }
+
+    if (Object.keys(errors).length === 0 && formValid) {
+      const formData = new FormData();
+      formData.append("title", addstorydata.title);
+      formData.append("summary", addstorydata.summary);
+      formData.append("storyCategory", addstorydata.storyCategory);
+      formData.append("files", addstorydata.coverPicture);
+      formData.append("type", addstorydata.type);
+      if(addstorydata.type === 'text')
+      formData.append("text", addstorydata.text);
+      else
+      formData.append("files", addstorydata.audio);
+
+      console.log(formData, "formData");
+      try {
+        var response;
+        if (addstorydata) {
+          response = await axiosMultipartInstance.post(
+            "/addStory"+localStorage.getItem("writer"),
+            formData
+          );
+        }
+        console.log("Response:", response);
+        if (response.status == 200) {
+          alert(response.data.msg);
+        //   navigate("/investor/login");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        let msg = error?.response?.data?.msg || "Error occurred";
+        alert(msg);
+      }
+    } else {
+      console.log("Form is not valid", formValid);
+      console.log("Data entered", addstorydata);
+    }
+  };
+
+
     
   return (
     <div className='mb-5 mt-5'>
+        <form onSubmit={(e)=>{handleSubmit(e);}}>
       <div className='container mt-5'>
         <div className='writer-story-addpage-navdiv'>
             <div className='row'>
@@ -41,24 +178,22 @@ function WriterStoryAddPage() {
             </div>
         </div>
         <div className='row'>
-            {/* <div className='col-3'>
-                <div className='writer-story-addpage-secdiv'>
-                    <div className='writer-story-addpage-labeldiv text-center mt-2'>
-                        <label className='writer-story-addpage-label'>Cover{'  '}
-                        <img src={romance} className='writer-story-addpage-img'></img>
-                        </label>
-                    </div>
-                </div>
-            </div> */}
             <div className='col '>
                 <div className='writer-story-addpage-secdiv1  ps-2'>
                     <div className='row container pt-2 ps-5'>
                         <div className='col writer-story-addpage-div2 mt-5 pt-4'>
                             <div className='text-center mt-3'>
-                                <input className='writer-story-addpage-addtitle' placeholder='Add a Title'/>
+                                <input className='writer-story-addpage-addtitle' 
+                                name='title'
+                                onChange={handleChange}
+                                placeholder='Add a Title'/>
                             </div>
                             <div className='text-center  mt-3'>
-                                <select id="dropdown" className='writer-story-addpage-category' title="Story Category">
+                                <select id="dropdown" 
+                                name='storyCategory'
+                                onChange={handleChange}
+                                className='writer-story-addpage-category'
+                                 title="Story Category">
                                     <option >Story Category</option>
                                     <option >Horror</option>
                                     <option >Comedy</option>
@@ -71,9 +206,9 @@ function WriterStoryAddPage() {
                             </div>
                             <div className='mx-5 mt-4'>
                             <Form.Item>
-                                <Radio.Group onChange={handleOnChange}>
-                                    <Radio  value={1}>Text</Radio><br/>
-                                    <Radio className='mt-3' value={2}>Audio</Radio>  
+                                <Radio.Group onChange={handleOnChange} name='type'>
+                                    <Radio onChange={handleChange}  value='text' name='type'>Text</Radio><br/>
+                                    <Radio onChange={handleChange} className='mt-3' value='audio' name='type'>Audio</Radio>  
                                 </Radio.Group>
                                 {textb.showFileUpload && 
                                 <button className='mx-3 writer-story-addaudio-btn'
@@ -84,9 +219,12 @@ function WriterStoryAddPage() {
                                 <input
                                     type='file'
                                     style={{ display: 'none' }}
-                                    name='coverPicture'
+                                    name='audio'
+                                    onChange={(event)=>{handleFileAudioChange(event.target.files[0])}}
                                     id='audioUpload'
                                 />   
+                                {erroraudio && (<div className=" mt-2 text-danger errortext">{erroraudio}</div>)}
+
                             </Form.Item>
                             </div>
                             <div className='text-center mt-5'>
@@ -99,13 +237,22 @@ function WriterStoryAddPage() {
                             type='file'
                             style={{ display: 'none' }}
                             name='coverPicture'
+                            onChange={(event)=>{handleFileCoverChange(event.target.files[0])}}
                             id='coverPicture'
                             
                             />      
+                            {errorcover && (<div className="text-danger errortext">{errorcover}</div>)}
+
                         </div>
-                            <div className='mt-4 mx-5 writer-story-addpage-summery '>
+                            <div className='mt-3 mx-5 writer-story-addpage-summery '>
                                 <div class="form-floating">
-                                    <textarea class="form-control "  placeholder="Leave a comment here" id="floatingTextarea2" style={{height: '120px'}}></textarea>
+                                    <textarea class="form-control "  
+                                    placeholder="Leave a comment here" 
+                                    id="floatingTextarea2" 
+                                    style={{height: '120px'}}
+                                    name='summary'
+                                    onChange={handleChange}
+                                    ></textarea>
                                     <label for="floatingTextarea2">Summery</label>
                                     </div>
                             </div>
@@ -119,10 +266,14 @@ function WriterStoryAddPage() {
                 </div>
             </div>
             <div className='writer-story-addtextarea-div'>
-                            {textb.showTextBox && <textarea className='writer-story-addtextarea' placeholder="Enter your creativity..." />}
+                            {textb.showTextBox && <textarea className='writer-story-addtextarea' 
+                            name='text'
+                            onChange={handleChange}
+                            placeholder="Enter your creativity..." />}
                     </div> 
         </div>
       </div>
+      </form>
     </div>
   )
 }
