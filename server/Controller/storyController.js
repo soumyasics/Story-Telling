@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage: storage }).array("files");
+const upload = multer({ storage: storage }).array("files",2);
 
 const addStory = (req, res) => {
  
@@ -37,9 +37,8 @@ const addStory = (req, res) => {
       storyCategory,
       type,
       text,
-      coverPicture:req.file[0],
-      audio:req.file[1],
-      
+      coverPicture:req.files[0],
+      audio:req.files[1],
     });
 
     newStory.save()
