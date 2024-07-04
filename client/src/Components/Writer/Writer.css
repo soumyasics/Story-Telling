@@ -109,9 +109,7 @@
     
 }
 
-.writer-story-addpage-summery{
-    
-}
+
 
 .writer-story-addpage-div2{
     background-color: #F4EDE5;
@@ -119,8 +117,7 @@
     width: 50%;
 }
 
-.writer-story-addtextarea-div{
-}
+
 
 .writer-story-addtextarea{
     outline: none;
@@ -147,12 +144,21 @@
     width: 100%;
     margin-left: -12px;
 }
+
+.writer-story-addpage-draftbtn{
+    background: linear-gradient(180deg, #B9B7B7 0%, #535252 67%);
+    height: 40px;
+    width: 130px;
+    border: 1px solid #000000;
+    margin-left: 50px;
+    color: #fff; 
+}
 .writer-story-addpage-publishbtn{
     background: linear-gradient(180deg, #B9B7B7 0%, #535252 67%);
     height: 40px;
     width: 100px;
     border: 1px solid #000000;
-    margin-left: 200px;
+    color: #fff;
 }
 .writer-story-addpage-profileimg{
     height: 60px;

@@ -7,10 +7,8 @@ const sSchema=mongoose.Schema({
         required:true,
        
     },
-   
-    title:{
+   title:{
         type:String,
-        
         required:true,
        
     },
@@ -48,6 +46,10 @@ const sSchema=mongoose.Schema({
         type:Boolean,
         default:true
     },
+    published:{
+        type:Boolean,
+        default:false
+    }
    
     
 });

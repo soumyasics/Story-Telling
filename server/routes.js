@@ -38,7 +38,7 @@ router.post("/viewReaderById/:id", Reader.viewReaderById);
 
 
 //Story
-router.post("/addStory", Story.upload,Story.addStory);
+router.post("/addStory/:id", Story.upload,Story.addStory);
 router.post("/editStory/:id", Story.editStory);
 router.post("/viewStoryById/:id", Story.viewStoryById);
 router.post("/viewStoriesByWriterId/:id", Story.viewStoriesByWriterId);

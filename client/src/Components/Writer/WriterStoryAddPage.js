@@ -67,12 +67,15 @@ function WriterStoryAddPage() {
 const [errorcover , setErrorCover]=useState(null)
 const [erroraudio , setErrorAudio]=useState(null)
 
+// const [image, setImage] = useState(null)
+
 const handleFileCoverChange = (coverPicture) => {
     if(!coverPicture.name.match(/\.(jpg|jpeg|png|gif)$/)){
         const error="Only upload JPG JPEG PNG GIF file type ";
         setErrorCover(error);
         return
     }
+    setImage(URL.createObjectURL(coverPicture));
     setErrorCover(null)
     setAddStoryData({...addstorydata,coverPicture});
     };
@@ -86,6 +89,14 @@ const handleFileAudioChange = (audio) => {
     setAddStoryData({...addstorydata,audio});
     };
 
+const [image, setImage] = useState(null)
+
+// const onImageChange = (event) => {
+//  if (event.target.files && event.target.files[0]) {
+//    setImage(URL.createObjectURL(event.target.files[0]));
+//  }
+// }
+const id =localStorage.getItem('writer')
 const handleSubmit = async (e) => {
         e.preventDefault();
     
@@ -97,7 +108,7 @@ const handleSubmit = async (e) => {
           formValid = false;
           errors.title = "Title is required";
         }
-        if (!addstorydata.storyCategory==null) {
+        if (!addstorydata.storyCategory) {
             formValid = false;
             console.log("3",formValid);
             errors.storyCategory = "Story Category is required";
@@ -133,15 +144,16 @@ const handleSubmit = async (e) => {
       if(addstorydata.type === 'text')
       formData.append("text", addstorydata.text);
       else
-      formData.append("files", addstorydata.audio);
+    //   formData.append("files", addstorydata.audio);
 
+    
       console.log(formData, "formData");
       try {
         var response;
         if (addstorydata) {
           response = await axiosMultipartInstance.post(
-            "/addStory"+localStorage.getItem("writer"),
-            formData
+            `/addStory/${id}`,
+            addstorydata
           );
         }
         console.log("Response:", response);
@@ -173,7 +185,8 @@ const handleSubmit = async (e) => {
                     <img src={bg} className='writer-story-addpage-profileimg mt-3'></img>
                 </div>
                 <div className='col-4'>
-                    <button className='mt-4 me-5 writer-story-addpage-publishbtn'>Publish</button>
+                    <button className='mt-4 me-5 writer-story-addpage-draftbtn'>SaveAs Draft</button>
+                    <button className='writer-story-addpage-publishbtn'>Publish</button>
                 </div>
             </div>
         </div>
@@ -181,14 +194,16 @@ const handleSubmit = async (e) => {
             <div className='col '>
                 <div className='writer-story-addpage-secdiv1  ps-2'>
                     <div className='row container pt-2 ps-5'>
-                        <div className='col writer-story-addpage-div2 mt-5 pt-4'>
+                        <div className='col writer-story-addpage-div2 mt-5 '>
                             <div className='text-center mt-3'>
                                 <input className='writer-story-addpage-addtitle' 
                                 name='title'
                                 onChange={handleChange}
                                 placeholder='Add a Title'/>
+                          {errors.title && (<div className="text-danger errortext">{errors.title}</div>)}
+
                             </div>
-                            <div className='text-center  mt-3'>
+                            <div className='text-center  mt-2'>
                                 <select id="dropdown" 
                                 name='storyCategory'
                                 onChange={handleChange}
@@ -202,10 +217,13 @@ const handleSubmit = async (e) => {
                                     <option >Fantasy</option>
                                     <option >Crime</option>
                                 </select>
+                                {errors.storyCategory && (<div className="text-danger errortext">{errors.storyCategory}</div>)}
                             
                             </div>
-                            <div className='mx-5 mt-4'>
+                            <div className='mx-5 mt-2'>
+                              
                             <Form.Item>
+                              
                                 <Radio.Group onChange={handleOnChange} name='type'>
                                     <Radio onChange={handleChange}  value='text' name='type'>Text</Radio><br/>
                                     <Radio onChange={handleChange} className='mt-3' value='audio' name='type'>Audio</Radio>  
@@ -238,9 +256,11 @@ const handleSubmit = async (e) => {
                             style={{ display: 'none' }}
                             name='coverPicture'
                             onChange={(event)=>{handleFileCoverChange(event.target.files[0])}}
+                            // onChange={onImageChange}
                             id='coverPicture'
                             
-                            />      
+                            /> 
+                            {errors.coverPicture && (<div className="text-danger errortext">{errors.coverPicture}</div>)}     
                             {errorcover && (<div className="text-danger errortext">{errorcover}</div>)}
 
                         </div>
@@ -253,13 +273,14 @@ const handleSubmit = async (e) => {
                                     name='summary'
                                     onChange={handleChange}
                                     ></textarea>
-                                    <label for="floatingTextarea2">Summery</label>
+                                    <label for="floatingTextarea2">Summary</label>
+                                    {errors.summary && (<div className="text-danger errortext">{errors.summary}</div>)}
                                     </div>
                             </div>
                             
                         </div>
                         <div className='col '>
-                            <img src={cover_book} className='writer-story-addpage-sideimg mt-5'></img>
+                            <img src={image} className='writer-story-addpage-sideimg mt-5' alt='Upload cover Image'></img>
                         </div>
                     </div>
                      
