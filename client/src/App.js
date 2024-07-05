@@ -25,7 +25,6 @@ import WriterEditProfile from "./Components/Writer/WriterEditProfile";
 import ReaderEditProfile from "./Components/Viewer/ReaderEditProfile";
 import WritterMainNav from "./Components/Writer/WritterMainNav";
 import WriterStoryAddPage from "./Components/Writer/WriterStoryAddPage";
-import Readerupgrade from "./Components/Viewer/Readerupgrade";
 
 function App() {
   const url = "http://localhost:4025/";
@@ -44,22 +43,16 @@ function App() {
         <Route path="/writerhome" element={<WriterHome />} />
         <Route path="/readerhome" element={<ReaderHome />} />
         <Route path="/readernav" element={<ViewerMainNav />} />
-        <Route path="/readerupgrade" element={<Readerupgrade />} />
 
 
         {/* Writer */}
-<<<<<<< HEAD
         <Route path="/writer-profile" element={[<WritterMainNav/>,<WriterProfile url={url} />,<Footer/>]} />
         <Route path="/writer-edit-profile" element={[<WritterMainNav/>,<WriterEditProfile url={url} />,<Footer/>]} />
-=======
-        <Route path="/writer-profile" element={[<WritterMainNav/>,<WriterProfile/>,<Footer/>]} />
-        <Route path="/writer-edit-profile/:id" element={[<WritterMainNav/>,<WriterEditProfile/>,<Footer/>]} />
->>>>>>> 49089e35e7ae2852089c0949aff53a2febcdd23a
         <Route path="/writer-add-story" element={[<WritterMainNav/>,<WriterStoryAddPage/>,<Footer/>]} />
 
         {/* Reader */}
-        <Route path="/reader-profile" element={[<ViewerMainNav/>,<ReaderProfile/>,<Footer/>]} />
-        <Route path="/reader-edit-profile/:id" element={[<ViewerMainNav/>,<ReaderEditProfile/>,<Footer/>]} />
+        <Route path="/reader-profile" element={[<ViewerMainNav/>,<ReaderProfile url={url}/>,<Footer/>]} />
+        <Route path="/reader-edit-profile/:id" element={[<ViewerMainNav/>,<ReaderEditProfile url={url}/>,<Footer/>]} />
 
         {/* Admin */}
         <Route path="/adminlogin" element={<AdminLogin />} />

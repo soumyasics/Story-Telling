@@ -1,37 +1,11 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import "./Writer.css";
 import writerprofilebackimg from "../../Assets/writerprofilebackimg.png";
 import axiosInstance from "../../BaseAPIs/axiosinstatnce";
-import { Link } from "react-router-dom";
-function WriterProfile({ url }) {
-  const [data, setData] = useState();
-  const id = localStorage.getItem("writer");
-  console.log(id);
-
-  useEffect(() => {
-    axiosInstance
-      .post(`viewWriterById/${id}`)
-      .then((res) => {
-        console.log(res);
-        setData(res.data.data);
-        console.log(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-=======
-import React, { useEffect, useState } from 'react'
-import './Writer.css'
-import writerprofilebackimg from '../../Assets/writerprofilebackimg.png'
-import writerprofilefrontimg from '../../Assets/writerprofilefrontimg.png'
-import axiosInstance from '../../BaseAPIs/axiosinstatnce';
-import { useNavigate } from 'react-router-dom'
-import { imageUrl } from '../../BaseAPIs/ImageUrl/imgApi';
+import { Link, useNavigate } from "react-router-dom";
 
 
-function WriterProfile() {
+function WriterProfile({url}) {
 
     const[data,setData]=useState({profilePicture:{filename:''}});
     const id=localStorage.getItem('writer')
@@ -69,7 +43,6 @@ const navigateToeditprofile=(id)=>{
 }
   
     
->>>>>>> 49089e35e7ae2852089c0949aff53a2febcdd23a
   return (
     <div>
       <div>
@@ -78,16 +51,11 @@ const navigateToeditprofile=(id)=>{
           className="writer-profile-back-img"
         ></img>
       </div>
-<<<<<<< HEAD
       <div className="text-center">
         <img
-          src={`${url}${data?.profilePicture.filename}`}
-          className="writer-profile-front-img"
+          src={`${url}${data?.profilePicture}`}
+          className="writer-edit-profile-front-img"
         ></img>
-=======
-      <div className='text-center'>
-     <img src={`${imageUrl}/${data.profilePicture.filename}`} className='writer-profile-front-img'></img>
->>>>>>> 49089e35e7ae2852089c0949aff53a2febcdd23a
       </div>
       <div className="row mt-5">
         <div className="col-4"></div>
@@ -113,16 +81,11 @@ const navigateToeditprofile=(id)=>{
           <div className="row">
             <div className="col">
               <label>Category</label>
-            </div>
-<<<<<<< HEAD
+            </div>   
             <div className="col">
               <label className="ms-3">{data?.userCategory}</label>
               <hr></hr>
-=======
-            <div className='text-center mt-5'>
-                <button type='submit' onClick={()=>{navigateToeditprofile(data._id)}} className='writer-profile-editbtn'>Edit Profile</button>
->>>>>>> 49089e35e7ae2852089c0949aff53a2febcdd23a
-            </div>
+            </div>        
           </div>
           <div className="row">
             <div className="col">
@@ -146,7 +109,7 @@ const navigateToeditprofile=(id)=>{
             <Link
               to="/writer-edit-profile"
               type="submit"
-              className="writer-profile-editbtn"
+              className="writer-profile-editbtn text-decoration-none pt-2"
             >
               Edit Profile
             </Link>

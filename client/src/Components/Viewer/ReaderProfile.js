@@ -2,15 +2,10 @@ import React, { useState,useEffect } from 'react'
 import './Reader.css'
 import writerprofilebackimg from '../../Assets/writerprofilebackimg.png'
 import writerprofilefrontimg from '../../Assets/writerprofilefrontimg.png'
-<<<<<<< HEAD
-
-import { Link } from 'react-router-dom'
-=======
 import axiosInstance from '../../BaseAPIs/axiosinstatnce'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,Link } from 'react-router-dom'
 import { imageUrl } from '../../BaseAPIs/ImageUrl/imgApi'
 
->>>>>>> 49089e35e7ae2852089c0949aff53a2febcdd23a
 
 function ReaderProfile() {
     
@@ -107,11 +102,8 @@ const navigateToeditprofile=(id)=>{
                 </div>
             </div>
             <div className='text-center mt-5'>
-<<<<<<< HEAD
-                <Link to="/reader-edit-profile" type='submit' className='reader-profile-editbtn'>Edit Profile</Link>
-=======
+
                 <button type='submit' onClick={()=>{navigateToeditprofile(data._id)}} className='reader-profile-editbtn'>Edit Profile</button>
->>>>>>> 49089e35e7ae2852089c0949aff53a2febcdd23a
             </div>
         </div>
         <div className='col-4'></div>

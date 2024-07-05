@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 function UpgradeToWriter() {
 
-  // const navigate =useNavigate()
+  const navigate =useNavigate()
     useEffect(() => {
         if (
           localStorage.getItem("token") == null &&
@@ -52,7 +52,6 @@ function UpgradeToWriter() {
     }));
   };
 
-  const navigate = useNavigate();
 
   const handleSubmit = () => {
     const { CardNumber, Expirydate, CVV, NameonCard } = data;
