@@ -25,7 +25,6 @@ import WriterEditProfile from "./Components/Writer/WriterEditProfile";
 import ReaderEditProfile from "./Components/Viewer/ReaderEditProfile";
 import WritterMainNav from "./Components/Writer/WritterMainNav";
 import WriterStoryAddPage from "./Components/Writer/WriterStoryAddPage";
-import Readerupgrade from "./Components/Viewer/Readerupgrade";
 import WriterStoryEditPage from "./Components/Writer/WriterStoryEditPage";
 import WriterStoryViewPage from "./Components/Writer/WriterStoryViewPage";
 
@@ -50,7 +49,7 @@ function App() {
 
         {/* Writer */}
         <Route path="/writer-profile" element={[<WritterMainNav/>,<WriterProfile/>,<Footer/>]} />
-        <Route path="/writer-edit-profile/:id" element={[<WritterMainNav/>,<WriterEditProfile/>,<Footer/>]} />
+        <Route path="/writer-edit-profile" element={[<WritterMainNav/>,<WriterEditProfile/>,<Footer/>]} />
         <Route path="/writer-add-customstory" element={[<WritterMainNav/>,<WriterStoryAddPage/>,<Footer/>]} />
         <Route path="/writer-view-customstory" element={[<WritterMainNav/>,<WriterStoryViewPage/>,<Footer/>]} />
         <Route path="/writer-edit-customstory/:id" element={[<WritterMainNav/>,<WriterStoryEditPage/>,<Footer/>]} />

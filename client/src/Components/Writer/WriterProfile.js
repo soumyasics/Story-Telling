@@ -3,6 +3,7 @@ import "./Writer.css";
 import writerprofilebackimg from "../../Assets/writerprofilebackimg.png";
 import axiosInstance from "../../BaseAPIs/axiosinstatnce";
 import { Link, useNavigate } from "react-router-dom";
+import { imageUrl } from "../../BaseAPIs/ImageUrl/imgApi";
 
 
 function WriterProfile({url}) {
@@ -53,7 +54,7 @@ const navigateToeditprofile=(id)=>{
       </div>
       <div className="text-center">
         <img
-          src={`${url}${data?.profilePicture}`}
+          src={`${imageUrl}/${data?.profilePicture}`}
           className="writer-edit-profile-front-img"
         ></img>
       </div>
