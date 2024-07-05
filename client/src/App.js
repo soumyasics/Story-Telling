@@ -46,7 +46,6 @@ function App() {
         <Route path="/writerhome" element={<WriterHome />} />
         <Route path="/readerhome" element={<ReaderHome />} />
         <Route path="/readernav" element={<ViewerMainNav />} />
-        <Route path="/readerupgrade" element={<Readerupgrade />} />
 
 
         {/* Writer */}

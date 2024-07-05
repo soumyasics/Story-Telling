@@ -3,7 +3,7 @@ import './Reader.css'
 import writerprofilebackimg from '../../Assets/writerprofilebackimg.png'
 import writerprofilefrontimg from '../../Assets/writerprofilefrontimg.png'
 import axiosInstance from '../../BaseAPIs/axiosinstatnce'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,Link } from 'react-router-dom'
 import { imageUrl } from '../../BaseAPIs/ImageUrl/imgApi'
 
 
@@ -102,6 +102,7 @@ const navigateToeditprofile=(id)=>{
                 </div>
             </div>
             <div className='text-center mt-5'>
+
                 <button type='submit' onClick={()=>{navigateToeditprofile(data._id)}} className='reader-profile-editbtn'>Edit Profile</button>
             </div>
         </div>
