@@ -67,7 +67,7 @@ function WriterStoryAddPage() {
 const [errorcover , setErrorCover]=useState(null)
 const [erroraudio , setErrorAudio]=useState(null)
 
-// const [image, setImage] = useState(null)
+const [image, setImage] = useState(null)
 
 const handleFileCoverChange = (coverPicture) => {
     if(!coverPicture.name.match(/\.(jpg|jpeg|png|gif)$/)){
@@ -89,13 +89,8 @@ const handleFileAudioChange = (audio) => {
     setAddStoryData({...addstorydata,audio});
     };
 
-const [image, setImage] = useState(null)
 
-// const onImageChange = (event) => {
-//  if (event.target.files && event.target.files[0]) {
-//    setImage(URL.createObjectURL(event.target.files[0]));
-//  }
-// }
+
 const id =localStorage.getItem('writer')
 const handleSubmit = async (e) => {
         e.preventDefault();
@@ -141,10 +136,10 @@ const handleSubmit = async (e) => {
       formData.append("storyCategory", addstorydata.storyCategory);
       formData.append("files", addstorydata.coverPicture);
       formData.append("type", addstorydata.type);
-      if(addstorydata.type === 'text')
+      // if(addstorydata.type === 'text')
       formData.append("text", addstorydata.text);
-      else
-    //   formData.append("files", addstorydata.audio);
+      // else
+      formData.append("files", addstorydata.audio);
 
     
       console.log(formData, "formData");
@@ -256,7 +251,6 @@ const handleSubmit = async (e) => {
                             style={{ display: 'none' }}
                             name='coverPicture'
                             onChange={(event)=>{handleFileCoverChange(event.target.files[0])}}
-                            // onChange={onImageChange}
                             id='coverPicture'
                             
                             /> 

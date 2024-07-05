@@ -159,6 +159,7 @@
     width: 100px;
     border: 1px solid #000000;
     color: #fff;
+    margin-left: 300px;
 }
 .writer-story-addpage-profileimg{
     height: 60px;
@@ -185,4 +186,22 @@
     border: none;
     color: #000000;
     font-size: 20px;
+}
+
+/* Writer Story Edit Page */
+
+.writer-story-editpage-savebtn{
+    background: linear-gradient(180deg, #B9B7B7 0%, #535252 67%);
+    height: 40px;
+    width: 100px;
+    border: 1px solid #000000;
+    margin-left: 50px;
+    color: #fff; 
+}
+.writer-story-editpage-editbtn{
+    background: linear-gradient(180deg, #B9B7B7 0%, #535252 67%);
+    height: 40px;
+    width: 100px;
+    border: 1px solid #000000;
+    color: #fff;
 }
