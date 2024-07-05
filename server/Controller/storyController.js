@@ -17,14 +17,18 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage: storage }).array("files",2);
+const upload = multer({ storage: storage }).fields([
+  { name: 'audio', maxCount: 1 },
+  { name: 'coverPicture', maxCount: 1 }
+]);
 
 const addStory = (req, res) => {
  
 
     const {title, summary, storyCategory, type,text } = req.body;
-    const audio = type === 'audio' && req.file ? req.file.path : null;
-
+    const audio = type === 'audio' && req.files.audio ? req.files.audio[0] : null;
+    const coverPicture = req.files.coverPicture ? req.files.coverPicture[0] : null;
+ 
     if (type === 'audio' && !audio) {
       return res.status(400).json({ status: 400, message: "Audio file is required for audio type stories" });
     }
@@ -38,8 +42,8 @@ const addStory = (req, res) => {
       type,
       text,
       writerId:req.params.id,
-      coverPicture:req.files[0],
-      audio:req.files[1],
+      coverPicture:coverPicture,
+      audio:audio,
     });
 
     newStory.save()
