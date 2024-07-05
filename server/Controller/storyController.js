@@ -17,14 +17,18 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage: storage }).array("files",2);
+const upload = multer({ storage: storage }).fields([
+  { name: 'audio', maxCount: 1 },
+  { name: 'coverPicture', maxCount: 1 }
+]);
 
 const addStory = (req, res) => {
  
 
     const {title, summary, storyCategory, type,text } = req.body;
-    const audio = type === 'audio' && req.file ? req.file.path : null;
-
+    const audio = type === 'audio' && req.files.audio ? req.files.audio[0] : null;
+    const coverPicture = req.files.coverPicture ? req.files.coverPicture[0] : null;
+ 
     if (type === 'audio' && !audio) {
       return res.status(400).json({ status: 400, message: "Audio file is required for audio type stories" });
     }
@@ -38,8 +42,8 @@ const addStory = (req, res) => {
       type,
       text,
       writerId:req.params.id,
-      coverPicture:req.files[0],
-      audio:req.files[1],
+      coverPicture:coverPicture,
+      audio:audio,
     });
 
     newStory.save()
@@ -189,6 +193,25 @@ const editStory = (req, res) => {
         });
     });
   };
+
+  // publish story
+const publishStoryById = (req, res) => {
+  Story.findByIdAndUpdate({_id:req.params.id},{published:true})
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        msg: "Data updated successfully",
+        data: data,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        msg: "No Data updated",
+        Error: err,
+      });
+    });
+};
   
 module.exports = {
   addStory,
@@ -197,5 +220,6 @@ module.exports = {
   deleteStoryById,
   viewStoriesByWriterId,
   editStory,
-  upload
+  upload,
+  publishStoryById
 };

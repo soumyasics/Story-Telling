@@ -7,7 +7,7 @@ const sSchema=mongoose.Schema({
         required:true,
        
     },
-   title:{
+    title:{
         type:String,
         required:true,
        
@@ -16,8 +16,7 @@ const sSchema=mongoose.Schema({
         type:String,
         required:true,
     },
-   
-    date:{
+   date:{
         type:Date,
         required:true
     },
