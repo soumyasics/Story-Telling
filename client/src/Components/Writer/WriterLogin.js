@@ -61,44 +61,38 @@ function WriterLogin({ userrole }) {
     const formErrors = validateForm();
     let errors = {
       email: formValidating("Email", data.email),
-      password: formValidating("Password", data.password)
+      password: formValidating("Password", data.password),
     };
     setErrors(errors);
-  
+
     if (!errors.email && !errors.password) {
       const apiEndpoint = userrole === "Writer" ? "/login" : "/loginReader";
-  
       axiosInstance
         .post(apiEndpoint, data)
         .then((result) => {
           console.log(result, "Response received");
-  
+
           if (result.data.status === 405) {
             alert(result.data.msg);
             return;
           }
-  
           const userData = result.data.data;
           const userCategory = userData.userCategory;
-  
           if (userCategory === "reader") {
-           
-              alert("Login Success")
-              localStorage.setItem("token", result.data.token);
-              localStorage.setItem("reader", userData._id);
-              setTimeout(() => {
-                Navigate("/readerhome");
-              }, 1500);
-            
+            alert("Login Success");
+            localStorage.setItem("token", result.data.token);
+            localStorage.setItem("reader", userData._id);
+            setTimeout(() => {
+              Navigate("/readerhome");
+            }, 1500);
           } else if (userCategory === "writer") {
             localStorage.setItem("token", result.data.token);
-            localStorage.setItem("writer", userData._id)
+            localStorage.setItem("writer", userData._id);
             if (userData.adminApproved == true) {
               if (userData.paymentStatus == true) {
-                alert("Login Success")
-               
+                alert("Login Success");
+
                 setTimeout(() => {
-                  
                   Navigate("/writerhome");
                 }, 1500);
               } else {
@@ -121,7 +115,6 @@ function WriterLogin({ userrole }) {
         });
     }
   };
-  
 
   return (
     <div>
@@ -192,40 +185,3 @@ function WriterLogin({ userrole }) {
 
 export default WriterLogin;
 
-// if (a == reader) {
-//   if (result.data.status === 405) {
-//     alert(result.data.msg);
-//   } else {
-//     if (isActive == true) {
-//       localStorage.setItem("token", result.data.token);
-//       localStorage.setItem("writer", result.data.data._id);
-//       setTimeout(() => {
-//         Navigate("/readerhome");
-//       }, 1500);
-//     } else {
-//       alert("waiting for admin aproval");
-//     }
-//   }
-// } else {
-//   if (a === writer) {
-//     if (result.data.status === 405) {
-//       alert(result.data.msg);
-//     } else {
-//       if (isActive == true) {
-//         if (payment == true) {
-//           localStorage.setItem("token", result.data.token);
-//           localStorage.setItem("writer", result.data.data._id);
-//           setTimeout(() => {
-//             Navigate("/writerhome");
-//           }, 1500);
-//         } else {
-//           setTimeout(() => {
-//             Navigate("/upgrade");
-//           }, 1500);
-//         }
-//       } else {
-//         alert("waiting for admin");
-//       }
-//     }
-//   }
-// }
