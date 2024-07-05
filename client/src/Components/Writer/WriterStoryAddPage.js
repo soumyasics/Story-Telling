@@ -134,12 +134,12 @@ const handleSubmit = async (e) => {
       formData.append("title", addstorydata.title);
       formData.append("summary", addstorydata.summary);
       formData.append("storyCategory", addstorydata.storyCategory);
-      formData.append("files", addstorydata.coverPicture);
+      formData.append("coverPicture", addstorydata.coverPicture);
       formData.append("type", addstorydata.type);
-      // if(addstorydata.type === 'text')
+      if(addstorydata.type === 'text')
       formData.append("text", addstorydata.text);
-      // else
-      formData.append("files", addstorydata.audio);
+      else
+      formData.append("audio", addstorydata.audio);
 
     
       console.log(formData, "formData");
