@@ -193,6 +193,25 @@ const editStory = (req, res) => {
         });
     });
   };
+
+  // publish story
+const publishStoryById = (req, res) => {
+  Story.findByIdAndUpdate({_id:req.params.id},{published:true})
+    .exec()
+    .then((data) => {
+      res.status(200).json({
+        msg: "Data updated successfully",
+        data: data,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        msg: "No Data updated",
+        Error: err,
+      });
+    });
+};
   
 module.exports = {
   addStory,
@@ -201,5 +220,6 @@ module.exports = {
   deleteStoryById,
   viewStoriesByWriterId,
   editStory,
-  upload
+  upload,
+  publishStoryById
 };
