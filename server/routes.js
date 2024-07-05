@@ -44,6 +44,7 @@ router.post("/viewStoryById/:id", Story.viewStoryById);
 router.post("/viewStoriesByWriterId/:id", Story.viewStoriesByWriterId);
 router.post("/deleteStoryById/:id", Story.deleteStoryById);
 router.post("/viewAllStories", Story.viewAllStories);
+router.post("/publishStory/:id", Story.publishStory);
 
 
 
