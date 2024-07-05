@@ -1,12 +1,39 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import './Writer.css'
 import bg from '../../Assets/bg.png'
 import { Form, Radio, Input } from "antd";
 import { FaCamera } from "react-icons/fa";
+import axiosInstance from '../../BaseAPIs/axiosinstatnce';
+import {useNavigate} from 'react-router-dom'
+import { imageUrl } from '../../BaseAPIs/ImageUrl/imgApi';
 
 
 
 function WriterStoryEditPage() {
+
+    const navigate =useNavigate();
+    const [id, setId]= useState(localStorage.getItem("writer"));
+
+  useEffect(()=>{
+    if(localStorage.getItem("token")== null && localStorage.getItem("writer") == null ){
+      navigate("/");
+    }
+  },[navigate]);
+
+    const [writerdata , setWriterData]=useState({profilePicture:{filename:''}});
+
+  useEffect(()=>{
+    axiosInstance.post(`/viewWriterById/${id}`)
+    .then((res)=>{
+        console.log(res,"res");
+        setWriterData(res.data.data)
+        console.log(writerdata,"writerdata");
+    })
+    .catch((err)=>{
+      alert.error("Failed to fetch user details")
+  });
+  },[])
+
     const [textb, setState] =useState({
         showTextBox: false,
         showFileUpload:false,
@@ -36,10 +63,10 @@ function WriterStoryEditPage() {
                 
                 
                 <div className='col-3 text-center'>
-                    <img src={bg} className='writer-story-addpage-profileimg mt-3'></img>
+                    <img src={`${imageUrl}/${writerdata.profilePicture.filename}`} className='writer-story-addpage-profileimg mt-3'></img>
                 </div>
                 <div className='col-5'>
-                    <button className='mt-4 writer-story-addpage-publishbtn'>Publish</button>
+                    <button className='mt-4 writer-story-editpage-publishbtn'>Publish</button>
                 </div>
             </div>
         </div>

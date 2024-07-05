@@ -6,14 +6,39 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { FaCamera } from "react-icons/fa";
 import { Form, Radio, Input } from "antd";
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import axiosMultipartInstance from '../../BaseAPIs/AxiosMultipartInstance';
+import axiosInstance from '../../BaseAPIs/axiosinstatnce';
 import {useNavigate} from 'react-router-dom'
+import { imageUrl } from '../../BaseAPIs/ImageUrl/imgApi';
+
 function WriterStoryAddPage() {
 
     const navigate=useNavigate();
+
     
-    const draftStory={}
+    
+    const [id, setId]= useState(localStorage.getItem("writer"));
+
+  useEffect(()=>{
+    if(localStorage.getItem("token")== null && localStorage.getItem("writer") == null ){
+      navigate("/");
+    }
+  },[navigate]);
+
+    const [writerdata , setWriterData]=useState({profilePicture:{filename:''}});
+
+  useEffect(()=>{
+    axiosInstance.post(`/viewWriterById/${id}`)
+    .then((res)=>{
+        console.log(res,"res");
+        setWriterData(res.data.data)
+        console.log(writerdata,"writerdata");
+    })
+    .catch((err)=>{
+      alert.error("Failed to fetch user details")
+  });
+  },[])
 
     
       const [textb, setState] =useState({
@@ -91,7 +116,6 @@ const handleFileAudioChange = (audio) => {
 
 
 
-const id =localStorage.getItem('writer')
 const handleSubmit = async (e) => {
         e.preventDefault();
     
@@ -153,8 +177,8 @@ const handleSubmit = async (e) => {
         }
         console.log("Response:", response);
         if (response.status == 200) {
-          alert(response.data.msg);
-        //   navigate("/investor/login");
+          alert(response.data.message);
+          alert("Would you Like to Publish your Story")
         }
       } catch (error) {
         console.error("Error:", error);
@@ -177,7 +201,7 @@ const handleSubmit = async (e) => {
             <div className='row'>
                 <div className='col-3'></div>
                 <div className='col-5 text-center'>
-                    <img src={bg} className='writer-story-addpage-profileimg mt-3'></img>
+                    <img src={`${imageUrl}/${writerdata.profilePicture.filename}`} className='writer-story-addpage-profileimg mt-3'></img>
                 </div>
                 <div className='col-4'>
                     <button className='mt-4 me-5 writer-story-addpage-draftbtn'>SaveAs Draft</button>
