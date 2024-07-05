@@ -254,5 +254,6 @@ module.exports = {
   deleteStoryById,
   viewStoriesByWriterId,
   editStory,
-  upload
+  upload,
+  publishStory
 };
