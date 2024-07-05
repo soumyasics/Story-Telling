@@ -145,28 +145,29 @@ const viewStoriesByWriterId = (req, res) => {
 };
 
 const editStory = (req, res) => {
-    upload.single('audio')(req, res, (err) => {
-      if (err) {
-        return res.status(400).json({ status: 400, message: err.message });
-      }
+ 
   
-      const { writerId, title, summary, date, storyCategory, type, isActive } = req.body;
-      const audio = type === 'audio' && req.file ? req.file.path : null;
-  
-      if (type === 'audio' && !audio) {
-        return res.status(400).json({ status: 400, message: "Audio file is required for audio type stories" });
-      }
+  const {title, summary, storyCategory, type,text } = req.body;
+  const audio = type === 'audio' && req.files.audio ? req.files.audio[0] : null;
+  const coverPicture = req.files.coverPicture ? req.files.coverPicture[0] : null;
+
+  if (type === 'audio' && !audio) {
+    return res.status(400).json({ status: 400, message: "Audio file is required for audio type stories" });
+  }
   
       const updateData = {
-        writerId,
         title,
         summary,
-        date,
+        date:new Date(),
         storyCategory,
         type,
-        isActive,
+        text
+ 
       };
   
+      if (coverPicture) {
+        updateData.coverPicture = coverPicture;
+      }
       if (audio) {
         updateData.audio = audio;
       }
@@ -191,26 +192,59 @@ const editStory = (req, res) => {
             error: err,
           });
         });
-    });
+
   };
 
-  // publish story
-const publishStoryById = (req, res) => {
-  Story.findByIdAndUpdate({_id:req.params.id},{published:true})
-    .exec()
-    .then((data) => {
-      res.status(200).json({
-        msg: "Data updated successfully",
-        data: data,
+  
+const publishStory = (req, res) => {
+  
+
+  const {title, summary, storyCategory, type,text } = req.body;
+  const audio = type === 'audio' && req.files.audio ? req.files.audio[0] : null;
+  const coverPicture = req.files.coverPicture ? req.files.coverPicture[0] : null;
+
+  if (type === 'audio' && !audio) {
+    return res.status(400).json({ status: 400, message: "Audio file is required for audio type stories" });
+  }
+
+    const updateData = {
+      title,
+      summary,
+      date:new Date(),
+      storyCategory,
+      type,
+      text,
+   published:true
+      
+    };
+
+    if (audio) {
+      updateData.audio = audio;
+    }
+    if (coverPicture) {
+      updateData.coverPicture = coverPicture;
+    }
+    Story.findByIdAndUpdate(req.params.id, updateData, { new: true })
+      .exec()
+      .then(updatedStory => {
+        if (!updatedStory) {
+          return res.status(404).json({ status: 404, message: "Story not found" });
+        }
+        res.json({
+          status: 200,
+          message: "Story updated successfully",
+          data: updatedStory,
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).json({
+          status: 500,
+          message: "Error updating story",
+          error: err,
+        });
       });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({
-        msg: "No Data updated",
-        Error: err,
-      });
-    });
+ 
 };
   
 module.exports = {
@@ -221,5 +255,5 @@ module.exports = {
   viewStoriesByWriterId,
   editStory,
   upload,
-  publishStoryById
+  publishStory
 };
