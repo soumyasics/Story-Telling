@@ -53,10 +53,10 @@ const addDislike = async (req, res) => {
         let like = await Like.findOne({ storyId, readerId, writerId });
 
         if (like) {
-            // Toggle the dislike status
+         
             like.disliked = !like.disliked;
         } else {
-            // Create a new like if not found
+           
             like = new Like({
                 storyId,
                 disliked: true,
@@ -64,8 +64,6 @@ const addDislike = async (req, res) => {
                 writerId
             });
         }
-
-        // Ensure liked is false if disliked is true
         if (like.disliked) {
             like.liked = false;
         }
@@ -85,7 +83,49 @@ const addDislike = async (req, res) => {
     }
 };
 
+// Count likes for a story
+const countLikes = async (req, res) => {
+    const { storyId } = req.params;
+
+    try {
+        const likeCount = await Like.countDocuments({ storyId, liked: true });
+        res.status(200).json({
+            status: 200,
+            msg: "Like count retrieved successfully",
+            count: likeCount
+        });
+    } catch (err) {
+        res.status(500).json({
+            status: 500,
+            msg: "Failed to retrieve like count",
+            Error: err.message
+        });
+    }
+};
+
+// Count dislikes for a story
+const countDislikes = async (req, res) => {
+    const { storyId } = req.params;
+
+    try {
+        const dislikeCount = await Like.countDocuments({ storyId, disliked: true });
+        res.status(200).json({
+            status: 200,
+            msg: "Dislike count retrieved successfully",
+            count: dislikeCount
+        });
+    } catch (err) {
+        res.status(500).json({
+            status: 500,
+            msg: "Failed to retrieve dislike count",
+            Error: err.message
+        });
+    }
+};
+
 module.exports = {
     addLike,
-    addDislike
+    addDislike,
+    countDislikes,
+    countLikes
 };
