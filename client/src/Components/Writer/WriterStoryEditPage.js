@@ -42,7 +42,7 @@ function WriterStoryEditPage() {
         console.log(writerdata,"writerdata");
     })
     .catch((err)=>{
-      alert.error("Failed to fetch user details")
+      alert("Failed to fetch user details")
   });
   },[])
 
@@ -68,7 +68,7 @@ function WriterStoryEditPage() {
           console.log(storydata,"storydata");
       })
       .catch((err)=>{
-        alert.error("Failed to fetch user details")
+        alert("Failed to fetch user details")
     });
     },[])
 
