@@ -76,8 +76,10 @@ function WriterLogin({ userrole }) {
             alert(result.data.msg);
             return;
           }
+
           const userData = result.data.data;
           const userCategory = userData.userCategory;
+
           if (userCategory === "reader") {
             alert("Login Success");
             localStorage.setItem("token", result.data.token);

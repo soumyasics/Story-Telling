@@ -30,6 +30,7 @@ router.post("/registerReader", Reader.upload, Reader.registerReader);
 router.post("/loginReader", Reader.login);
 router.post("/viewReaderById/:id", Reader.viewReaderById);
 router.post("/upgradeToWriter/:id", Reader.upgradeToWriter);
+router.post("/viewreaderprofile/:id", Reader.viewReaderById);
 router.post("/editReaderById/:id", Reader.upload,Reader.editReaderById);
 router.post("/deleteReaderById/:id", Reader.deleteReaderById);
 router.post("/viewReaderById/:id", Reader.viewReaderById);
