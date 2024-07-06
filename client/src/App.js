@@ -31,9 +31,9 @@ import AllReader from "./Components/Viewer/AllRreader";
 import WriterViewStories from "./Components/Writer/WriterViewStories";
 
 function App() {
-  const url = "http://localhost:4025/";
+  // const url = "http://localhost:4025/";
 
-  // const url= "http://hybrid.srishticampus.in:4025/"
+  const url= "http://hybrid.srishticampus.in:4025/"
 
   return (
     <BrowserRouter basename="/story_telling">
