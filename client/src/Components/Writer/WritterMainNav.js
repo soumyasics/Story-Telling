@@ -47,7 +47,8 @@ function WritterMainNav() {
             </div>
             <Navbar.Collapse id="responsive-navbar-nav text-light  bg-light">
               <Nav className="me-auto"></Nav>
-              <Nav><Link to='/writer-profile' className="writer-mainnav-link">Profile</Link></Nav>
+              <Nav><Link className="raeder-profile-link" to='/writerhome'>Home</Link></Nav>
+              <Nav><Link to='/writer-profile' className="writer-mainnav-link ms-4">Profile</Link></Nav>
               <Nav>
               <div class="ms-3 dropdown">
                   <button class="dropbtn">Customised Story</button>

@@ -25,7 +25,6 @@ import WriterEditProfile from "./Components/Writer/WriterEditProfile";
 import ReaderEditProfile from "./Components/Viewer/ReaderEditProfile";
 import WritterMainNav from "./Components/Writer/WritterMainNav";
 import WriterStoryAddPage from "./Components/Writer/WriterStoryAddPage";
-import Readerupgrade from "./Components/Viewer/Readerupgrade";
 import WriterStoryEditPage from "./Components/Writer/WriterStoryEditPage";
 import WriterStoryViewPage from "./Components/Writer/WriterStoryViewPage";
 import WriterViewStories from "./Components/Writer/WriterViewStories";
@@ -47,12 +46,11 @@ function App() {
         <Route path="/writerhome" element={<WriterHome />} />
         <Route path="/readerhome" element={<ReaderHome />} />
         <Route path="/readernav" element={<ViewerMainNav />} />
-        <Route path="/readerupgrade" element={<Readerupgrade />} />
 
 
         {/* Writer */}
-        <Route path="/writer-profile" element={[<WritterMainNav/>,<WriterProfile/>,<Footer/>]} />
-        <Route path="/writer-edit-profile/:id" element={[<WritterMainNav/>,<WriterEditProfile/>,<Footer/>]} />
+        <Route path="/writer-profile" element={[<WritterMainNav/>,<WriterProfile url={url} />,<Footer/>]} />
+        <Route path="/writer-edit-profile" element={[<WritterMainNav/>,<WriterEditProfile/>,<Footer/>]} />
         <Route path="/writer-add-customstory" element={[<WritterMainNav/>,<WriterStoryAddPage/>,<Footer/>]} />
         <Route path="/writer-view-customstory" element={[<WritterMainNav/>,<WriterStoryViewPage/>,<Footer/>]} />
         <Route path="/writer-edit-customstory/:id" element={[<WritterMainNav/>,<WriterStoryEditPage/>,<Footer/>]} />
@@ -61,9 +59,8 @@ function App() {
 
 
         {/* Reader */}
-        <Route path="/reader-profile" element={[<ViewerMainNav/>,<ReaderProfile/>,<Footer/>]} />
-        <Route path="/reader-edit-profile/:id" element={[<ViewerMainNav/>,<ReaderEditProfile/>,<Footer/>]} />
-        
+        <Route path="/reader-profile" element={[<ViewerMainNav/>,<ReaderProfile url={url}/>,<Footer/>]} />
+        <Route path="/reader-edit-profile" element={[<ViewerMainNav/>,<ReaderEditProfile/>,<Footer/>]} />
 
         {/* Admin */}
         <Route path="/adminlogin" element={<AdminLogin />} />
