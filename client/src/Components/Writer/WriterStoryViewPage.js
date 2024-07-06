@@ -36,7 +36,7 @@ function WriterStoryViewPage() {
         console.log(tempm,"tempm");
     })
     .catch((err)=>{
-      alert.error("Failed to fetch user details")
+      alert("Failed to fetch user details")
   });
   },[])
 
@@ -50,7 +50,7 @@ function WriterStoryViewPage() {
         console.log(writerdata,"writerdata");
     })
     .catch((err)=>{
-      alert.error("Failed to fetch user details")
+      alert("Failed to fetch user details")
   });
   },[])
   return (

@@ -31,7 +31,7 @@ function WriterViewStories() {
         console.log(writerdata,"writerdata");
     })
     .catch((err)=>{
-      alert.error("Failed to fetch user details")
+      alert("Failed to fetch user details")
   });
   },[])
   return (
