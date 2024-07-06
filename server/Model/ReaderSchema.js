@@ -50,10 +50,7 @@ isActive:{
     type:Boolean,
     default:true
 }
-, adminApproved:{
-    type:Boolean,
-    default:false
-}
+
 });
 module.exports=mongoose.model('readers',readerSchema)
 

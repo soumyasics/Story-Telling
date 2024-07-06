@@ -147,7 +147,7 @@ function WriterRegister({ userrole }) {
           if (result.data.status === 409) {
             alert(result.data.msg);
           } else {
-            alert("Waiting for Admin approval..");
+            alert("Register successfully");
             setTimeout(() => {
               navigate("/login");
             }, 1500);
