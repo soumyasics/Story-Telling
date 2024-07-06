@@ -40,6 +40,7 @@ router.post("/viewallreaders", Reader.viewReaders);
 
 //Story
 router.post("/addStory/:id", Story.upload,Story.addStory);
+router.post("/publishStory/:id", Story.upload,Story.publishStory);
 router.post("/editStory/:id", Story.editStory);
 router.post("/publishStoryById/:id", Story.publishStory);
 router.post("/viewStoryById/:id", Story.viewStoryById);

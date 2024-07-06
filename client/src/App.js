@@ -28,6 +28,7 @@ import WriterStoryAddPage from "./Components/Writer/WriterStoryAddPage";
 import WriterStoryEditPage from "./Components/Writer/WriterStoryEditPage";
 import WriterStoryViewPage from "./Components/Writer/WriterStoryViewPage";
 import AllReader from "./Components/Viewer/AllRreader";
+import WriterViewStories from "./Components/Writer/WriterViewStories";
 
 function App() {
   const url = "http://localhost:4025/";
@@ -54,6 +55,8 @@ function App() {
         <Route path="/writer-add-customstory" element={[<WritterMainNav/>,<WriterStoryAddPage/>,<Footer/>]} />
         <Route path="/writer-view-customstory" element={[<WritterMainNav/>,<WriterStoryViewPage/>,<Footer/>]} />
         <Route path="/writer-edit-customstory/:id" element={[<WritterMainNav/>,<WriterStoryEditPage/>,<Footer/>]} />
+        <Route path="/writer-view-stories" element={[<WritterMainNav/>,<WriterViewStories/>,<Footer/>]} />
+
 
 
         {/* Reader */}

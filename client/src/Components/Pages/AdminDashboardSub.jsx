@@ -44,7 +44,7 @@ function AdminDashboardSub() {
     },
     {
       name: "Agu",
-      reader: 100,
+      reader: 200,
       writer: 200,
     },{
       name: "Sep",
@@ -64,7 +64,7 @@ function AdminDashboardSub() {
     {
       name: "dec",
       reader: 100,
-      writer: 200,
+      writer: 300,
     },
   ];
 

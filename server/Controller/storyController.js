@@ -22,6 +22,7 @@ const upload = multer({ storage: storage }).fields([
   { name: 'coverPicture', maxCount: 1 }
 ]);
 
+
 const addStory = (req, res) => {
  
 
@@ -44,6 +45,7 @@ const addStory = (req, res) => {
       writerId:req.params.id,
       coverPicture:coverPicture,
       audio:audio,
+      published:false
     });
 
     newStory.save()
@@ -62,6 +64,51 @@ const addStory = (req, res) => {
         });
       });
 };
+
+// publish story
+
+const publishStory = (req, res) => {
+ 
+
+  const {title, summary, storyCategory, type,text } = req.body;
+  const audio = type === 'audio' && req.files.audio ? req.files.audio[0] : null;
+  const coverPicture = req.files.coverPicture ? req.files.coverPicture[0] : null;
+
+  if (type === 'audio' && !audio) {
+    return res.status(400).json({ status: 400, message: "Audio file is required for audio type stories" });
+  }
+
+  const newStory = new Story({
+    
+    title,
+    summary,
+    date:new Date(),
+    storyCategory,
+    type,
+    text,
+    writerId:req.params.id,
+    coverPicture:coverPicture,
+    audio:audio,
+    published:true
+  });
+
+  newStory.save()
+    .then(data => {
+      res.json({
+        status: 200,
+        message: "Story added successfully",
+        data: data,
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      res.json({
+        err: err,
+        status: 500,
+      });
+    });
+};
+
 
 const viewAllStories = (req, res) => {
   Story.find()
@@ -147,6 +194,14 @@ const viewStoriesByWriterId = (req, res) => {
 const editStory = (req, res) => {
  
   
+<<<<<<< HEAD
+      const { writerId, title, summary, date,text, storyCategory, type } = req.body;
+      const audio = type === 'audio' && req.file ? req.file.path : null;
+  
+      if (type === 'audio' && !audio) {
+        return res.status(400).json({ status: 400, message: "Audio file is required for audio type stories" });
+      }
+=======
   const {title, summary, storyCategory, type,text } = req.body;
   const audio = type === 'audio' && req.files.audio ? req.files.audio[0] : null;
   const coverPicture = req.files.coverPicture ? req.files.coverPicture[0] : null;
@@ -154,6 +209,7 @@ const editStory = (req, res) => {
   if (type === 'audio' && !audio) {
     return res.status(400).json({ status: 400, message: "Audio file is required for audio type stories" });
   }
+>>>>>>> 08e667febc02e2917ddb724bb35d6d11757f5f9a
   
       const updateData = {
         title,
@@ -161,8 +217,14 @@ const editStory = (req, res) => {
         date:new Date(),
         storyCategory,
         type,
+<<<<<<< HEAD
+        text,
+        coverPicture:coverPicture,
+        audio:audio,
+=======
         text
  
+>>>>>>> 08e667febc02e2917ddb724bb35d6d11757f5f9a
       };
   
       if (coverPicture) {
@@ -249,6 +311,7 @@ const publishStory = (req, res) => {
   
 module.exports = {
   addStory,
+  publishStory,
   viewAllStories,
   viewStoryById,
   deleteStoryById,
