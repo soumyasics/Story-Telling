@@ -311,3 +311,54 @@
 
 }
 
+/* writer view stories */
+
+.writer-viewstory-navdiv{
+    background-color: #535252;
+    height: 13vh;
+    width: 100%;
+ 
+}
+
+    .writer-viewstory-profileimg{
+        height: 60px;
+        width: 60px;
+        border-radius: 50px;
+        margin-left: -110px;
+    }
+
+    .writer-viewstory-name{
+        color: #fff;
+        margin-left: -170px;
+        margin-top: 30px;
+    }
+
+    .writer-viewstory-readbtn{
+        background: linear-gradient(180deg, #B9B7B7 0%, #535252 67%);
+        height: 40px;
+        width: 120px;
+        border: 1px solid #000000;
+        margin-left: 400px;
+        color: #fff; 
+    }
+    .writer-viewstory-listenbtn{
+        background: linear-gradient(180deg, #B9B7B7 0%, #535252 67%);
+        height: 40px;
+        width: 120px;
+        border: 1px solid #000000;
+        margin-left: 20px;
+        color: #fff; 
+    }
+
+    .writer-viewstory-categoryimg{
+        width: 186px;
+        height: 268px;
+        box-shadow: 8px 9px 4px 0px #00000040;
+
+
+    }
+
+    /* .writer-viewstory-categoryview{
+
+    } */
+
