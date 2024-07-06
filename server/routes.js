@@ -34,13 +34,14 @@ router.post("/viewreaderprofile/:id", Reader.viewReaderById);
 router.post("/editReaderById/:id", Reader.upload,Reader.editReaderById);
 router.post("/deleteReaderById/:id", Reader.deleteReaderById);
 router.post("/viewReaderById/:id", Reader.viewReaderById);
+router.post("/viewallreaders", Reader.viewReaders);
 
 
 
 //Story
 router.post("/addStory/:id", Story.upload,Story.addStory);
 router.post("/editStory/:id", Story.editStory);
-router.post("/publishStoryById/:id", Story.publishStoryById);
+router.post("/publishStoryById/:id", Story.publishStory);
 router.post("/viewStoryById/:id", Story.viewStoryById);
 router.post("/viewStoriesByWriterId/:id", Story.viewStoriesByWriterId);
 router.post("/deleteStoryById/:id", Story.deleteStoryById);

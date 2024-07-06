@@ -22,6 +22,9 @@ function AdminSidebar() {
   const AllWriters = () => {
     navigate("/writers");
   };
+  const AllReaders = () => {
+    navigate("/readers");
+  };
 
   return (
     <div className="adminsidebarmain">
@@ -51,7 +54,7 @@ function AdminSidebar() {
         </div>
         <div className="fs-3 text-light ms-4 my-3">Menu</div>
         <div className="row sidebardashboard p-1 ms-2 ">
-          <div className="col-10">
+          <div className="col-10"  onClick={AllReaders}>
             <img src={reader} className="ms-3"></img>
             <label className="ms-2 mt-2">
               <b>Readers</b>

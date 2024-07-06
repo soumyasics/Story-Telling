@@ -38,8 +38,9 @@ function ReaderProfile() {
 },[id])
 
 
-
-
+const navigateToEdit=(id)=>{
+  navigate("/reader-edit-profile/"+id)
+}
 
   return (
     <div>
@@ -101,7 +102,7 @@ function ReaderProfile() {
             </div>
             <div className='text-center mt-5'>
 
-                <button type='submit' className='reader-profile-editbtn'>Edit Profile</button>
+                <button onClick={()=>navigateToEdit(data._id)} type='submit' className='reader-profile-editbtn'>Edit Profile</button>
             </div>
           </div>
           <div className='col-4'></div>
