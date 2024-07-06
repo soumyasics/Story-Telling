@@ -48,6 +48,10 @@ const sSchema=mongoose.Schema({
     published:{
         type:Boolean,
         required:true
+    },
+    rating:{
+        type:Number,
+        default:0
     }
    
     
