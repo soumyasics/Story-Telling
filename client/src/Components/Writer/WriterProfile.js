@@ -53,10 +53,13 @@ const navigateToeditprofile=(id)=>{
         ></img>
       </div>
       <div className="text-center">
+      {profile && (
         <img
-          src={`${imageUrl}/${data?.profilePicture}`}
+          src={`${imageUrl}/${profile.filename ? profile.filename : profile}`}
           className="writer-edit-profile-front-img"
+          alt="Profile"
         ></img>
+      )}
       </div>
       <div className="row mt-5">
         <div className="col-4"></div>

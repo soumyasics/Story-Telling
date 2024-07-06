@@ -24,6 +24,29 @@ function WriterList({ url }) {
       });
   }
 
+
+  const toggleShopOwnerStatus = (id, currentStatus) => {
+    const endpoint = currentStatus ? "/deActivateWriterById/" : "/activateWriterById/";
+    axiosInstance
+      .post(endpoint + id)
+      .then((res) => {
+        if (res.status === 200) {
+          let msg = res?.data?.message || `Writer is now ${currentStatus ? "Inactive" : "Active"}`;
+          alert(msg);
+          getData();
+          setData(prevState => ({
+            ...prevState,
+            ActiveStatus: !currentStatus
+          }));
+        } else {
+          console.log("Error on status change");
+        }
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
+
   return (
     <div className="m-3">
       <div className="shopownerpendingrequestdiv">
@@ -77,7 +100,13 @@ function WriterList({ url }) {
                   <div className="col-2">{item.contact}</div>
                   <div className="col-1">{item.age}</div>
                   <div className="col-2">
-                    <div className="btn btn-secondary">To Deactivate</div>
+                   
+                     <button
+                        onClick={() => toggleShopOwnerStatus(item._id, item.isActive)}
+                        className="btn btn-success rounded-pill"
+                      >
+                        {item.isActive ? "To DeActivate" : "To Activate"}
+                      </button>
                   </div>
                 </div>
               ))}
