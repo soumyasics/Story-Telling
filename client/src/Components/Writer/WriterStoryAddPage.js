@@ -36,7 +36,7 @@ function WriterStoryAddPage() {
         console.log(writerdata,"writerdata");
     })
     .catch((err)=>{
-      alert.error("Failed to fetch user details")
+      alert("Failed to fetch user details")
   });
   },[])
 
@@ -177,8 +177,7 @@ const handleSubmit = async (e) => {
         }
         console.log("Response:", response);
         if (response.status == 200) {
-          alert(response.data.message);
-          alert("Would you Like to Publish your Story")
+          alert("Save As Draft");
         }
       } catch (error) {
         console.error("Error:", error);
@@ -190,6 +189,26 @@ const handleSubmit = async (e) => {
       console.log("Data entered", addstorydata);
     }
   };
+
+  const publishStory= async ()=>{
+    try {
+      var response;
+      if (addstorydata) {
+        response = await axiosMultipartInstance.post(
+          `/publishStory/${id}`,
+          addstorydata
+        );
+      }
+      console.log("Response:", response);
+      if (response.status == 200) {
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      let msg = error?.response?.data?.msg || "Error occurred";
+      alert(msg);
+    }
+  }
 
 
     
@@ -205,7 +224,7 @@ const handleSubmit = async (e) => {
                 </div>
                 <div className='col-4'>
                     <button className='mt-4 me-5 writer-story-addpage-draftbtn'>SaveAs Draft</button>
-                    <button className='writer-story-addpage-publishbtn'>Publish</button>
+                    <button onClick={publishStory} className='writer-story-addpage-publishbtn'>Publish</button>
                 </div>
             </div>
         </div>

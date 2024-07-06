@@ -47,7 +47,7 @@ const sSchema=mongoose.Schema({
     },
     published:{
         type:Boolean,
-        default:false
+        required:true
     }
    
     

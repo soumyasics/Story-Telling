@@ -1,3 +1,4 @@
+
 import React, { useState,useEffect } from 'react'
 import './Reader.css'
 import writerprofilebackimg from '../../Assets/writerprofilebackimg.png'
@@ -37,16 +38,14 @@ function ReaderProfile() {
 },[id])
 
 
-
-const navigateToeditprofile=(id)=>{
-    navigate(`/reader-edit-profile/${id}`)
+const navigateToEdit=(id)=>{
+  navigate("/reader-edit-profile/"+id)
 }
-  
-
 
   return (
     <div>
       <div>
+
       <div >
         <img src={writerprofilebackimg} className='reader-profile-back-img'></img>
       </div>
@@ -103,14 +102,14 @@ const navigateToeditprofile=(id)=>{
             </div>
             <div className='text-center mt-5'>
 
-                <button type='submit' onClick={()=>{navigateToeditprofile(data._id)}} className='reader-profile-editbtn'>Edit Profile</button>
+                <button onClick={()=>navigateToEdit(data._id)} type='submit' className='reader-profile-editbtn'>Edit Profile</button>
             </div>
+          </div>
+          <div className='col-4'></div>
         </div>
-        <div className='col-4'></div>
       </div>
     </div>
-    </div>
-  )
+  );
 }
 
-export default ReaderProfile
+export default ReaderProfile;

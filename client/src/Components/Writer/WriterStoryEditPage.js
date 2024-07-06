@@ -4,8 +4,10 @@ import bg from '../../Assets/bg.png'
 import { Form, Radio, Input } from "antd";
 import { FaCamera } from "react-icons/fa";
 import axiosInstance from '../../BaseAPIs/axiosinstatnce';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 import { imageUrl } from '../../BaseAPIs/ImageUrl/imgApi';
+import axiosMultipartInstance from '../../BaseAPIs/AxiosMultipartInstance';
+
 
 
 
@@ -22,6 +24,16 @@ function WriterStoryEditPage() {
 
     const [writerdata , setWriterData]=useState({profilePicture:{filename:''}});
 
+    const [storydata , setStoryData]=useState({
+      title:"",
+      summary:"",
+      storyCategory:"",
+      type:"",
+      text:"",
+      audio:"",
+      coverPicture:{filename:''}});
+
+
   useEffect(()=>{
     axiosInstance.post(`/viewWriterById/${id}`)
     .then((res)=>{
@@ -30,34 +42,174 @@ function WriterStoryEditPage() {
         console.log(writerdata,"writerdata");
     })
     .catch((err)=>{
-      alert.error("Failed to fetch user details")
+      alert("Failed to fetch user details")
   });
   },[])
 
     const [textb, setState] =useState({
         showTextBox: false,
         showFileUpload:false,
-        showSaveButton:false
       });
     const handleOnChange = e => {
         setState({
           showTextBox: e.target.value === 'text',
           showFileUpload:e.target.value ==='audio',
-          showSaveButton:e.target.value ==='save'
-
         });
+    };
+
+    const story_id =useParams("");
+    console.log(story_id.id,'storyid');
+
+    useEffect(()=>{
+      axiosInstance.post(`/viewStoryById/${story_id.id}`)
+      .then((res)=>{
+          console.log(res,"res");
+          setStoryData(res.data.data)
+          console.log(storydata,"storydata");
+      })
+      .catch((err)=>{
+        alert("Failed to fetch user details")
+    });
+    },[])
+
+
+    
+
+    const [errors, setErrors] = useState({
+      title:"",
+      summary:"",
+      storyCategory:"",
+      type:"",
+      text:"",
+      coverPicture:"",
+      audio:""
+    });
+
+
+
+    const handleChange = (event) => {
+      const { name, value } = event.target;
+      setStoryData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: "",
+      }));
+    };
+    console.log(storydata,'addstorydata');
+
+    const [errorcover , setErrorCover]=useState(null)
+    const [erroraudio , setErrorAudio]=useState(null)
+
+    const [image, setImage] = useState(null)
+
+    const handleFileCoverChange = (coverPicture) => {
+      if(!coverPicture.name.match(/\.(jpg|jpeg|png|gif)$/)){
+          const error="Only upload JPG JPEG PNG GIF file type ";
+          setErrorCover(error);
+          return
+      }
+      setImage(URL.createObjectURL(coverPicture));
+      setErrorCover(null)
+      setStoryData({...storydata,coverPicture});
+      };
+  const handleFileAudioChange = (audio) => {
+      if(!audio.name.match(/\.(mp3|wav|aac|flac)$/)){
+          const error="Only upload MP3 WAV AAC FLAC file type ";
+          setErrorAudio(error);
+          return
+      }
+      setErrorAudio(null)
+      setStoryData({...storydata,audio});
+      };
+  
+  
+  
+  const handleSubmit = async (e) => {
+          e.preventDefault();
+      
+          let errors = {};
+      
+          let formValid = true;
+      
+          if (!storydata.title.trim()) {
+            formValid = false;
+            errors.title = "Title is required";
+          }
+          if (!storydata.storyCategory) {
+              formValid = false;
+              console.log("3",formValid);
+              errors.storyCategory = "Story Category is required";
+          }
+          if (!storydata.summary.trim()) {
+              formValid = false;
+              console.log("z4",formValid);
+              errors.summary = "Summary is required";
+          }
+          if (!storydata.coverPicture) {
+              formValid = false;
+              console.log("z5",formValid);
+              errors.description = "Cover Picture is required";
+          }
+            setErrors(errors);
+  
+      if (
+        storydata.title &&
+        storydata.summary &&
+        storydata.storyCategory &&
+        storydata.coverPicture 
+      ) {
+        formValid = true;
+      }
+  
+      if (Object.keys(errors).length === 0 && formValid) {
+        const formData = new FormData();
+        formData.append("title", storydata.title);
+        formData.append("summary", storydata.summary);
+        formData.append("storyCategory", storydata.storyCategory);
+        formData.append("coverPicture", storydata.coverPicture);
+        formData.append("type", storydata.type);
+        if(storydata.type === 'text')
+        formData.append("text", storydata.text);
+        else
+        formData.append("audio", storydata.audio);
+  
+      
+        console.log(formData, "formData");
+        try {
+          var response;
+          if (storydata) {
+            response = await axiosMultipartInstance.post(
+              `/editStory/${id}`,
+              storydata
+            );
+          }
+          console.log("Response:", response);
+          if (response.status == 200) {
+            alert("Save As Draft");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          let msg = error?.response?.data?.msg || "Error occurred";
+          alert(msg);
+        }
+      } else {
+        console.log("Form is not valid", formValid);
+        console.log("Data entered", storydata);
+      }
     };
 
   return (
     <>
         <div className='mb-5 mt-5'>
-        {/* <form onSubmit={(e)=>{handleSubmit(e);}}> */}
+        
       <div className='container mt-5'>
         <div className='writer-story-addpage-navdiv'>
             <div className='row'>
                 <div className='col-4' >
-                <button className='mt-4 me-5 writer-story-editpage-savebtn'>Save</button>
-                <button className='writer-story-editpage-editbtn'>Edit</button>
+                <button onClick={handleSubmit} className='mt-4 me-5 writer-story-editpage-savebtn'>Save</button>
                 
                 </div>
                 
@@ -70,6 +222,7 @@ function WriterStoryEditPage() {
                 </div>
             </div>
         </div>
+        <form onSubmit={(e)=>{handleSubmit(e);}}>
         <div className='row'>
             <div className='col '>
                 <div className='writer-story-addpage-secdiv1  ps-2'>
@@ -78,15 +231,19 @@ function WriterStoryEditPage() {
                             <div className='text-center mt-3'>
                                 <input className='writer-story-addpage-addtitle' 
                                 name='title'
-                                // onChange={handleChange}
-                                placeholder='Add a Title'/>
-                          {/* {errors.title && (<div className="text-danger errortext">{errors.title}</div>)} */}
+                                value={storydata.title}
+                                placeholder={storydata.title}
+                                onChange={handleChange}
+                                />
+                          {errors.title && (<div className="text-danger errortext">{errors.title}</div>)}
 
                             </div>
                             <div className='text-center  mt-2'>
                                 <select id="dropdown" 
                                 name='storyCategory'
-                                // onChange={handleChange}
+                                value={storydata.storyCategory}
+                                placeholder={storydata.storyCategory}
+                                onChange={handleChange}
                                 className='writer-story-addpage-category'
                                  title="Story Category">
                                     <option >Story Category</option>
@@ -97,7 +254,7 @@ function WriterStoryEditPage() {
                                     <option >Fantasy</option>
                                     <option >Crime</option>
                                 </select>
-                                {/* {errors.storyCategory && (<div className="text-danger errortext">{errors.storyCategory}</div>)} */}
+                                {errors.storyCategory && (<div className="text-danger errortext">{errors.storyCategory}</div>)}
                             
                             </div>
                             <div className='mx-5 mt-2'>
@@ -105,30 +262,30 @@ function WriterStoryEditPage() {
                             <Form.Item>
                               
                                 <Radio.Group 
-                                // onChange={handleOnChange} 
+                                onChange={handleOnChange} 
                                 name='type'>
                                     <Radio 
-                                    // onChange={handleChange}  
+                                    onChange={handleChange}  
                                     value='text' name='type'>Text</Radio><br/>
                                     <Radio 
-                                    // onChange={handleChange} 
+                                    onChange={handleChange} 
                                     className='mt-3' value='audio' name='type'>Audio</Radio>  
                                 </Radio.Group>
-                                {/* {textb.showFileUpload &&  */}
+                                {textb.showFileUpload && 
                                 <button className='mx-3 writer-story-addaudio-btn'
                                 onClick={() =>
                                     document.getElementById("audioUpload").click()
                                     }
                                 > upload Audio </button>
-                                {/* } */}
+                                } 
                                 <input
                                     type='file'
                                     style={{ display: 'none' }}
                                     name='audio'
-                                    // onChange={(event)=>{handleFileAudioChange(event.target.files[0])}}
+                                    onChange={(event)=>{handleFileAudioChange(event.target.files[0])}}
                                     id='audioUpload'
                                 />   
-                                {/* {erroraudio && (<div className=" mt-2 text-danger errortext">{erroraudio}</div>)} */}
+                                {erroraudio && (<div className=" mt-2 text-danger errortext">{erroraudio}</div>)}
 
                             </Form.Item>
                             </div>
@@ -142,32 +299,33 @@ function WriterStoryEditPage() {
                             type='file'
                             style={{ display: 'none' }}
                             name='coverPicture'
-                            // onChange={(event)=>{handleFileCoverChange(event.target.files[0])}}
+                            onChange={(event)=>{handleFileCoverChange(event.target.files[0])}}
                             id='coverPicture'
                             
                             /> 
-                            {/* {errors.coverPicture && (<div className="text-danger errortext">{errors.coverPicture}</div>)}      */}
-                            {/* {errorcover && (<div className="text-danger errortext">{errorcover}</div>)} */}
+                            {errors.coverPicture && (<div className="text-danger errortext">{errors.coverPicture}</div>)}     
+                            {errorcover && (<div className="text-danger errortext">{errorcover}</div>)}
 
                         </div>
                             <div className='mt-3 mx-5 writer-story-addpage-summery '>
                                 <div class="form-floating">
                                     <textarea class="form-control "  
-                                    placeholder="Leave a comment here" 
                                     id="floatingTextarea2" 
                                     style={{height: '120px'}}
                                     name='summary'
-                                    // onChange={handleChange}
+                                    value={storydata.summary}
+                                    placeholder={storydata.summary} 
+                                    onChange={handleChange}
                                     ></textarea>
                                     <label for="floatingTextarea2">Summary</label>
-                                    {/* {errors.summary && (<div className="text-danger errortext">{errors.summary}</div>)} */}
+                                    {errors.summary && (<div className="text-danger errortext">{errors.summary}</div>)}
                                     </div>
                             </div>
                             
                         </div>
                         <div className='col '>
                             <img 
-                            // src={image} 
+                            src={`${imageUrl}/${storydata.coverPicture.filename}`}
                             className='writer-story-addpage-sideimg mt-5' alt='Upload cover Image'></img>
                         </div>
                     </div>
@@ -175,16 +333,19 @@ function WriterStoryEditPage() {
                 </div>
             </div>
             <div className='writer-story-addtextarea-div'>
-                            {/* {textb.showTextBox &&  */}
+                            {textb.showTextBox && 
                             <textarea className='writer-story-addtextarea' 
+                            value={storydata.text}
+                            placeholder={storydata.text}
                             name='text'
-                            // onChange={handleChange}
-                            placeholder="Enter your creativity..." />
-                            {/* } */}
+                            onChange={handleChange}
+                            />
+                             } 
                     </div> 
         </div>
+        </form>
       </div>
-      {/* </form> */}
+      
     </div>
     </>
   )

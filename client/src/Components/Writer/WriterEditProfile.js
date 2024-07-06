@@ -4,6 +4,7 @@ import writerprofilebackimg from "../../Assets/writerprofilebackimg.png";
 import { FaCamera } from "react-icons/fa";
 import axiosInstance from "../../BaseAPIs/axiosinstatnce";
 import { useNavigate } from "react-router-dom";
+import { imageUrl } from "../../BaseAPIs/ImageUrl/imgApi";
 
 function WriterEditProfile({ url }) {
   const [data, setData] = useState({
@@ -90,7 +91,7 @@ function WriterEditProfile({ url }) {
           src={
             profileImage
               ? URL.createObjectURL(profileImage)
-              : `${url}${data.profilePicture}`
+              : `${imageUrl}/${data.profilePicture}`
           }
           style={{ position: "relative" }}
           alt="Profile"
