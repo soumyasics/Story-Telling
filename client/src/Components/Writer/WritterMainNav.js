@@ -16,6 +16,13 @@ function WritterMainNav() {
 
     Navigate("/login")
   }
+
+  const navigateToAddStory=()=>{
+    Navigate("/writer-add-customstory")
+  }
+  const navigateToViewStory=()=>{
+    Navigate("/writer-view-customstory")
+  }
   return (
     <div>
       {" "}
@@ -40,7 +47,17 @@ function WritterMainNav() {
             </div>
             <Navbar.Collapse id="responsive-navbar-nav text-light  bg-light">
               <Nav className="me-auto"></Nav>
-              <Nav><Link to='/writer-profile' className="writer-mainnav-link">Profile</Link></Nav>
+              <Nav><Link className="raeder-profile-link" to='/writerhome'>Home</Link></Nav>
+              <Nav><Link to='/writer-profile' className="writer-mainnav-link ms-4">Profile</Link></Nav>
+              <Nav>
+              <div class="ms-3 dropdown">
+                  <button class="dropbtn">Customised Story</button>
+                  <div class="dropdown-content">
+                    <Navbar.Text onClick={navigateToAddStory} ><Link>Add Story</Link></Navbar.Text>
+                    <Navbar.Text onClick={navigateToViewStory} ><Link>View Story</Link></Navbar.Text>
+                  </div>
+                </div>
+              </Nav>
               <Nav><div className="ms-3">Stories</div></Nav>
               <Nav><div className="ms-3">Challenges</div></Nav>
               <Nav><div className="ms-3">Contact Us</div></Nav>

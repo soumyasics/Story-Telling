@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import "./UpgradeToWriter.css";
 import Footer from "../Pages/Footer";
 import Header from "../Pages/Header";
@@ -9,6 +9,17 @@ import axiosInstance from "../../BaseAPIs/axiosinstatnce";
 import { useNavigate } from "react-router-dom";
 
 function UpgradeToWriter() {
+
+  const navigate =useNavigate()
+    useEffect(() => {
+        if (
+          localStorage.getItem("token") == null &&
+          localStorage.getItem("writer") == null
+        ) {
+          navigate("/login");
+        }
+      }, [navigate]);
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -41,7 +52,6 @@ function UpgradeToWriter() {
     }));
   };
 
-  const navigate = useNavigate();
 
   const handleSubmit = () => {
     const { CardNumber, Expirydate, CVV, NameonCard } = data;
@@ -93,7 +103,7 @@ function UpgradeToWriter() {
           alert(result.data.msg);
           setTimeout(() => {
             navigate("/writerhome");
-          }, 1500);
+          }, 2500);
         })
         .catch((err) => {
           console.log(err);
@@ -103,7 +113,7 @@ function UpgradeToWriter() {
 
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <div className="UpgradeToWriter-Div1">
         <div className=" UpgradeToWriter-Div2">
           <h1 className="UpgradeToWriter-h1-1"></h1>

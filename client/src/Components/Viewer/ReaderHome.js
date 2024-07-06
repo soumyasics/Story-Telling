@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import img from "../../Assets/Landingsection8img.png";
 import img2 from "../../Assets/Drama.png";
 import img3 from "../../Assets/Crime.png";
@@ -8,8 +8,18 @@ import img6 from "../../Assets/Fantasy.png";
 import img7 from "../../Assets/img3.jpg";
 import ViewerMainNav from "./ViewerMainNav";
 import Footer from "../Pages/Footer";
+import { useNavigate } from 'react-router-dom'
 
 function ReaderHome() {
+  const navigate =useNavigate()
+    useEffect(() => {
+        if (
+          localStorage.getItem("token") == null &&
+          localStorage.getItem("reader") == null
+        ) {
+          navigate("/login");
+        }
+      }, [navigate]);
   return (
     <div>
       {" "}
