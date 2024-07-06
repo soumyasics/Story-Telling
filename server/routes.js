@@ -5,6 +5,7 @@ const Writer = require("./Controller/WriterController");
 const Reader = require("./Controller/readerController");
 const Story = require("./Controller/storyController");
 const Comment = require("./Controller/commentController");
+const Challenge = require("./Controller/challengeContrller");
 const like = require("./Controller/likeController");
 
 
@@ -61,5 +62,17 @@ router.post("/viewCommentById/:id", Comment.viewCommentById);
 //likes
 router.post("/addDislike", like.addDislike);
 router.post("/addLike", like.addLike);
+router.post("/countDislikes", like.countDislikes);
+router.post("/countLikes", like.countLikes);
+
+
+//challenge
+router.post("/addChallenge",Challenge.upload, Challenge.addChallenge);
+router.post("/viewActiveChallenges", Challenge.viewActiveChallenges);
+router.post("/viewChallenges", Challenge.viewChallenges);
+router.post("/viewChallengeById/:id", Challenge.viewChallengeById);
+router.post("/updateChallengeById/:id",Challenge.upload,Challenge.updateChallengeById);
+router.post("/deleteChallengeById/:id", Challenge.deleteChallengeById);
+router.post("/viewActiveChallengesByWriterId/:id", Challenge.viewActiveChallengesByWriterId);
 
 module.exports = router;
