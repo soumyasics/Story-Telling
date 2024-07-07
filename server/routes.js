@@ -62,8 +62,8 @@ router.post("/viewCommentById/:id", Comment.viewCommentById);
 //likes
 router.post("/addDislike", like.addDislike);
 router.post("/addLike", like.addLike);
-router.post("/countDislikes", like.countDislikes);
-router.post("/countLikes", like.countLikes);
+router.post("/countDislikes/:storyId", like.countDislikes);
+router.post("/countLikes/:storyId", like.countLikes);
 
 
 //challenge

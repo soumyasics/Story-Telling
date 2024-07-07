@@ -29,6 +29,9 @@ import WriterStoryEditPage from "./Components/Writer/WriterStoryEditPage";
 import WriterStoryViewPage from "./Components/Writer/WriterStoryViewPage";
 import AllReader from "./Components/Viewer/AllRreader";
 import WriterViewStories from "./Components/Writer/WriterViewStories";
+import ViewAPublishedStory from "./Components/Writer/ViewAPublishedStory";
+import ReaderViewStories from "./Components/Viewer/ReaderViewStories";
+import ReaderViewApublishedStory from "./Components/Viewer/ReaderViewApublishedStory";
 
 function App() {
   // const url = "http://localhost:4025/";
@@ -55,13 +58,14 @@ function App() {
         <Route path="/writer-add-customstory" element={[<WritterMainNav/>,<WriterStoryAddPage/>,<Footer/>]} />
         <Route path="/writer-view-customstory" element={[<WritterMainNav/>,<WriterStoryViewPage/>,<Footer/>]} />
         <Route path="/writer-edit-customstory/:id" element={[<WritterMainNav/>,<WriterStoryEditPage/>,<Footer/>]} />
-        <Route path="/writer-view-stories" element={[<WritterMainNav/>,<WriterViewStories/>,<Footer/>]} />
-
-
+        <Route path="/writer-view-stories" element={[<WritterMainNav/>,<WriterViewStories url={url} />,<Footer/>]} />
+        <Route path="/writer-view-a-stories/:storyid" element={[<WritterMainNav/>,<ViewAPublishedStory url={url} />,<Footer/>]} />
 
         {/* Reader */}
         <Route path="/reader-profile" element={[<ViewerMainNav/>,<ReaderProfile url={url}/>,<Footer/>]} />
         <Route path="/reader-edit-profile/:id" element={[<ViewerMainNav/>,<ReaderEditProfile/>,<Footer/>]} />
+        <Route path="/reader-view-stories" element={[<ViewerMainNav/>,<ReaderViewStories url={url}/>,<Footer/>]} />
+        <Route path="/reader-view-a-stories/:storyid" element={[<ViewerMainNav/>,<ReaderViewApublishedStory url={url}/>,<Footer/>]} />
 
         {/* Admin */}
         <Route path="/adminlogin" element={<AdminLogin />} />

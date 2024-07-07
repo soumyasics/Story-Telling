@@ -133,8 +133,6 @@ const coverPicture = req.files.coverPicture ? req.files.coverPicture[0] : null;
     summary,
     storyCategory,
     text,
-    coverPicture:coverPicture,
-    audio:audio,
     published:true
 
 
@@ -294,17 +292,14 @@ const editStory = (req, res) => {
         title,
         summary,
         storyCategory,
-        text,
-        coverPicture:coverPicture,
-        audio:audio,
- 
+        text
       };
   
       if (coverPicture) {
         updateData.coverPicture = coverPicture;
       }
-      if (audio) {
-        updateData.audio = audio;
+      if (req.files && req.files.audio) {
+        updateData.audio = req.files.audio[0];
       }
   
       Story.findByIdAndUpdate(req.params.id, updateData, { new: true })
