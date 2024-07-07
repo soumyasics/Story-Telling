@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Writer.css";
+import "../Writer/Writer.css";
 import { useNavigate } from "react-router-dom";
 import { imageUrl } from "../../BaseAPIs/ImageUrl/imgApi";
 import axiosInstance from "../../BaseAPIs/axiosinstatnce";
@@ -9,7 +9,7 @@ import Horror from "../../Assets/Horror.png";
 import Romance from "../../Assets/Romance.png";
 import Fantasy from "../../Assets/Fantasy.png";
 
-function WriterViewStories({ url }) {
+function ReaderViewStories({ url }) {
   const [data, setData] = useState([]);
   const [filterResult, setFilterResult] = useState([]);
   const [sel, setSel] = useState('border border-primary border-5');
@@ -18,7 +18,7 @@ function WriterViewStories({ url }) {
     category: null,
   });
   const navigate = useNavigate();
-  const [id, setId] = useState(localStorage.getItem("writer"));
+  const [id, setId] = useState(localStorage.getItem("reader"));
 
   useEffect(() => {
     if (
@@ -35,10 +35,9 @@ function WriterViewStories({ url }) {
 
   useEffect(() => {
     axiosInstance
-      .post(`/viewWriterById/${id}`)
+      .post(`/viewReaderById/${id}`)
       .then((res) => {
         setWriterData(res.data.data);
-        console.log(writerdata, "writerdata");
       })
       .catch((err) => {
         alert("Failed to fetch user details");
@@ -78,7 +77,7 @@ function WriterViewStories({ url }) {
 
 
   const ViewDetailedStory=(storyid)=>{
-    navigate("/writer-view-a-stories/"+storyid)
+    navigate("/reader-view-a-stories/"+storyid)
 
   }
   return (
@@ -177,14 +176,14 @@ function WriterViewStories({ url }) {
                 <div className="col" key={index}>
                   <div className="card writer-viewstory-categoryview">
                     <div className="row g-0 m-3">
-                      <div className="col-md-6 viewstorysdiv1 ps-5 pt-3">
-                       
+                      <div className="col-md-6 viewstorysdiv1">
+                       {" "}
                         <h1>
                         {item.title}
                           
                         </h1>
-                        <h6 className="my-4"> {item.storyCategory} Story</h6>
-                        <p>Summary : {item.summary}</p>
+                        <h6> {item.storyCategory}</h6>
+                        <p>{item.summary}</p>
                       </div>
                       <div className="col-md-6 viewstorysdiv2">
                         <img
@@ -210,4 +209,4 @@ function WriterViewStories({ url }) {
   );
 }
 
-export default WriterViewStories;
+export default ReaderViewStories;

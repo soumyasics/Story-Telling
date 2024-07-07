@@ -58,7 +58,7 @@ function WritterMainNav() {
                   </div>
                 </div>
               </Nav>
-              <Nav><div className="ms-3">Stories</div></Nav>
+              <Nav><Link to="/writer-view-stories" className="writer-mainnav-link ms-4">Stories</Link></Nav>
               <Nav><div className="ms-3">Challenges</div></Nav>
               <Nav><div className="ms-3">Contact Us</div></Nav>
               <Nav><div onClick={handleLogout} className="ms-3">Logout</div></Nav>

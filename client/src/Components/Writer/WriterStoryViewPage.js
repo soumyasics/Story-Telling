@@ -30,7 +30,9 @@ function WriterStoryViewPage() {
       console.log(res,"res");
       var tempm = []
       for (var i in res.data.data) {
-        tempm.push(res.data.data[i]) 
+        if (!res.data.data[i].published) {
+          tempm.push(res.data.data[i]) 
+        }
       }
         setStorydata(tempm)
         console.log(tempm,"tempm");
@@ -60,7 +62,7 @@ function WriterStoryViewPage() {
         <div className='writer-story-viewpage-navdiv'>
             <div className='row'>
                 <div className='col-3  text-center'>
-                    <img src={`${imageUrl}/${writerdata.profilePicture.filename}`} className='writer-story-viewpage-profileimg mt-2'></img>
+                    <img src={`${imageUrl}/${writerdata.profilePicture?.filename}`} className='writer-story-viewpage-profileimg mt-2'></img>
                 </div>
                 {/* <div className='col-5'>
                     <button className='mt-3 writer-story-viewpage-publishbtn'>Publish</button>
@@ -79,7 +81,7 @@ function WriterStoryViewPage() {
           <div class="col mb-4">
             <div class="writer-story-viewpage-cover ">
               <img 
-              src={`${imageUrl}/${data.coverPicture.filename}`} 
+              src={`${imageUrl}/${data.coverPicture?.filename}`} 
               class="writer-story-viewpage-coverpic" alt="..."/>
               <div class="text-center mt-2">
                 <h6>{data.title}</h6>
