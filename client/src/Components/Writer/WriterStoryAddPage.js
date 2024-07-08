@@ -214,7 +214,7 @@ const handleSubmit = async (e) => {
     
   return (
     <div className='mb-5 mt-5'>
-        <form onSubmit={(e)=>{handleSubmit(e);}}>
+        
       <div className='container mt-5'>
         <div className='writer-story-addpage-navdiv'>
             <div className='row'>
@@ -223,11 +223,12 @@ const handleSubmit = async (e) => {
                     <img src={`${imageUrl}/${writerdata.profilePicture.filename}`} className='writer-story-addpage-profileimg mt-3'></img>
                 </div>
                 <div className='col-4'>
-                    <button className='mt-4 me-5 writer-story-addpage-draftbtn'>SaveAs Draft</button>
+                    <button onClick={handleSubmit} className='mt-4 me-5 writer-story-addpage-draftbtn'>SaveAs Draft</button>
                     <button onClick={publishStory} className='writer-story-addpage-publishbtn'>Publish</button>
                 </div>
             </div>
         </div>
+        <form onSubmit={(e)=>{handleSubmit(e);}}>
         <div className='row'>
             <div className='col '>
                 <div className='writer-story-addpage-secdiv1  ps-2'>
@@ -330,8 +331,9 @@ const handleSubmit = async (e) => {
                             placeholder="Enter your creativity..." />}
                     </div> 
         </div>
+        </form>
       </div>
-      </form>
+      
     </div>
   )
 }

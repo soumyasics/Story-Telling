@@ -72,6 +72,21 @@ function WriterStoryEditPage() {
     });
     },[])
 
+    const publishStoryById=()=>{
+      axiosInstance.post(`/publishStory/${story_id.id}`)
+      .then((res)=>{
+          console.log(res,"res");
+          setStoryData(res.data.data)
+          alert("Story Published")
+          navigate('/writerhome')
+          console.log(storydata,"storydata");
+      })
+      .catch((err)=>{
+        alert.error("Failed to fetch user details")
+    });
+    }
+    
+
 
     
 
@@ -200,6 +215,7 @@ function WriterStoryEditPage() {
         console.log("Data entered", storydata);
       }
     };
+  
 
   return (
     <>
@@ -218,7 +234,7 @@ function WriterStoryEditPage() {
                     <img src={`${imageUrl}/${writerdata.profilePicture.filename}`} className='writer-story-addpage-profileimg mt-3'></img>
                 </div>
                 <div className='col-5'>
-                    <button className='mt-4 writer-story-editpage-publishbtn'>Publish</button>
+                    <button onClick={publishStoryById} className='mt-4 writer-story-editpage-publishbtn'>Publish</button>
                 </div>
             </div>
         </div>
@@ -320,6 +336,9 @@ function WriterStoryEditPage() {
                                     <label for="floatingTextarea2">Summary</label>
                                     {errors.summary && (<div className="text-danger errortext">{errors.summary}</div>)}
                                     </div>
+                            </div>
+                            <div>
+                              <button>Edit</button>
                             </div>
                             
                         </div>
