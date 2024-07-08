@@ -250,7 +250,7 @@ const viewAllStorYByCategory = (req, res) => {
     });
 };
 const viewStoriesByWriterId = (req, res) => {
-  Story.find({ writerId: req.params.id })
+  Story.find({ writerId: req.params.id , published:false })
     .exec()
     .then(stories => {
       res.json({

@@ -20,8 +20,19 @@ function WritterMainNav() {
   const navigateToAddStory=()=>{
     Navigate("/writer-add-customstory")
   }
-  const navigateToViewStory=()=>{
+  const navigateToViewCustmStory=()=>{
     Navigate("/writer-view-customstory")
+  }
+
+  const navigateToViewStory=()=>{
+    Navigate("/writer-view-stories")
+  }
+
+  const navigateToAddChallenges=()=>{
+    Navigate("/writer-add-challenges")
+  }
+  const navigateToViewChallenges=()=>{
+    Navigate("/writer-view-stories")
   }
   return (
     <div>
@@ -54,12 +65,18 @@ function WritterMainNav() {
                   <button class="dropbtn">Customised Story</button>
                   <div class="dropdown-content">
                     <Navbar.Text onClick={navigateToAddStory} ><Link>Add Story</Link></Navbar.Text>
-                    <Navbar.Text onClick={navigateToViewStory} ><Link>View Story</Link></Navbar.Text>
+                    <Navbar.Text onClick={navigateToViewCustmStory} ><Link>View Story</Link></Navbar.Text>
                   </div>
                 </div>
               </Nav>
               <Nav><Link to="/writer-view-stories" className="writer-mainnav-link ms-4">Stories</Link></Nav>
-              <Nav><div className="ms-3">Challenges</div></Nav>
+              <Nav><div class="ms-3 dropdown">
+                  <button class="dropbtn">Challenges</button>
+                  <div class="dropdown-content">
+                    <Navbar.Text onClick={navigateToAddChallenges} ><Link>Add Challenges</Link></Navbar.Text>
+                    <Navbar.Text onClick={navigateToViewCustmStory} ><Link>View Challenges</Link></Navbar.Text>
+                  </div>
+                </div></Nav>
               <Nav><div className="ms-3">Contact Us</div></Nav>
               <Nav><div onClick={handleLogout} className="ms-3">Logout</div></Nav>
             </Navbar.Collapse>

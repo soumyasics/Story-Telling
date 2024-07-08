@@ -32,6 +32,8 @@ import WriterViewStories from "./Components/Writer/WriterViewStories";
 import ViewAPublishedStory from "./Components/Writer/ViewAPublishedStory";
 import ReaderViewStories from "./Components/Viewer/ReaderViewStories";
 import ReaderViewApublishedStory from "./Components/Viewer/ReaderViewApublishedStory";
+import WriterAddChallenges from "./Components/Challenges/WriterAddChallenges";
+import WriterEditChallenges from "./Components/Challenges/WriterEditChallenges";
 
 function App() {
   const url = "http://localhost:4025/";
@@ -66,6 +68,12 @@ function App() {
         <Route path="/reader-edit-profile/:id" element={[<ViewerMainNav/>,<ReaderEditProfile/>,<Footer/>]} />
         <Route path="/reader-view-stories" element={[<ViewerMainNav/>,<ReaderViewStories url={url}/>,<Footer/>]} />
         <Route path="/reader-view-a-stories/:storyid" element={[<ViewerMainNav/>,<ReaderViewApublishedStory url={url}/>,<Footer/>]} />
+
+        {/* Challenges */}
+        <Route path="/writer-add-challenges" element={[<WritterMainNav/>,<WriterAddChallenges/>,<Footer/>]} />
+        <Route path="/writer-edit-challenges/:challengeid" element={[<WritterMainNav/>,<WriterEditChallenges/>,<Footer/>]} />
+
+
 
         {/* Admin */}
         <Route path="/adminlogin" element={<AdminLogin />} />

@@ -43,6 +43,7 @@ const addChallenge = async (req, res) => {
             data: savedChallenge
         });
     } catch (err) {
+        console.log(err);
         res.status(500).json({
             status: 500,
             msg: "Failed to add challenge",
@@ -56,10 +57,14 @@ const updateChallengeById = async (req, res) => {
     try {
         const { title, description, startDate, endDate } = req.body;
         const { id } = req.params;
-
+console.log(id);
         const updatedChallenge = await Challenge.findByIdAndUpdate(
             id,
-            { title, description, startDate, endDate,picture:req.file },
+            {   title, 
+                description, 
+                startDate, 
+                endDate,
+                picture:req.file },
             { new: true }
         );
 
@@ -76,6 +81,7 @@ const updateChallengeById = async (req, res) => {
             data: updatedChallenge
         });
     } catch (err) {
+        console.log(err);
         res.status(500).json({
             status: 500,
             msg: "Failed to update challenge",
