@@ -48,8 +48,14 @@ function WriterViewStories({ url }) {
       .post(`/viewAllStories`)
       .then((res) => {
         console.log(res.data.data, "viewAllStories");
-        setData(res.data.data);
-        setFilterResult(res.data.data);
+        var d=[]
+        for(var i in res.data.data){
+          if(res.data.data[i].published){
+            d.push(res.data.data[i])
+          }
+        }
+        setData(d);
+        setFilterResult(d);
       })
       .catch((err) => {
         alert("Failed to fetch user details");
