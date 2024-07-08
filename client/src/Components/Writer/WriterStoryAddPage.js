@@ -190,25 +190,77 @@ function WriterStoryAddPage() {
 
   const publishStory = async (e) => {
     e.preventDefault();
-    addstorydata.writerId = id;
-    try {
-      var response;
-      if (addstorydata) {
-        response = await axiosMultipartInstance.post(
-          `/publishStory`,
-          addstorydata
-        );
-      }
-      console.log("Response:", response);
-      if (response.status == 200) {
-        alert(response.data.message);
-        navigate('/writer-view-stories')
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      let msg = error?.response?.data?.msg || "Error occurred";
-      alert(msg);
+    let errors = {};
+
+    let formValid = true;
+
+    if (!addstorydata.title.trim()) {
+      formValid = false;
+      errors.title = "Title is required";
     }
+    if (!addstorydata.storyCategory) {
+      formValid = false;
+      console.log("3", formValid);
+      errors.storyCategory = "Story Category is required";
+    }
+    if (!addstorydata.summary.trim()) {
+      formValid = false;
+      console.log("z4", formValid);
+      errors.summary = "Summary is required";
+    }
+    if (!addstorydata.coverPicture) {
+      formValid = false;
+      console.log("z5", formValid);
+      errors.description = "Cover Picture is required";
+    }
+    setErrors(errors);
+
+    if (
+      addstorydata.title &&
+      addstorydata.summary &&
+      addstorydata.storyCategory &&
+      addstorydata.coverPicture
+    ) {
+      formValid = true;
+    }
+
+    if (Object.keys(errors).length === 0 && formValid) {
+      const formData = new FormData();
+      formData.append("title", addstorydata.title);
+      formData.append("summary", addstorydata.summary);
+      formData.append("storyCategory", addstorydata.storyCategory);
+      formData.append("coverPicture", addstorydata.coverPicture);
+      formData.append("type", addstorydata.type);
+      if (addstorydata.type === "text")
+        formData.append("text", addstorydata.text);
+      else formData.append("audio", addstorydata.audio);
+
+      console.log(formData, "formData");
+      addstorydata.writerId = id;
+      try {
+        var response;
+        if (addstorydata) {
+          response = await axiosMultipartInstance.post(
+            `/publishStory`,
+            addstorydata
+          );
+        }
+        console.log("Response:", response);
+        if (response.status == 200) {
+          alert(response.data.message);
+          navigate('/writer-view-stories')
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        let msg = error?.response?.data?.msg || "Error occurred";
+        alert(msg);
+      }
+    } else {
+      console.log("Form is not valid", formValid);
+      console.log("Data entered", addstorydata);
+    }
+   
+    
   };
 
   return (
