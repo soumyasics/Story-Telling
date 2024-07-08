@@ -254,10 +254,13 @@ const viewWriterById = (req, res) => {
 };
 
 // accept
-const acceptWriterById = (req, res) => {
-    Writer.findByIdAndUpdate({ _id: req.params.id },{adminApproved:true,isActive:true})
+const acceptWriterById =async (req, res) => {
+  let flag=0
+   await Writer.findByIdAndUpdate({ _id: req.params.id },{adminApproved:true,isActive:true})
         .exec()
         .then(data => {
+          if(data)
+            flag=1
             res.json({
                 status: 200,
                 msg: "Accepted successfully",
@@ -271,6 +274,8 @@ const acceptWriterById = (req, res) => {
                 Error: err
             });
         });
+
+        if (flag == 1) await Reader.findByIdAndDelete(req.params.id);
 };
 
 
