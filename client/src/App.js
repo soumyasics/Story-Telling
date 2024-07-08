@@ -29,11 +29,16 @@ import WriterStoryEditPage from "./Components/Writer/WriterStoryEditPage";
 import WriterStoryViewPage from "./Components/Writer/WriterStoryViewPage";
 import AllReader from "./Components/Viewer/AllRreader";
 import WriterViewStories from "./Components/Writer/WriterViewStories";
+import ViewAPublishedStory from "./Components/Writer/ViewAPublishedStory";
+import ReaderViewStories from "./Components/Viewer/ReaderViewStories";
+import ReaderViewApublishedStory from "./Components/Viewer/ReaderViewApublishedStory";
+import WriterAddChallenges from "./Components/Challenges/WriterAddChallenges";
+import WriterEditChallenges from "./Components/Challenges/WriterEditChallenges";
 
 function App() {
-  const url = "http://localhost:4025/";
+  // const url = "http://localhost:4025/";
 
-  // const url= "http://hybrid.srishticampus.in:4025/"
+  const url= "http://hybrid.srishticampus.in:4025/"
 
   return (
     <BrowserRouter basename="/story_telling">
@@ -55,13 +60,20 @@ function App() {
         <Route path="/writer-add-customstory" element={[<WritterMainNav/>,<WriterStoryAddPage/>,<Footer/>]} />
         <Route path="/writer-view-customstory" element={[<WritterMainNav/>,<WriterStoryViewPage/>,<Footer/>]} />
         <Route path="/writer-edit-customstory/:id" element={[<WritterMainNav/>,<WriterStoryEditPage/>,<Footer/>]} />
-        <Route path="/writer-view-stories" element={[<WritterMainNav/>,<WriterViewStories/>,<Footer/>]} />
-
-
+        <Route path="/writer-view-stories" element={[<WritterMainNav/>,<WriterViewStories url={url} />,<Footer/>]} />
+        <Route path="/writer-view-a-stories/:storyid" element={[<WritterMainNav/>,<ViewAPublishedStory url={url} />,<Footer/>]} />
 
         {/* Reader */}
         <Route path="/reader-profile" element={[<ViewerMainNav/>,<ReaderProfile url={url}/>,<Footer/>]} />
         <Route path="/reader-edit-profile/:id" element={[<ViewerMainNav/>,<ReaderEditProfile/>,<Footer/>]} />
+        <Route path="/reader-view-stories" element={[<ViewerMainNav/>,<ReaderViewStories url={url}/>,<Footer/>]} />
+        <Route path="/reader-view-a-stories/:storyid" element={[<ViewerMainNav/>,<ReaderViewApublishedStory url={url}/>,<Footer/>]} />
+
+        {/* Challenges */}
+        <Route path="/writer-add-challenges" element={[<WritterMainNav/>,<WriterAddChallenges/>,<Footer/>]} />
+        <Route path="/writer-edit-challenges/:challengeid" element={[<WritterMainNav/>,<WriterEditChallenges/>,<Footer/>]} />
+
+
 
         {/* Admin */}
         <Route path="/adminlogin" element={<AdminLogin />} />

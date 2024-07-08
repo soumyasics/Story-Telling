@@ -27,6 +27,13 @@ function WritterMainNav() {
   const navigateToViewStory=()=>{
     Navigate("/writer-view-stories")
   }
+
+  const navigateToAddChallenges=()=>{
+    Navigate("/writer-add-challenges")
+  }
+  const navigateToViewChallenges=()=>{
+    Navigate("/writer-view-stories")
+  }
   return (
     <div>
       {" "}
@@ -62,8 +69,14 @@ function WritterMainNav() {
                   </div>
                 </div>
               </Nav>
-              <Nav onClick={navigateToViewStory}><div className="ms-3"><Link className="writer-mainnav-link">Stories</Link></div></Nav>
-              <Nav><div className="ms-3">Challenges</div></Nav>
+              <Nav><Link to="/writer-view-stories" className="writer-mainnav-link ms-4">Stories</Link></Nav>
+              <Nav><div class="ms-3 dropdown">
+                  <button class="dropbtn">Challenges</button>
+                  <div class="dropdown-content">
+                    <Navbar.Text onClick={navigateToAddChallenges} ><Link>Add Challenges</Link></Navbar.Text>
+                    <Navbar.Text onClick={navigateToViewCustmStory} ><Link>View Challenges</Link></Navbar.Text>
+                  </div>
+                </div></Nav>
               <Nav><div className="ms-3">Contact Us</div></Nav>
               <Nav><div onClick={handleLogout} className="ms-3">Logout</div></Nav>
             </Navbar.Collapse>

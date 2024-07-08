@@ -82,7 +82,7 @@ function ViewerMainNav() {
                   </div>
                 </Nav>
                 <Nav>
-                  <div className="ms-3">Stories</div>
+                  <Link to="/reader-view-stories" className="text-decoration-none ms-3 text-light">Stories</Link>
                 </Nav>
                 <Nav>
                   <div className="ms-3">Challenges</div>
