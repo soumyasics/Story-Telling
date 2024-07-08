@@ -247,7 +247,7 @@ const upgradeToWriter = async (req, res) => {
     await newWriter
       .save()
       .then((data) => {
-        flag = 1;
+       
         return res.json({
           status: 200,
           msg: "Inserted successfully",
@@ -261,7 +261,7 @@ const upgradeToWriter = async (req, res) => {
           data: err,
         });
       });
-    if (flag == 1) await Reader.findByIdAndDelete(req.params.id);
+   
   } else {
     return res.json({
       status: 500,
