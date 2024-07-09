@@ -34,6 +34,8 @@ import ReaderViewStories from "./Components/Viewer/ReaderViewStories";
 import ReaderViewApublishedStory from "./Components/Viewer/ReaderViewApublishedStory";
 import WriterAddChallenges from "./Components/Challenges/WriterAddChallenges";
 import WriterEditChallenges from "./Components/Challenges/WriterEditChallenges";
+import WriterViewChallenges from "./Components/Challenges/WriterViewChallenge";
+import ReaderViewChallenges from "./Components/Challenges/ReaderViewChallenges";
 
 function App() {
   const url = "http://localhost:4025/";
@@ -72,6 +74,10 @@ function App() {
         {/* Challenges */}
         <Route path="/writer-add-challenges" element={[<WritterMainNav/>,<WriterAddChallenges/>,<Footer/>]} />
         <Route path="/writer-edit-challenges/:challengeid" element={[<WritterMainNav/>,<WriterEditChallenges/>,<Footer/>]} />
+        <Route path="/writer-view-challenges/:challengeid" element={[<WritterMainNav/>,<WriterViewChallenges/>,<Footer/>]} />
+        <Route path="/reader-view-challenges" element={[<ViewerMainNav/>,<ReaderViewChallenges/>,<Footer/>]} />
+
+
 
 
 
