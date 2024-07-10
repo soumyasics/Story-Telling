@@ -119,7 +119,7 @@ const deleteChallengeById = async (req, res) => {
 };
 
 // View all challenges
-const viewChallenges = async (req, res) => {
+const       viewChallenges = async (req, res) => {
     try {
         const challenges = await Challenge.find().populate('writerId');
         res.status(200).json({

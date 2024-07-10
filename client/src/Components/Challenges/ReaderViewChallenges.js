@@ -1,31 +1,58 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Challenges.css';
-import drama from '../../Assets/Drama.png'
+import axiosInstance from '../../BaseAPIs/axiosinstatnce';
+import { imageUrl } from '../../BaseAPIs/ImageUrl/imgApi';
 
 
 function ReaderViewChallenges() {
-  return (
-    <div>
-        <h2 className='reader-viewchallenge-h2'>Challenges</h2>
-        <div>
-        <div class="card mb-3 reader-view-card" >
-  <div class="row g-0">
-    <div class="col-md-4 ">
-      <img src={drama} class="img-fluid rounded-start " alt="..."/>
-    </div>
-    <div class="col-md-8 ">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-  </div>
-</div>
+  const [Data,setData]=useState([]);
+    useEffect(()=>{
+      axiosInstance.post(`viewChallenges`)
+      .then((res)=>{
+        console.log(res);
+        setData(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-</div>
+
+    },[]);
+    console.log(Data);
+  
+
+  return (
+    <div className='reader-view-main'>
+      <h2 className='reader-viewchallenge-h2'>Challenges</h2>
       
-    </div>
+      <div class="container ">
+          <div className='col-7 reader-view-challengecard'>
+          {Data.map((a)=>{
+            return(
+            <div className='row'>
+               
+              <div class="col-5 ">
+              <img src={`${imageUrl}/${a.picture?.filename}`} className='reader-view-img' alt="..."/>
+              <div>
+                <button className='reader-view-challenge-btn' type='submit'>Participate</button>
+              </div>
+              </div>
+              <div class="col-6 ">
+                <h3 className='reader-view-challenge-h3'>{a.title}</h3>
+               <p className='reader-view-challenege-p'>{a.description}</p>
+              </div>
+              <p className='reader-view-challengedate'>tart on {a.startDate} and End on {a.endDate}</p>
+            </div>
+            
+          )
+              })}
+          </div>
+         
+        </div>
+
+  
+ </div>
+    
   )
 }
 

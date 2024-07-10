@@ -36,6 +36,7 @@ import WriterAddChallenges from "./Components/Challenges/WriterAddChallenges";
 import WriterEditChallenges from "./Components/Challenges/WriterEditChallenges";
 import WriterViewChallenges from "./Components/Challenges/WriterViewChallenge";
 import ReaderViewChallenges from "./Components/Challenges/ReaderViewChallenges";
+import Participatechallenges from "./Components/Challenges/Participatechallenges";
 
 function App() {
   const url = "http://localhost:4025/";
@@ -76,9 +77,8 @@ function App() {
         <Route path="/writer-edit-challenges/:challengeid" element={[<WritterMainNav/>,<WriterEditChallenges/>,<Footer/>]} />
         <Route path="/writer-view-challenges/:challengeid" element={[<WritterMainNav/>,<WriterViewChallenges/>,<Footer/>]} />
         <Route path="/reader-view-challenges" element={[<ViewerMainNav/>,<ReaderViewChallenges/>,<Footer/>]} />
-
-
-
+        <Route path="/participate-challenges" element={[<ViewerMainNav/>,<Participatechallenges/>,<Footer/>]} />
+        
 
 
         {/* Admin */}

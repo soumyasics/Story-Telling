@@ -85,7 +85,7 @@ function ViewerMainNav() {
                   <Link to="/reader-view-stories" className="text-decoration-none ms-3 text-light">Stories</Link>
                 </Nav>
                 <Nav>
-                  <div className="ms-3">Challenges</div>
+                <Link to="/reader-view-challenges" className="text-decoration-none ms-3 text-light">Challenges</Link>
                 </Nav>
                 <Nav>
                   <div onClick={handleLogout} className="ms-3">
