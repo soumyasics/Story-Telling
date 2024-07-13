@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import './WriterHomePage.css'
 import img from '../../Assets/img2.jpg'
 import img2 from '../../Assets/Drama.png'
@@ -10,6 +10,7 @@ import img7 from '../../Assets/img3.jpg'
 import WritterMainNav from './WritterMainNav'
 import Footer from '../Pages/Footer'
 import {useNavigate} from 'react-router-dom'
+import { IoMdArrowDropdown } from 'react-icons/io'
 
 function WriterHome() {
     const navigate =useNavigate()
@@ -21,6 +22,27 @@ function WriterHome() {
           navigate("/login");
         }
       }, [navigate]);
+
+      const [dropdownVisible, setDropdownVisible] = useState(false);
+      const toggleDropdown = () => {
+        setDropdownVisible(!dropdownVisible);
+      };
+
+      const [dropdownVisible2, setDropdownVisible2] = useState(false);
+      const toggleDropdown2 = () => {
+        setDropdownVisible2(!dropdownVisible2);
+      };
+
+      const [dropdownVisible3, setDropdownVisible3] = useState(false);
+      const toggleDropdown3 = () => {
+        setDropdownVisible3(!dropdownVisible3);
+      };
+
+      const [dropdownVisible4, setDropdownVisible4] = useState(false);
+      const toggleDropdown4 = () => {
+        setDropdownVisible4(!dropdownVisible4);
+      };
+
   return (
     <div><WritterMainNav/>
     <div> <div className="App">
@@ -100,18 +122,78 @@ function WriterHome() {
                     </div>
 
                     <div className="Challenges-steps">
-                        <div className="Challenge-step">
-                            <p>Step 1</p>
+                    <div className="row  mt-3">
+                    <div className="col-3">
+                      <label onClick={toggleDropdown}>
+                        <div>
+                        <h6> Step 1</h6>
+                        <label><IoMdArrowDropdown/></label>
                         </div>
-                        <div className="Challenge-step">
-                            <p>Step 2</p>
+                      </label>
+                      {dropdownVisible && (
+                          <div className="dropdown_menu sidebar_dash_drop">
+                              <div className="reader-home-step1">
+                                  <h5>Add Challenge</h5>
+                                  <label>Each writer can come up with
+                                  their challenge ideas that 
+                                  motivate and inspires others</label>
+                                
+                              </div>
+                          </div>
+                      )}
+                    </div>
+                    <div className="col-3">
+                      <label onClick={toggleDropdown2}>
+                        <div>
+                        <h6> Step 2</h6>
+                        <label><IoMdArrowDropdown/></label>
                         </div>
-                        <div className="Challenge-step">
-                            <p>Step 3</p>
+                      </label>
+                      {dropdownVisible2 && (
+                          <div className="dropdown_menu sidebar_dash_drop">
+                              <div className="reader-home-step1">
+                                <h5>Choose a challenge</h5>
+                                <label>Select the challenge 
+                                that excites you the most</label>
+                              </div>
+                          </div>
+                      )}
+                    </div>
+                    <div className="col-3">
+                      <label onClick={toggleDropdown3}>
+                        <div>
+                        <h6> Step 3</h6>
+                        <label><IoMdArrowDropdown/></label>
                         </div>
-                        <div className="Challenge-step">
-                            <p>Step 4</p>
+                      </label>
+                      {dropdownVisible3 && (
+                          <div className="dropdown_menu sidebar_dash_drop">
+                              <div className="reader-home-step1">
+                                <h5>Submit your update</h5>
+                                <label>Post your updates daily 
+                                and let others 
+                                knew your participation</label>
+                              </div>
+                          </div>
+                      )}
+                    </div>
+                    <div className="col-3">
+                      <label onClick={toggleDropdown4}>
+                        <div>
+                        <h6> Step 4</h6>
+                        <label><IoMdArrowDropdown/></label>
                         </div>
+                      </label>
+                      {dropdownVisible4 && (
+                          <div className="dropdown_menu sidebar_dash_drop">
+                              <div className="reader-home-step1">
+                                <h5>Winner of the challenge</h5>
+                                <label>Challenge winner will be announced after the end of the deadline of the challenge</label>
+                              </div>
+                          </div>
+                      )}
+                    </div>
+                    </div>
                     </div>
                 </div>
             </section>
