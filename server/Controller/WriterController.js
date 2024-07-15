@@ -256,11 +256,12 @@ const viewWriterById = (req, res) => {
 // accept
 const acceptWriterById =async (req, res) => {
   let flag=0
+  
    await Writer.findByIdAndUpdate({ _id: req.params.id },{adminApproved:true,isActive:true})
         .exec()
         .then(data => {
           if(data)
-            flag=1
+           
             res.json({
                 status: 200,
                 msg: "Accepted successfully",
@@ -274,8 +275,13 @@ const acceptWriterById =async (req, res) => {
                 Error: err
             });
         });
-
-        if (flag == 1) await Reader.findByIdAndDelete(req.params.id);
+        const emaildata=await Writer.findById( req.params.id)
+        const datas = await ReaderSchema.findOne({ email: emaildata.email });
+        if(datas)
+          flag=1
+        console.log(datas);
+        if (flag == 1) 
+          await ReaderSchema.findOneAndDelete({email: emaildata.email});
 };
 
 
