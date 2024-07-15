@@ -1,12 +1,7 @@
 const mongoose= require("mongoose");
 
 const sSchema=mongoose.Schema({
-    storyId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'stories',
-        required:true,
-       
-    },
+    
     status:{
         type:String,
         required:true
@@ -30,5 +25,5 @@ const sSchema=mongoose.Schema({
     },
     date:Date
 });
-module.exports=mongoose.model('comments',sSchema)
+module.exports=mongoose.model('challengeupdates',sSchema)
 
