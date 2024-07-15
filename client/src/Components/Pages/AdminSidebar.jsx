@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AdminLogin.css";
 import Adminimg from "../../Assets/Admin.png";
 import Admindashboardimg from "../../Assets/dashboard.png";
@@ -8,7 +8,7 @@ import writer from "../../Assets/Vector (9).png";
 import user from "../../Assets/ph_users-fill.png";
 import Report from "../../Assets/Vector (11).png";
 import Challengers from "../../Assets/Vector (12).png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AdminDashBoard from "../Admin/AdminDashBoard";
 function AdminSidebar() {
   const navigate = useNavigate();
@@ -26,6 +26,11 @@ function AdminSidebar() {
     navigate("/readers");
   };
 
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+    const toggleDropdown = () => {
+        setDropdownVisible(!dropdownVisible);
+    };
+
   return (
     <div className="adminsidebarmain">
       <div>
@@ -40,72 +45,96 @@ function AdminSidebar() {
 
         <hr className="text-light"></hr>
         <div className="fs-3 text-light ms-4">Admin</div>
-        <div className="row sidebardashboard p-1 ms-2 ">
-          <div className="col-10" onClick={AdminDashBoardicon}>
-            <img src={Admindashboardimg} className="ms-3"></img>
-            <label className="ms-2 ">
-              <b>Dashboard</b>
+        
+        <div className="pt-3">
+          <div onClick={AdminDashBoardicon}>
+            <img src={Admindashboardimg} className="ms-4"></img>
+            <label className="ms-2 admin-sidebar-dash ">
+              Dashboard
             </label>
-          </div>
-          <div className="col-2">
-            {" "}
-            <img className="" src={Adminarrow}></img>
+            <img className="admin-sidebar-dash-img" src={Adminarrow}></img>
           </div>
         </div>
-        <div className="fs-3 text-light ms-4 my-3">Menu</div>
-        <div className="row sidebardashboard p-1 ms-2 ">
-          <div className="col-10"  onClick={AllReaders}>
-            <img src={reader} className="ms-3"></img>
-            <label className="ms-2 mt-2">
-              <b>Readers</b>
+
+        
+        <div className="fs-3 text-light ms-4 mt-5">Menu</div>
+
+        <div className="pt-3">
+          <div onClick={AllReaders}>
+            <img src={reader} className="ms-4"></img>
+            <label className="ms-2 admin-sidebar-dash ">
+              Readers
             </label>
-          </div>
-          <div className="col-2">
-            {" "}
-            <img className="" src={Adminarrow}></img>
+            <img className="admin-sidebar-dash-img-reader" src={Adminarrow}></img>
           </div>
         </div>
-        <div className="row sidebardashboard p-1 ms-2 ">
-          <div className="col-10" onClick={AllWriters}>
-            <img src={writer} className="ms-3"></img>
-            <label className="ms-2 mt-2">
-              <b>Writers</b>
+
+        <div className="pt-3">
+          <div onClick={AllWriters}>
+            <img src={writer} className="ms-4"></img>
+            <label className="ms-2 admin-sidebar-dash ">
+              Writers
             </label>
-          </div>
-          <div className="col-2">
-            {" "}
-            <img className="" src={Adminarrow}></img>
+            <img className="admin-sidebar-dash-img-writer" src={Adminarrow}></img>
           </div>
         </div>
-        <div className="row sidebardashboard text-center p-1 ms-2">
-         
-          
-        </div>
-        <div className="row sidebardashboard p-1 ms-2 ">
-          <div className="col-10" onClick={writerRequest}>
-            <img src={user} className="ms-3"></img>
-            <label className="ms-2 mt-2">
-              <b>Writers Requests</b>
+
+        <div className="pt-3">
+          <div onClick={writerRequest}>
+            <img src={user} className="ms-4"></img>
+            <label className="ms-2 admin-sidebar-dash ">
+              Requests
             </label>
-          </div>
-          <div className="col-2">
-            {" "}
-            <img className="" src={Adminarrow}></img>
+            <img className="admin-sidebar-dash-img-req" src={Adminarrow}></img>
           </div>
         </div>
-        <div className="row sidebardashboard p-1 ms-2 ">
-          <div className="col-10">
-            <img src={Report} className="ms-3"></img>
-            <label className="ms-2 mt-2">
-              <b>Reports</b>
+
+        <div className="pt-3">
+          <div onClick={Report}>
+            <img src={Report} className="ms-4"></img>
+            <label className="ms-2 admin-sidebar-dash ">
+              Reports
             </label>
-          </div>
-          <div className="col-2">
-            {" "}
-            <img className="" src={Adminarrow}></img>
+            <img className="admin-sidebar-dash-img-rep" src={Adminarrow}></img>
           </div>
         </div>
-        <div className="row sidebardashboard p-1 ms-2 ">
+
+        <div className="pt-3">
+          <div onClick={toggleDropdown}>
+            <img src={Challengers} className="ms-4"></img>
+            <label className="ms-2 admin-sidebar-dash ">
+              Challengers
+            </label>
+            <img className="admin-sidebar-dash-img-chall" src={Adminarrow}></img>
+            {dropdownVisible && (
+              <div className="dropdown_menu sidebar_dash_drop mt-4">
+                <div className="admin-sidebar-dropdown ms-3 me-3">
+                  <Link to='/admindashviewchallengers' ><label className="ms-3 mt-2 admin-sidebar-dropdown-link">View Challengers</label></Link>
+                  <Link to='' ><label className="ms-3 admin-sidebar-dropdown-link">View Challenges Summary</label></Link>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+        {/* 
+        
+        <div className=''>
+                  <label onClick={toggleDropdown}>
+                  <img src={Challengers} className="me-2"></img>
+                    <b className="me-5">Challenges</b>
+                    <img className="" src={Adminarrow}></img>
+                  </label>
+                  
+                  {dropdownVisible && (
+                      <div className="dropdown_menu sidebar_dash_drop">
+                          <div className="wholesaler-dash-backgroundcolor ms-3 me-3">
+                            <Link to='' ><label>View Challenges</label></Link>
+                            <Link to='' ><label className="me-5 ">View Challenges Summary</label></Link>
+                          </div>
+                      </div>
+                  )}
+        </div> */}
+        {/* <div className="row sidebardashboard p-1 ms-2 ">
           <div className="col-10">
             <img src={Challengers} className="ms-3"></img>
             <label className="ms-2 mt-2">
@@ -116,7 +145,7 @@ function AdminSidebar() {
             {" "}
             <img className="" src={Adminarrow}></img>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
