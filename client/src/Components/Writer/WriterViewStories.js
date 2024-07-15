@@ -130,11 +130,11 @@ function WriterViewStories({ url }) {
             <div class="row row-cols-1 row-cols-md-5 g-4 mt-3 ">
               <div class="col text-center">
                 <img
-                  className={`writer-viewstory-categoryimg ${filter.category == 'Drama' ? sel : ''}`}
+                  className={`writer-viewstory-categoryimg ${filter.category == 'Tragedy' ? sel : ''}`}
                   src={Drama}
-                  onClick={() => applyFilter({ category: "Drama" })}
+                  onClick={() => applyFilter({ category: "Tragedy" })}
                 />
-                <h4 className="mt-3">Drama</h4>
+                <h4 className="mt-3">Tragedy</h4>
               </div>
               <div class="col text-center">
                 <img
