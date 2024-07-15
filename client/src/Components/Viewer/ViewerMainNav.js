@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -6,6 +6,8 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import logo from "../../Assets/logo.png";
 import axiosInstance from "../../BaseAPIs/axiosinstatnce";
 import { Link, useNavigate } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 function ViewerMainNav() {
   const navigate = useNavigate();
@@ -16,6 +18,11 @@ function ViewerMainNav() {
     navigate("/login");
   };
 
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const handleUpGrade = () => {
     axiosInstance
       .post("/upgradeToWriter/" + localStorage.getItem("reader"))
@@ -24,7 +31,7 @@ function ViewerMainNav() {
         alert("Please Login Again For Upgrade To Writer")
         setTimeout(() => {
           navigate("/login");
-        }, 4500);
+        }, 1000);
       })
       .catch((error) => {
         console.error("Upgrade error:", error);
@@ -75,7 +82,7 @@ function ViewerMainNav() {
                 </Nav>
                 <Nav>
                   <div
-                    onClick={handleUpGrade}
+                    onClick={handleShow}
                     className="ms-3 text-light text-decoration-none"
                   >
                     Upgrade to writer
@@ -97,6 +104,23 @@ function ViewerMainNav() {
           </Navbar>
         </div>
       </div>
+      <>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header >
+          <Modal.Title>Are You Confirm For UpGrade To Writer?</Modal.Title>
+        </Modal.Header>
+        
+        <Modal.Footer>
+        <Button variant="primary " onClick={handleUpGrade}>
+        Confirm to UpGrade
+        </Button>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+         
+        </Modal.Footer>
+      </Modal>
+    </>
     </div>
   );
 }
