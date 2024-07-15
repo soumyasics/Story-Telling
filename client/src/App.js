@@ -36,6 +36,9 @@ import WriterAddChallenges from "./Components/Challenges/WriterAddChallenges";
 import WriterEditChallenges from "./Components/Challenges/WriterEditChallenges";
 import WriterViewSummaryChallenge from "./Components/Writer/WriterViewSummaryChallenge";
 import ReaderViewSummaryChallenge from "./Components/Viewer/ReaderViewSummaryChallenge";
+import ViewChallengers from "./Components/Admin/ViewChallengers";
+import ViewChallengersTitle from "./Components/Admin/ViewChallengersTitle";
+import AnnounceChallengeSummary from "./Components/Admin/AnnounceChallengeSummary";
 
 function App() {
   const url = "http://localhost:4025/";
@@ -83,6 +86,9 @@ function App() {
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/admindashboard" element={<AdminDashBoard />} />
         <Route path="/admindashboardsub" element={<AdminDashboardSub />} />
+        <Route path="/admindashviewchallengers" element={<ViewChallengers />} />
+        <Route path="/admindashviewchallengesTitle" element={<ViewChallengersTitle />} />
+        <Route path="/announcechallengesummary" element={<AnnounceChallengeSummary />} />
         <Route path="/request" element={<Requests url={url} />} />
         <Route path="/writers" element={<AdminviewWriters url={url} />} />
         <Route path="/readers" element={<AllReader url={url} />} />
