@@ -56,3 +56,12 @@
     box-shadow: 0px 4px 4px 0px #00000040;
     border-radius: 10px;
 }
+
+/* Reader Home */
+.reader-home-link h5{
+    text-decoration: none;
+}
+.reader-home-step1{
+    background-color: black;
+    color: white;
+}

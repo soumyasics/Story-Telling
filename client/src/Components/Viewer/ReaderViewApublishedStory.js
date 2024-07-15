@@ -316,7 +316,7 @@ function ReaderViewApublishedStory() {
                         setIsDiabled("");
                       }}
                     >
-                      Countinu
+                      Continue
                     </button>
                     <button className="btn btn-dark px-5">Add Part</button>
                   </div>
