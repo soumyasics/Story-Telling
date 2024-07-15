@@ -100,6 +100,8 @@ function WriterRegister({ userrole }) {
 
     const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z]).{6,}$/;
 
+
+    
     if (!data.password || !data.password.trim()) {
       formIsValid = false;
       validationErrors.password = "Password is required";
@@ -108,7 +110,7 @@ function WriterRegister({ userrole }) {
       validationErrors.password =
         "Password must contain at least one number, one special character, and one capital letter";
     }
-
+    
     if (!data.confirmpassword || !data.confirmpassword.trim()) {
       formIsValid = false;
       validationErrors.confirmpassword = "Confirm Password is required";
@@ -116,7 +118,11 @@ function WriterRegister({ userrole }) {
       formIsValid = false;
       validationErrors.confirmpassword = "Passwords do not match";
     }
-
+    
+    // Output the validation results for debugging
+    console.log(formIsValid);
+    console.log(validationErrors);
+    
     if (!data.userCategory.trim()) {
       validationErrors.userCategory = "please choose a category";
       formIsValid = false;
@@ -129,7 +135,6 @@ function WriterRegister({ userrole }) {
     }
 
     setErrors(validationErrors);
-
     if (formIsValid) {
       const formData = new FormData();
       Object.keys(data).forEach((key) => {
@@ -206,7 +211,9 @@ function WriterRegister({ userrole }) {
                     onChange={handleChange}
                     id="custom-input"
                   />
-                 
+                  {errors.password && (
+                    <div className="text-danger">{errors.password}</div>
+                  )}
                   <input
                     type="password"
                     className="form-control custom-input"

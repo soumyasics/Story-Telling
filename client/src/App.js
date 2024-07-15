@@ -34,6 +34,11 @@ import ReaderViewStories from "./Components/Viewer/ReaderViewStories";
 import ReaderViewApublishedStory from "./Components/Viewer/ReaderViewApublishedStory";
 import WriterAddChallenges from "./Components/Challenges/WriterAddChallenges";
 import WriterEditChallenges from "./Components/Challenges/WriterEditChallenges";
+import WriterViewSummaryChallenge from "./Components/Writer/WriterViewSummaryChallenge";
+import ReaderViewSummaryChallenge from "./Components/Viewer/ReaderViewSummaryChallenge";
+import ViewChallengers from "./Components/Admin/ViewChallengers";
+import ViewChallengersTitle from "./Components/Admin/ViewChallengersTitle";
+import AnnounceChallengeSummary from "./Components/Admin/AnnounceChallengeSummary";
 
 function App() {
   const url = "http://localhost:4025/";
@@ -62,12 +67,14 @@ function App() {
         <Route path="/writer-edit-customstory/:id" element={[<WritterMainNav/>,<WriterStoryEditPage/>,<Footer/>]} />
         <Route path="/writer-view-stories" element={[<WritterMainNav/>,<WriterViewStories url={url} />,<Footer/>]} />
         <Route path="/writer-view-a-stories/:storyid" element={[<WritterMainNav/>,<ViewAPublishedStory url={url} />,<Footer/>]} />
+        <Route path="/writer-view-summary-challenge" element={[<WritterMainNav/>,<WriterViewSummaryChallenge/>,<Footer/>]} />
 
         {/* Reader */}
         <Route path="/reader-profile" element={[<ViewerMainNav/>,<ReaderProfile url={url}/>,<Footer/>]} />
         <Route path="/reader-edit-profile/:id" element={[<ViewerMainNav/>,<ReaderEditProfile/>,<Footer/>]} />
         <Route path="/reader-view-stories" element={[<ViewerMainNav/>,<ReaderViewStories url={url}/>,<Footer/>]} />
         <Route path="/reader-view-a-stories/:storyid" element={[<ViewerMainNav/>,<ReaderViewApublishedStory url={url}/>,<Footer/>]} />
+        <Route path="/reader-view-summary-challenge" element={[<ViewerMainNav/>,<ReaderViewSummaryChallenge/>,<Footer/>]} />
 
         {/* Challenges */}
         <Route path="/writer-add-challenges" element={[<WritterMainNav/>,<WriterAddChallenges/>,<Footer/>]} />
@@ -79,6 +86,9 @@ function App() {
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/admindashboard" element={<AdminDashBoard />} />
         <Route path="/admindashboardsub" element={<AdminDashboardSub />} />
+        <Route path="/admindashviewchallengers" element={<ViewChallengers />} />
+        <Route path="/admindashviewchallengesTitle" element={<ViewChallengersTitle />} />
+        <Route path="/announcechallengesummary" element={<AnnounceChallengeSummary />} />
         <Route path="/request" element={<Requests url={url} />} />
         <Route path="/writers" element={<AdminviewWriters url={url} />} />
         <Route path="/readers" element={<AllReader url={url} />} />
