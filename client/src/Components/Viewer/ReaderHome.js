@@ -1,4 +1,5 @@
 import React,{useEffect} from "react";
+import './Reader.css'
 import img from "../../Assets/Landingsection8img.png";
 import img2 from "../../Assets/Drama.png";
 import img3 from "../../Assets/Crime.png";
@@ -8,8 +9,9 @@ import img6 from "../../Assets/Fantasy.png";
 import img7 from "../../Assets/img3.jpg";
 import ViewerMainNav from "./ViewerMainNav";
 import Footer from "../Pages/Footer";
-import { useNavigate } from 'react-router-dom'
-
+import { Link, useNavigate } from 'react-router-dom'
+import { useState } from "react";
+import { IoMdArrowDropdown } from "react-icons/io";
 function ReaderHome() {
   const navigate =useNavigate()
     useEffect(() => {
@@ -20,6 +22,22 @@ function ReaderHome() {
           navigate("/login");
         }
       }, [navigate]);
+
+     
+      const [dropdownVisible, setDropdownVisible] = useState(false);
+      const toggleDropdown = () => {
+        setDropdownVisible(!dropdownVisible);
+      };
+
+      const [dropdownVisible2, setDropdownVisible2] = useState(false);
+      const toggleDropdown2 = () => {
+        setDropdownVisible2(!dropdownVisible2);
+      };
+
+      const [dropdownVisible3, setDropdownVisible3] = useState(false);
+      const toggleDropdown3 = () => {
+        setDropdownVisible3(!dropdownVisible3);
+      }; 
   return (
     <div>
       {" "}
@@ -30,9 +48,9 @@ function ReaderHome() {
           <div className="App">
             <div className="headDiv">
               <img src={img} className="App-image" alt="header" />
-              <div className="App-header-text text-dark ">
+              <div className="App-header-text text-light ">
                 <h1 className="h1-1 fs-1">Discover a World of Stories</h1>
-                <p className="p-1 fs-5">
+                <p className="p-1 fs-5 text-light">
                   Immerse yourself in a diverse collection of tales created by a
                   global community of writers. Every story is a unique journey,
                   shaped by multiple perspectives and imaginations. Explore a
@@ -110,17 +128,68 @@ function ReaderHome() {
                 </div>
 
                 <div className="Challenges-steps">
-                  <div className="Challenge-step">
-                    <p>Step 1</p>
-                  </div>
-                  <div className="Challenge-step">
-                    <p>Step 2</p>
-                  </div>
-                  <div className="Challenge-step">
-                    <p>Step 3</p>
-                  </div>
-                  <div className="Challenge-step">
-                    <p>Step 4</p>
+                  <div className="row  mt-3">
+                    <div className="col-4">
+                      <label onClick={toggleDropdown}>
+                        <div>
+                        <h6> Step 1</h6>
+                        <label><IoMdArrowDropdown/></label>
+                        </div>
+                      </label>
+                      {dropdownVisible && (
+                          <div className="dropdown_menu sidebar_dash_drop">
+                              <div className="reader-home-step1">
+                                {/* <Link to="reader-home-link" className="text-dark">  */}
+                                  <h5>Choose a challenge</h5>
+                                  <label>Select the challenge that </label>
+                                  <label>excites you the most</label> 
+                                {/* </Link> */}
+                              </div>
+                          </div>
+                      )}
+                    </div>
+                    <div className="col-4">
+                    
+                    <label onClick={toggleDropdown2}>
+                        <div>
+                        <h6> Step 2</h6>
+                        <label><IoMdArrowDropdown/></label>
+                        </div>
+                      </label>
+                      {dropdownVisible2 && (
+                          <div className="dropdown_menu sidebar_dash_drop">
+                              <div className="reader-home-step1">
+                                {/* <Link to="reader-home-link" className="text-dark">  */}
+                                  <h5>Submit your update</h5>
+                                  <label>Post your updates daily  </label>
+                                  <label>and let others</label> 
+                                  <label>knew your participation</label>
+                                {/* </Link> */}
+                              </div>
+                          </div>
+                      )}
+                    
+                    </div>
+                    <div className="col-4">
+                    <label onClick={toggleDropdown3}>
+                        <div>
+                        <h6> Step 3</h6>
+                        <label><IoMdArrowDropdown/></label>
+                        </div>
+                      </label>
+                      {dropdownVisible3 && (
+                          <div className="dropdown_menu sidebar_dash_drop">
+                              <div className="reader-home-step1 ps-5">
+                                {/* <Link to="reader-home-link" className="text-dark">  */}
+                                  <h5>Winner of the challenge</h5>
+                                  <label>Challenge winner will be </label>
+                                  <label>announced after the end of the </label> 
+                                  <label>deadline of the challenge</label>
+                                {/* </Link> */}
+                              </div>
+                          </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
