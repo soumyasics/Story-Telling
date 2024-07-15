@@ -8,6 +8,7 @@ const Comment = require("./Controller/commentController");
 const Challenge = require("./Controller/challengeContrller");
 const like = require("./Controller/likeController");
 const parts = require("./Controller/partController");
+const challengUpdates = require("./Controller/challengeUpdateController");
 
 
 
@@ -83,5 +84,18 @@ router.post("/getAllParts", parts.getAllParts);
 router.post("/getPartById/:id", parts.getPartById);
 router.post("/getPartByStoryId/:id", parts.getPartByStoryId);
 router.post("/deletePartById/:id", parts.deletePartById);
+
+
+
+//Challenge Updates
+
+
+router.post("/addchallengeUpdates", challengUpdates.addchallengeUpdates);
+router.post("/viewchallengeUpdatessBychallengeId/:id", challengUpdates.viewchallengeUpdatessBychallengeId);
+router.post("/viewchallengeUpdatesById/:id", challengUpdates.viewchallengeUpdatesById);
+router.post("/viewchallengeParticipantsById/:id", challengUpdates.viewchallengeParticipantsById);
+router.post("/addChallengeWinner/:id", challengUpdates.addChallengeWinner);
+router.post("/getAllChallengeWinners/:id", challengUpdates.getAllChallengeWinners);
+router.post("/getChallengeWinnersByChallengeId/:id", challengUpdates.getChallengeWinnersByChallengeId);
 
 module.exports = router;
