@@ -265,7 +265,7 @@ function WriterAddChallenges() {
                     
                     <div className='writer-addchallenge-btn-div'>
                         <button className='writer-addchallenge-btn' >Publish</button>
-                        <button className='writer-addchallenge-btn' onClick={navigatetohome} type='reset'>Cancel</button>
+                        <button className='writer-addchallenge-btn ms-5' onClick={navigatetohome} type='reset'>Cancel</button>
 
                     </div>
                     </form>

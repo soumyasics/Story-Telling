@@ -110,42 +110,12 @@ function AdminSidebar() {
               <div className="dropdown_menu sidebar_dash_drop mt-4">
                 <div className="admin-sidebar-dropdown ms-3 me-3">
                   <Link to='/admindashviewchallengers' ><label className="ms-3 mt-2 admin-sidebar-dropdown-link">View Challengers</label></Link>
-                  <Link to='' ><label className="ms-3 admin-sidebar-dropdown-link">View Challenges Summary</label></Link>
+                  <Link to='/viewchallengesummary' ><label className="ms-3 admin-sidebar-dropdown-link">View Challenges Summary</label></Link>
                 </div>
               </div>
             )}
           </div>
         </div>
-        {/* 
-        
-        <div className=''>
-                  <label onClick={toggleDropdown}>
-                  <img src={Challengers} className="me-2"></img>
-                    <b className="me-5">Challenges</b>
-                    <img className="" src={Adminarrow}></img>
-                  </label>
-                  
-                  {dropdownVisible && (
-                      <div className="dropdown_menu sidebar_dash_drop">
-                          <div className="wholesaler-dash-backgroundcolor ms-3 me-3">
-                            <Link to='' ><label>View Challenges</label></Link>
-                            <Link to='' ><label className="me-5 ">View Challenges Summary</label></Link>
-                          </div>
-                      </div>
-                  )}
-        </div> */}
-        {/* <div className="row sidebardashboard p-1 ms-2 ">
-          <div className="col-10">
-            <img src={Challengers} className="ms-3"></img>
-            <label className="ms-2 mt-2">
-              <b>Challengers</b>
-            </label>
-          </div>
-          <div className="col-2">
-            {" "}
-            <img className="" src={Adminarrow}></img>
-          </div>
-        </div> */}
       </div>
     </div>
   );

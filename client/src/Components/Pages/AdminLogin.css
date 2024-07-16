@@ -133,3 +133,28 @@
   width: 100%;
   background-color: #BAE6DD;
 }
+.announce-summary-challenge-savebtn{
+  color: white;
+  background-color: #198754;
+  border: none;
+  height: 40px;
+  width: 80px;
+  border-radius: 10px;
+}
+
+/* View Challenge Summary */
+
+.view-challenge-summary-divbox{
+  box-shadow: 6px 6px 8px 0px #00000040;
+  background: #BAE6DD;
+  height: 20vh;
+  border-radius: 16px; 
+}
+.view-challenge-summary-img{
+  height: 40px;
+  width: 40px;
+}
+.view-challenge-summary-name{
+  font-size: 20px;
+  font-weight: 600;
+}
