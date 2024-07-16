@@ -12,7 +12,7 @@ function AnnounceChallengeSummary() {
             <div className=' row  container'>
                 <div className='col-1'></div>
                 <div className='col-10'>
-                    <div className='row announce-summary-challenge-grid mt-5 ms-5'>
+                    <div className='row announce-summary-challenge-grid mt-5 ms-2'>
                         <div className='col-4 pt-3 ps-5'>
                             <h6>Position</h6>
                         </div>
@@ -29,7 +29,7 @@ function AnnounceChallengeSummary() {
             <div className=' row  container'>
                 <div className='col-1'></div>
                 <div className='col-10'>
-                    <div className='row announce-summary-challenge-grid1 mt-5 ms-5'>
+                    <div className='row announce-summary-challenge-grid1 mt-5 ms-2'>
                         <div className='col-4 pt-2 ps-5'>
                             <h3>1st</h3>
                         </div>

@@ -39,6 +39,7 @@ import ReaderViewSummaryChallenge from "./Components/Viewer/ReaderViewSummaryCha
 import ViewChallengers from "./Components/Admin/ViewChallengers";
 import ViewChallengersTitle from "./Components/Admin/ViewChallengersTitle";
 import AnnounceChallengeSummary from "./Components/Admin/AnnounceChallengeSummary";
+import WriterViewChallenges from "./Components/Challenges/WriterViewChallenges";
 
 function App() {
   const url = "http://localhost:4025/";
@@ -78,6 +79,7 @@ function App() {
 
         {/* Challenges */}
         <Route path="/writer-add-challenges" element={[<WritterMainNav/>,<WriterAddChallenges/>,<Footer/>]} />
+        <Route path="/writer-view-challenges" element={[<WritterMainNav/>,<WriterViewChallenges/>,<Footer/>]} />
         <Route path="/writer-edit-challenges/:challengeid" element={[<WritterMainNav/>,<WriterEditChallenges/>,<Footer/>]} />
 
 

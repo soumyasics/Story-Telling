@@ -21,7 +21,7 @@ function WritterMainNav() {
     Navigate("/writer-add-customstory")
   }
   const navigateToViewCustmStory=()=>{
-    Navigate("/writer-view-customstory")
+    Navigate("/writer-view-challenges")
   }
 
   const navigateToViewStory=()=>{
