@@ -9,6 +9,12 @@ import { imageUrl } from "../../BaseAPIs/ImageUrl/imgApi";
 import axiosMultipartInstance from "../../BaseAPIs/AxiosMultipartInstance";
 import like from "../../Assets/Group.png";
 import dislike from "../../Assets/iconamoon_like-bold (1).png";
+import { AiOutlineMessage } from "react-icons/ai";
+import crime from '../../Assets/Crime.png'
+
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+
 function ReaderViewApublishedStory() {
   const navigate = useNavigate();
   const [id, setId] = useState(localStorage.getItem("reader"));
@@ -35,6 +41,12 @@ function ReaderViewApublishedStory() {
     audio: "",
     coverPicture: { filename: "" },
   });
+
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleCommantsShow = () => setShow(true);
 
   useEffect(() => {
     axiosInstance
@@ -70,8 +82,8 @@ function ReaderViewApublishedStory() {
       .catch((err) => {
         alert("Failed to fetch user details");
       });
-      countlike();
-      
+    countlike();
+
   }, []);
 
   const countlike = () => {
@@ -85,7 +97,7 @@ function ReaderViewApublishedStory() {
         alert("Failed to fetch user details");
       });
 
-      axiosInstance
+    axiosInstance
       .post(`/countLikes/${storyid}`)
       .then((res) => {
         console.log(res, "countLikes");
@@ -94,6 +106,20 @@ function ReaderViewApublishedStory() {
       .catch((err) => {
         alert("Failed to fetch user details");
       });
+  }
+
+  localStorage.getItem('reader');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axiosInstance.post('/createComment')
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   const [errors, setErrors] = useState({
@@ -157,12 +183,12 @@ function ReaderViewApublishedStory() {
         countlike();
         console.log(res, "banu");
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   return (
     <>
-      <div className="mb-5 mt-5">
+      <div className="mb-5 mt-5 mb-5">
         <div className="container mt-5">
           <div className="writer-story-addpage-navdiv">
             <div className="row">
@@ -253,7 +279,7 @@ function ReaderViewApublishedStory() {
                           )}
                         </Form.Item>
                       </div>
-                      
+
                       <div className="mt-3 mx-5 writer-story-addpage-summery ">
                         <div class="form-floating">
                           <textarea
@@ -298,14 +324,19 @@ function ReaderViewApublishedStory() {
                     </div>
                     <div className="col ">
                       <img
-                        src={`${
-                          image
+                        src={`${image
                             ? image
                             : imageUrl + "/" + storydata.coverPicture?.filename
-                        }`}
+                          }`}
                         className="writer-story-addpage-sideimg mt-5"
                         alt="Upload cover Image"
                       ></img>
+                    </div>
+                  </div>
+                  <div className="pt-5 ms-5">
+
+                    <div  onClick={handleCommantsShow}>
+                    <AiOutlineMessage className="readerview-apublished-story-icon" />3,456
                     </div>
                   </div>
                   <div className="text-center p-3">
@@ -351,6 +382,39 @@ function ReaderViewApublishedStory() {
             </div>
           </form>
         </div>
+      </div>
+      <div className="container readerview-apublished-story-commentdiv">
+        <div className="pt-4 ms-5">
+          <h5>Comments</h5>
+        </div>
+        <hr></hr>
+        <div className="row">
+
+          <div className="col-2 ps-5">
+            <img src={crime} className="readerview-apublished-story-commentimg"></img>
+          </div>
+          <div className="col-10">
+            <label className="readerview-apublished-story-label">@anupriya123</label><br></br>
+            <label className="readerview-apublished-story-label">It’s going interesting and i Love It</label>
+          </div>
+        </div>
+        <>
+
+
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Comments</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <textarea  className="form-control" cols='60' rows='10'></textarea>
+            </Modal.Body>
+            <Modal.Footer>
+              <div>
+                <button className="readerview-apublished-story-submitbtn" onClick={handleSubmit}>Submit</button>
+              </div>
+            </Modal.Footer>
+          </Modal>
+        </>
       </div>
     </>
   );
