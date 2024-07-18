@@ -1,6 +1,6 @@
 import React,{useEffect} from "react";
 import './Reader.css'
-import img from "../../Assets/Landingsection8img.png";
+import img from "../../Assets/readerhome.png";
 import img2 from "../../Assets/Drama.png";
 import img3 from "../../Assets/Crime.png";
 import img4 from "../../Assets/Horror.png";
