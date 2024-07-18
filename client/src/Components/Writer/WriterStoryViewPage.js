@@ -95,7 +95,7 @@ function WriterStoryViewPage() {
            )
         })):(
         
-          <h4>No investors available</h4>
+          <h4>No story available</h4>
         )
         }  
         </div>

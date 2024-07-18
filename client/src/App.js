@@ -41,9 +41,9 @@ import ViewChallengersTitle from "./Components/Admin/ViewChallengersTitle";
 import AnnounceChallengeSummary from "./Components/Admin/AnnounceChallengeSummary";
 
 function App() {
-  // const url = "http://localhost:4025/";
+  const url = "http://localhost:4025/";
 
-  const url= "http://hybrid.srishticampus.in:4025/"
+  // const url= "http://hybrid.srishticampus.in:4025/"
 
   return (
     <BrowserRouter basename="/story_telling">
