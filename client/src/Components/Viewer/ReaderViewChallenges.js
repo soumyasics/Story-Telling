@@ -4,7 +4,9 @@ import axiosInstance from '../../BaseAPIs/axiosinstatnce';
 import image1 from '../../Assets/image1.png';
 import image2 from '../../Assets/image2.png';
 import { imageUrl } from '../../BaseAPIs/ImageUrl/imgApi';
-function WriterNewStoryChallenge() {
+
+
+function ReaderViewChallenges() {
   const [writerdata, setWriterData] = useState([]);
 
   useEffect(() => {
@@ -20,7 +22,7 @@ function WriterNewStoryChallenge() {
   }, []);
 
   return (
-    <div className='mb-5'>
+    <div className='mb-5' style={{minHeight:"100vh"}}>
       <div className='text-center mt-5'>
         <h4>New Story Challenge</h4>
       </div>
@@ -62,4 +64,4 @@ function WriterNewStoryChallenge() {
   );
 }
 
-export default WriterNewStoryChallenge;
+export default ReaderViewChallenges;
