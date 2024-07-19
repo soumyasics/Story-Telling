@@ -2,11 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import image1 from '../../Assets/image1.png'
 import image2 from '../../Assets/image2.png'
-function WriterPublishedStoryChallenge() {
+function WriterViewChallenge() {
   return (
     <div className='mb-5'>
     <div className='text-center mt-5'>
-      <h4>Published Challenge</h4>
+      <h4>My Challenge</h4>
     </div>
     <div className='mt-3 text-end me-5 pe-5'>
       <Link to='/writer-end-challenge'>
@@ -19,8 +19,8 @@ function WriterPublishedStoryChallenge() {
       <div className='col-4 writerview-challenges-imgdiv'>
         <div>
         <img src={image1} className='writerview-challenges-img'></img>
-          <Link to='/writer-challenge-history'>
-            <button className='writerview-challenges-participatebtn ms-4'>History</button>
+          <Link to='/writer-participate-challenge'>
+            <button className='writerview-challenges-participatebtn ms-4'>Update Status</button>
           </Link>
         </div>
           
@@ -62,8 +62,8 @@ function WriterPublishedStoryChallenge() {
       </div>
       <div className='col-2'></div>
     </div>
-  </div>                                                                            
+  </div>
   )
 }
 
-export default WriterPublishedStoryChallenge
+export default WriterViewChallenge

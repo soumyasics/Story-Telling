@@ -1,12 +1,18 @@
 import React from 'react'
 import image1 from '../../Assets/image1.png'
 import image2 from '../../Assets/image2.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 function WriterNewStoryChallenge() {
+
+  const navigate = useNavigate()
+
+  const participate = () => {
+    navigate("/writer-view-challenge")
+  }
   return (
     <div className='mb-5'>
       <div className='text-center mt-5'>
-        <h4>New Story Challenge</h4>
+        <h4>New Challenge</h4>
       </div>
       <div className='mt-3 text-end me-5 pe-5'>
         <Link to='/writer-end-challenge'>
@@ -19,7 +25,7 @@ function WriterNewStoryChallenge() {
         <div className='col-4 writerview-challenges-imgdiv'>
           <div>
           <img src={image1} className='writerview-challenges-img'></img>
-            <Link to='/writer-participate-challenge'>
+            <Link to='/writer-view-challenge'>
               <button className='writerview-challenges-participatebtn ms-4'>Participate</button>
             </Link>
           </div>
