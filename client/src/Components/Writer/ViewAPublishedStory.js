@@ -9,10 +9,15 @@ import { imageUrl } from "../../BaseAPIs/ImageUrl/imgApi";
 import axiosMultipartInstance from "../../BaseAPIs/AxiosMultipartInstance";
 import like from "../../Assets/Group.png";
 import dislike from "../../Assets/iconamoon_like-bold (1).png";
+import { AiOutlineMessage } from "react-icons/ai";
+import { Modal } from "react-bootstrap";
+import crime from '../../Assets/Crime.png'
 
 function ViewAPublishedStory() {
   const navigate = useNavigate();
   const [id, setId] = useState(localStorage.getItem("writer"));
+  const readerid = localStorage.getItem("reader")
+  const[comment,setComment]=useState();
 
   useEffect(() => {
     if (
@@ -36,6 +41,11 @@ function ViewAPublishedStory() {
     audio: "",
     coverPicture: { filename: "" },
   });
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleCommantsShow = () => setShow(true);
 
   useEffect(() => {
     axiosInstance
@@ -97,6 +107,37 @@ function ViewAPublishedStory() {
       });
   }
 
+  const commentData = {
+    storyId:storyid,
+    comment:comment,
+    readerId:readerid,
+    writerId:id
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("comment data",commentData);
+    axiosInstance.post('/createComment',commentData)
+    .then((res) => {
+      console.log(res);
+      if(res.status === 200) {
+        alert("Comment Added Successfully!")
+        console.log("Comment Added Successfully!")
+        handleClose();
+      }
+      else{
+        alert("Comment not Inserted")
+        console.log("Comment not Inserted");
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      alert("Failed to add Comment")
+      console.error("Failed to add Comment");
+    })
+  }
+
+
   const [errors, setErrors] = useState({
     title: "",
     summary: "",
@@ -117,6 +158,12 @@ function ViewAPublishedStory() {
       ...prevErrors,
       [name]: "",
     }));
+  };
+
+  const handleCommentChange = (event) => {
+    const { name, value } = event.target;
+    setComment(value);
+  console.log(value);
   };
 
   const [errorcover, setErrorCover] = useState(null);
@@ -309,6 +356,12 @@ function ViewAPublishedStory() {
                       ></img>
                     </div>
                   </div>
+                  <div className="pt-5 ms-5">
+
+                    <div  onClick={handleCommantsShow}>
+                    <AiOutlineMessage className="readerview-apublished-story-icon" />3,456
+                    </div>
+                  </div>
                   <div className="text-center p-3">
                     <button
                       className="btn btn-dark me-5 px-5"
@@ -317,7 +370,7 @@ function ViewAPublishedStory() {
                         setIsDiabled("");
                       }}
                     >
-                      Countinu
+                      Continue
                     </button>
                     <button className="btn btn-dark px-5">Add Part</button>
                   </div>
@@ -352,6 +405,43 @@ function ViewAPublishedStory() {
             </div>
           </form>
         </div>
+        
+        <div className="container readerview-apublished-story-commentdiv">
+        <div className="pt-4 ms-5">
+          <h5>Comments</h5>
+        </div>
+        <hr></hr>
+        <div className="row">
+
+          <div className="col-2 ps-5">
+            <img src={crime} className="readerview-apublished-story-commentimg"></img>
+          </div>
+          <div className="col-10">
+            <label className="readerview-apublished-story-label">@anupriya123</label><br></br>
+            <label className="readerview-apublished-story-label">It’s going interesting and i Love It</label>
+          </div>
+        </div>
+        <>
+
+
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Comments</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <textarea  className="form-control" cols='60' rows='10' name="comment"
+              onChange={handleCommentChange}
+              ></textarea>
+            </Modal.Body>
+            <Modal.Footer>
+              <div>
+                <button className="readerview-apublished-story-submitbtn" onClick={handleSubmit}>Submit</button>
+              </div>
+            </Modal.Footer>
+          </Modal>
+        </>
+      </div>
+
       </div>
     </>
   );

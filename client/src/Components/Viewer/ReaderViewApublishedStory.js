@@ -18,7 +18,8 @@ import Modal from 'react-bootstrap/Modal';
 function ReaderViewApublishedStory() {
   const navigate = useNavigate();
   const [id, setId] = useState(localStorage.getItem("reader"));
-
+  const writerid = localStorage.getItem("writer")
+  const[comment,setComment]=useState();
   useEffect(() => {
     if (
       localStorage.getItem("token") == null &&
@@ -72,6 +73,7 @@ function ReaderViewApublishedStory() {
 
   const { storyid } = useParams();
 
+
   useEffect(() => {
     axiosInstance
       .post(`/viewStoryById/${storyid}`)
@@ -108,17 +110,34 @@ function ReaderViewApublishedStory() {
       });
   }
 
-  localStorage.getItem('reader');
+  console.log(storyid);
+  const commentData = {
+    storyId:storyid,
+    comment:comment,
+    readerId:id,
+    writerId:writerid
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    axiosInstance.post('/createComment')
+  console.log("comment data",commentData);
+    axiosInstance.post('/createComment',commentData)
     .then((res) => {
       console.log(res);
+      if(res.status === 200) {
+        alert("Comment Added Successfully!")
+        console.log("Comment Added Successfully!")
+        handleClose();
+      }
+      else{
+        alert("Comment not Inserted")
+        console.log("Comment not Inserted");
+      }
     })
     .catch((err) => {
       console.log(err);
+      alert("Failed to add Comment")
+      console.error("Failed to add Comment");
     })
   }
 
@@ -142,6 +161,12 @@ function ReaderViewApublishedStory() {
       ...prevErrors,
       [name]: "",
     }));
+  };
+
+  const handleCommentChange = (event) => {
+    const { name, value } = event.target;
+    setComment(value);
+  console.log(value);
   };
 
   const [errorcover, setErrorCover] = useState(null);
@@ -406,7 +431,9 @@ function ReaderViewApublishedStory() {
               <Modal.Title>Comments</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <textarea  className="form-control" cols='60' rows='10'></textarea>
+              <textarea  className="form-control" cols='60' rows='10' name="comment"
+              onChange={handleCommentChange}
+              ></textarea>
             </Modal.Body>
             <Modal.Footer>
               <div>

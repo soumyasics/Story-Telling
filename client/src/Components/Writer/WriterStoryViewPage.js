@@ -8,7 +8,7 @@ import {useNavigate} from 'react-router-dom'
 import { imageUrl } from '../../BaseAPIs/ImageUrl/imgApi';
 
 
-function WriterStoryViewPage() {
+function WriterStoryViewPage({url}) {
     const navigate=useNavigate();
 
     const navigateToEditStory=(id)=>{
