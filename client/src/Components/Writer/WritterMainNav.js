@@ -35,7 +35,7 @@ function WritterMainNav() {
     Navigate("/writer-view-stories")
   }
   const navigateTopublishChallenges=()=>{
-    Navigate("/writer-participate-challenge")
+    Navigate("/writer-published-story-challenge")
   }
   return (
     <div>
@@ -77,7 +77,7 @@ function WritterMainNav() {
                   <button class="dropbtn">Challenges</button>
                   <div class="dropdown-content">
                     <Navbar.Text onClick={navigateToAddChallenges} ><Link>Add Challenges</Link></Navbar.Text>
-                    <Navbar.Text onClick={navigateToViewCustmStory} ><Link>View Challenges</Link></Navbar.Text>
+                    <Navbar.Text onClick={navigateToViewCustmStory} ><Link>New Challenges</Link></Navbar.Text>
                     <Navbar.Text onClick={navigateTopublishChallenges} ><Link>PublishedChallenges</Link></Navbar.Text>
                   </div>
                 </div></Nav>

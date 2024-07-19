@@ -22,7 +22,7 @@ function WriterNewStoryChallenge() {
   return (
     <div className='mb-5'>
       <div className='text-center mt-5'>
-        <h4>New Story Challenge</h4>
+        <h4>New Challenge</h4>
       </div>
       <div className='mt-3 text-end me-5 pe-5'>
         <Link to='/writer-end-challenge'>
