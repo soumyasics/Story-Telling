@@ -67,7 +67,10 @@ router.post("/addLike", like.addLike);
 router.post("/countDislikes/:storyId", like.countDislikes);
 router.post("/countLikes/:storyId", like.countLikes);
 
-
+router.post("/addLiketoPart", like.addLiketoPart);
+router.post("/addDisliketoPart", like.addDisliketoPart);
+router.post("/countDislikesforPart/:id", like.countDislikesforPart);
+router.post("/countLikesforPartId/:id", like.countLikesforPartId);
 //challenge
 router.post("/addChallenge",Challenge.upload, Challenge.addChallenge);
 router.post("/viewActiveChallenges", Challenge.viewActiveChallenges);
@@ -84,6 +87,7 @@ router.post("/getAllParts", parts.getAllParts);
 router.post("/getPartById/:id", parts.getPartById);
 router.post("/getPartByStoryId/:id", parts.getPartByStoryId);
 router.post("/deletePartById/:id", parts.deletePartById);
+router.post("/findBestPart/:id", parts.findBestPart);
 
 
 
@@ -98,5 +102,8 @@ router.post("/viewchallengeParticipantsById/:id", challengUpdates.viewchallengeP
 router.post("/addChallengeWinner/:id", challengUpdates.addChallengeWinner);
 router.post("/getAllChallengeWinners/:id", challengUpdates.getAllChallengeWinners);
 router.post("/getChallengeWinnersByChallengeId/:id", challengUpdates.getChallengeWinnersByChallengeId);
+
+
+
 
 module.exports = router;
