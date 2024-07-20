@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import image1 from '../../Assets/image1.png'
 import image2 from '../../Assets/image2.png'
-function WriterViewChallenge() {
+function ReaderViewparticipatedChallenge() {
   return (
     <div className='mb-5'>
     <div className='text-center mt-5'>
@@ -66,4 +66,5 @@ function WriterViewChallenge() {
   )
 }
 
-export default WriterViewChallenge
+export default ReaderViewparticipatedChallenge;
+
