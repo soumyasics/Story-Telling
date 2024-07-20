@@ -49,6 +49,7 @@ import WriterEndChallenge from "./Components/Writer/WriterEndChallenge";
 import ReaderViewChallenges from "./Components/Viewer/ReaderViewChallenges";
 import WriterPublishedStoryChallenge from "./Components/Writer/WriterPublishedStoryChallenge";
 import WriterViewChallenge from "./Components/Writer/WriterViewChallenge";
+import ReaderViewparticipatedChallenge from "./Components/Viewer/ReaderViewparticipatedChallenge";
 
 function App() {
   const url = "http://localhost:4025/";
@@ -93,10 +94,10 @@ function App() {
         <Route path="/writer-newstory-challenge" element={[<WritterMainNav/>,<WriterNewStoryChallenge/>,<Footer/>]} />
         <Route path="/writer-participate-challenge/:challengeid" element={[<WritterMainNav/>,<WriterParticipatechallenge/>,<Footer/>]} />
         <Route path="/writer-end-challenge" element={[<WritterMainNav/>,<WriterEndChallenge/>,<Footer/>]} />
-        <Route path="/readerviewchallenges" element={[<ViewerMainNav/>,<ReaderViewChallenges />,<Footer/>]} />
+        <Route path="/readerviewnewchallenges" element={[<ViewerMainNav/>,<ReaderViewChallenges />,<Footer/>]} />
         <Route path="/writer-published-story-challenge" element={[<WritterMainNav/>,<WriterPublishedStoryChallenge/>,<Footer/>]} />
         <Route path="/writer-view-challenge" element={[<WritterMainNav/>,<WriterViewChallenge/>,<Footer/>]} />
-
+        <Route path="/readerviewparticipatedchallenges" element={[<ViewerMainNav/>,<ReaderViewparticipatedChallenge />,<Footer/>]} />
 
         {/* Admin */}
         <Route path="/adminlogin" element={<AdminLogin />} />
