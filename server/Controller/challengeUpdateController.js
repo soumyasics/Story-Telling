@@ -102,6 +102,33 @@ const viewchallengeUpdatesById = (req, res) => {
 };
 
 // View challengeUpdates by ID
+const viewmyChallengesByReaderId = (req, res) => {
+  challengeUpdates.find({readerId: req.params.id })
+      .populate('challengeId readerId')
+      .exec()
+      .then(data => {
+        const uniqueData = data.filter((value, index, self) =>
+          index === self.findIndex((t) => (
+              t.challengeId.toString() === value.challengeId.toString()
+          ))
+      );
+          res.json({
+              status: 200,
+              msg: "Data obtained successfully",
+              data: uniqueData
+          });
+      })
+      .catch(err => {
+        console.log(err);
+          res.status(500).json({
+              status: 500,
+              msg: "Data not obtained",
+              Error: err
+          });
+      });
+};
+
+// View challengeUpdates by ID
 const viewchallengeParticipantsById = (req, res) => {
     challengeUpdates.find({ _id: req.params.id },{readerId:1})
         .populate('readerId ')
@@ -216,5 +243,6 @@ module.exports = {
     viewchallengeParticipantsById,
     addChallengeWinner,
     getAllChallengeWinners,
-    getChallengeWinnersByChallengeId
+    getChallengeWinnersByChallengeId,
+    viewmyChallengesByReaderId
 };
