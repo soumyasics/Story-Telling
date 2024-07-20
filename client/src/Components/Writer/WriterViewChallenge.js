@@ -19,7 +19,7 @@ function WriterViewChallenge() {
       <div className='col-4 writerview-challenges-imgdiv'>
         <div>
         <img src={image1} className='writerview-challenges-img'></img>
-          <Link to='/writer-participate-challenge'>
+          <Link to='/writer-participate-challenge/:challengeid'>
             <button className='writerview-challenges-participatebtn ms-4'>Update Status</button>
           </Link>
         </div>
