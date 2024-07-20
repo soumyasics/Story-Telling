@@ -89,6 +89,7 @@ router.post("/deletePartById/:id", parts.deletePartById);
 
 //Challenge Updates
 
+router.post("/viewmyChallengesByReaderId/:id", challengUpdates.viewmyChallengesByReaderId);
 
 router.post("/addchallengeUpdates", challengUpdates.addchallengeUpdates);
 router.post("/viewchallengeUpdatessBychallengeId/:id", challengUpdates.viewchallengeUpdatessBychallengeId);
