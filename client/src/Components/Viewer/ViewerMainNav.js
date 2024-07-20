@@ -38,6 +38,13 @@ function ViewerMainNav() {
       });
   };
 
+  const navigateTonewchallenges=()=>{
+    navigate("/readerviewnewchallenges")
+  }
+  const navigateTomychallenge=()=>{
+    navigate("/readerviewparticipatedchallenges")
+  }
+
   return (
     <div>
       {" "}
@@ -92,7 +99,13 @@ function ViewerMainNav() {
                   <Link to="/reader-view-stories" className="text-decoration-none ms-3 text-light">Stories</Link>
                 </Nav>
                 <Nav>
-                  <div className="ms-3">Challenges</div>
+                <div class="ms-3 dropdown">
+                  <button class="dropbtn">Challenges</button>
+                  <div class="dropdown-content">
+                    <Navbar.Text onClick={navigateTonewchallenges} ><Link>New Challenges</Link></Navbar.Text>
+                    <Navbar.Text onClick={navigateTomychallenge} ><Link>My Challenges</Link></Navbar.Text>
+                  </div>
+                </div>
                 </Nav>
                 <Nav>
                   <div onClick={handleLogout} className="ms-3">

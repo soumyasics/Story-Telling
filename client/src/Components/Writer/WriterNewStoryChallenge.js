@@ -1,14 +1,30 @@
-import React from 'react'
-import image1 from '../../Assets/image1.png'
-import image2 from '../../Assets/image2.png'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { Link ,useNavigate} from 'react-router-dom';
+import axiosInstance from '../../BaseAPIs/axiosinstatnce';
+import image1 from '../../Assets/image1.png';
+import image2 from '../../Assets/image2.png';
+import { imageUrl } from '../../BaseAPIs/ImageUrl/imgApi';
 function WriterNewStoryChallenge() {
+  const [writerdata, setWriterData] = useState([]);
 
-  const navigate = useNavigate()
+  useEffect(() => {
+    axiosInstance
+      .post('/viewActiveChallenges')
+      .then((res) => {
+        console.log(res.data.data);
+        setWriterData(res.data.data);
+      })
+      .catch((err) => {
+        alert('Failed to fetch user details');
+      });
+  }, []);
 
-  const participate = () => {
-    navigate("/writer-view-challenge")
+  const navigate=useNavigate()
+
+  const handleparticipate=()=>{
+    navigate("/readerviewparticipatedchallenges")
   }
+  
   return (
     <div className='mb-5'>
       <div className='text-center mt-5'>
@@ -18,59 +34,38 @@ function WriterNewStoryChallenge() {
         <Link to='/writer-end-challenge'>
           <button className='writerview-challenges-endedbtn'>Ended Challenge</button>
         </Link>
-        
       </div>
-      <div className='row'>
-        <div className='col-2'></div>
-        <div className='col-4 writerview-challenges-imgdiv'>
-          <div>
-          <img src={image1} className='writerview-challenges-img'></img>
-            <Link to='/writer-view-challenge'>
-              <button className='writerview-challenges-participatebtn ms-4'>Participate</button>
-            </Link>
+      {writerdata.map((challenge, index) => (
+        <div className='row mt-5' key={index}>
+          <div className='col-2'></div>
+          <div className='col-4 writerview-challenges-imgdiv'>
+            <div>
+              <img src={`${imageUrl}/${challenge.picture?.filename}`} className='writerview-challenges-img' alt='Challenge' />
+              <Link onClick={handleparticipate} >
+                <button className='writerview-challenges-participatebtn ms-4'>Participate</button>
+              </Link>
+            </div>
           </div>
-            
-        </div>
-        <div className='col-4'>
-          <div className='writerview-challenges-img1'>
-            <div className='text-center pt-2'>
-              <h3>The Star of July</h3>
-              <div className='writerview-challenges-p ms-3 me-3'>
-                <p>Task yourself with writing something that forms a complete whole every day. 
-                It might be only be a couple of hundred words long – or even less – but the 
-                challenge here is to create something regularly that stands on its own.</p>
-              </div>
-              <div className='text-end'>
-                <h2 className='writerview-challenges-h2 me-5'>Start On July 19 2024 and End on 11 Aug 2024</h2>
+          <div className='col-4'>
+            <div className='writerview-challenges-img1'>
+              <div className='text-center pt-2'>
+                <h3>{challenge.title}</h3>
+                <div className='writerview-challenges-p ms-3 me-3'>
+                  <p>{challenge.description}</p>
+                </div>
+                <div className='text-end'>
+                  <h2 className='writerview-challenges-h2 me-5'>
+                    Start On {new Date(challenge.startDate).toLocaleDateString()} and End on {new Date(challenge.endDate).toLocaleDateString()}
+                  </h2>
+                </div>
               </div>
             </div>
           </div>
+          <div className='col-2'></div>
         </div>
-        
-        <div className='col-2'></div>
-      </div>
-      <div className='row mt-5 '>
-        <div className='col-2'></div>
-        <div className='col-4 writerview-challenges-imgdiv1'>
-            <h3 className='text-center pt-3'>The Star of July</h3>
-              <div className='writerview-challenges-p ms-3 me-3'>
-                <p>Task yourself with writing something that forms a complete whole every day. 
-                It might be only be a couple of hundred words long – or even less – but the 
-                challenge here is to create something regularly that stands on its own.</p>
-              </div>
-              
-        </div>
-        <div className='col-4'>
-          <img src={image2} className='writerview-challenges-2img'></img>
-          <div className='text-end'>
-            <h2 className='writerview-challenges-h2nd me-5'>Start On July 19 2024 and End on 11 Aug 2024</h2>
-          </div>
-        </div>
-        <div className='col-2'></div>
-      </div>
+      ))}
     </div>
-  )
+  );
 }
 
-export default WriterNewStoryChallenge
-
+export default WriterNewStoryChallenge;
