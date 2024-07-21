@@ -45,8 +45,28 @@ function AnnounceChallengeSummary() {
       });
   }, []);
   const handlech = (e,i) =>{
-    console.log(e.target.name, i)
-    setBody({ ...p, [e.target.name]: value });
+    var xx = {0:'first', 1:'second', 2:'third', 3:"fourth", 4:'fifth'}
+    var yy = {0:'firstPoints', 1:'secondPoints', 2:'thirdPoints', 3:"fourthPoints", 4:'fifthPoints'}
+    var namexv = xx[i];
+    var nameyy = yy[i];
+    console.log(nameyy,namexv)
+    if(e.target.name == 'winner' ){
+        setBody({ ...body, [namexv]: e.target.value });
+    } else {
+        setBody({ ...body, [nameyy]: e.target.value });
+    }
+  }
+  const submit = () => {
+    console.log(body)
+    setBody({ ...body, challengeId: id });
+    // axiosInstance
+    //   .post(`/addChallengeWinner/${id}`,body)
+    //   .then((res) => {
+    //     alert('done')
+    //   })
+    //   .catch((err) => {
+    //     alert("Failed to fetch user details");
+    //   });
   }
   return (
     <div className="row mb-5">
@@ -83,6 +103,7 @@ function AnnounceChallengeSummary() {
                   </div>
                   <div className="col-4 pt-3 ps-5">
                     <select name="winner" id="cars" onChange={(e)=>handlech(e,i)}>
+                    <option value=''>choose</option>
                       {pup.map((names) => {
                         return <option value={names.readerId? names.readerId:names.writerId}>{names.name}</option>;
                       })}
@@ -99,7 +120,7 @@ function AnnounceChallengeSummary() {
         })}
 
         <div className="mt-5 text-end me-5 pe-5">
-          <button className="announce-summary-challenge-savebtn">Save</button>
+          <button className="announce-summary-challenge-savebtn" onClick={submit}>Save</button>
         </div>
       </div>
     </div>
