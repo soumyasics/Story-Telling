@@ -338,7 +338,7 @@ const getChallengeWinnersByChallengeId = async (req, res) => {
   try {
     const  challengeId  = req.params.id;
 
-    const challengeWinners = await ChallengeWinner.findOne({ challengeId });
+    const challengeWinners = await ChallengeWinner.findOne({ challengeId })
 
     if (!challengeWinners) {
       return res.status(404).json({
@@ -362,17 +362,31 @@ const getChallengeWinnersByChallengeId = async (req, res) => {
 
     const populatedWinners = {
       first: await populateParticipant(challengeWinners.participants.first),
+      firstPoints:challengeWinners.participants?.first?.points,
       second: await populateParticipant(challengeWinners.participants.second),
+      secondPoints:challengeWinners.participants?.second?.points,
       third: await populateParticipant(challengeWinners.participants.third),
+      thirdPoints:challengeWinners.participants?.third?.points,
       fourth: await populateParticipant(challengeWinners.participants.fourth),
+      fourthPoints:challengeWinners.participants?.fourth?.points,
       fifth: await populateParticipant(challengeWinners.participants.fifth),
+      fifthPoints:challengeWinners.participants?.fifth?.points,
       challengeId: await Challenge.findById(challengeWinners.challengeId)
+    };
+    const points = {
+      first: await populateParticipant(challengeWinners.participants),
+      // second: await populateParticipant(challengeWinners.participants.second),
+      // third: await populateParticipant(challengeWinners.participants.third),
+      // fourth: await populateParticipant(challengeWinners.participants.fourth),
+      // fifth: await populateParticipant(challengeWinners.participants.fifth),
+      // challengeId: await Challenge.findById(challengeWinners.challengeId)
     };
 
     res.status(200).json({
       status: 200,
       msg: "Fetched successfully",
-      data: populatedWinners
+      data: populatedWinners,
+      // points:challengeWinners
     });
   } catch (error) {
     console.log(error);
