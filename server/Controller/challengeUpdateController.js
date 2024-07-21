@@ -172,6 +172,32 @@ const viewmyChallengesByReaderId = (req, res) => {
           });
       });
 };
+// View challengeUpdates by ID
+const viewmyChallengesByWriterId = (req, res) => {
+  challengeUpdates.find({writerId: req.params.id })
+      .populate('challengeId writerId')
+      .exec()
+      .then(data => {
+        const uniqueData = data.filter((value, index, self) =>
+          index === self.findIndex((t) => (
+              t.challengeId.toString() === value.challengeId.toString()
+          ))
+      );
+          res.json({
+              status: 200,
+              msg: "Data obtained successfully",
+              data: uniqueData
+          });
+      })
+      .catch(err => {
+        console.log(err);
+          res.status(500).json({
+              status: 500,
+              msg: "Data not obtained",
+              Error: err
+          });
+      });
+};
 
 // View challengeUpdates by ID
 const viewchallengeParticipantsById = (req, res) => {
@@ -408,5 +434,6 @@ module.exports = {
     addChallengeWinner,
     getAllChallengeWinners,
     getChallengeWinnersByChallengeId,
-    viewmyChallengesByReaderId
+    viewmyChallengesByReaderId,
+    viewmyChallengesByWriterId
 };

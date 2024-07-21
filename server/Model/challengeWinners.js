@@ -62,12 +62,10 @@ const mongoose = require("mongoose");
 const participantSchema = new mongoose.Schema({
     participantId: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
         refPath: 'participants.participantType' // Dynamic reference based on participantType
     },
     participantType: {
         type: String,
-        required: true,
         enum: ['readers', 'writers'] // Allowed values: 'readers' or 'writers'
     },
     points: {

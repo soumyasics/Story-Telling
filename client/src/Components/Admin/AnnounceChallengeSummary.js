@@ -7,8 +7,11 @@ function AnnounceChallengeSummary() {
   const [p, setP] = useState([]);
   const [pup, setPup] = useState([]);
   const [body, setBody] = useState({});
+  const [bodydata, setBodydata] = useState({});
   const [position, setPosition] = useState(['1st', '2nd', '3rd', '4th', '5th']);
   const { id } = useParams();
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     axiosInstance
@@ -57,16 +60,61 @@ function AnnounceChallengeSummary() {
     }
   }
   const submit = () => {
-    console.log(body)
-    setBody({ ...body, challengeId: id });
-    // axiosInstance
-    //   .post(`/addChallengeWinner/${id}`,body)
-    //   .then((res) => {
-    //     alert('done')
-    //   })
-    //   .catch((err) => {
-    //     alert("Failed to fetch user details");
-    //   });
+    var type = {}
+    for (var i in p) {
+      var id = p[i].readerId ? p[i].readerId : p[i].writerId;
+      var role =p[i].readerId ? 'readers' : 'writers'
+      type[id] = role;
+    }
+    var bData = {
+      first:{
+        participantId: body.first,
+        participantType: type[body.first],
+        points: body.firstPoints
+      },
+      second:{
+        participantId: body.second,
+        participantType: type[body.second],
+        points: body.secondPoints
+      },
+      third:{
+        participantId: body.third,
+        participantType: type[body.third],
+        points: body.thirdPoints
+      },
+      fourth:{
+        participantId: body.fourth,
+        participantType: type[body.fourth],
+        points: body.fourthPoints
+      },
+      fifth:{
+        participantId: body.fifth,
+        participantType: type[body.fifth],
+        points: body.fifthPoints
+      }
+    }
+    var finaldata = {
+      participants: {
+
+      }
+    }
+    var xx = {0:'first', 1:'second', 2:'third', 3:"fourth", 4:'fifth'}
+    for (var i in p) {
+      var txx = xx[i]
+      finaldata.participants[txx] = bData[txx]
+    }
+    finaldata.challengeId = id;
+    console.log(bData)
+
+    axiosInstance
+      .post(`/addChallengeWinner/`,finaldata)
+      .then((res) => {
+        alert('done')
+        navigate('/viewchallengesummary/'+id)
+      })
+      .catch((err) => {
+        alert("Failed to fetch user details");
+      });
   }
   return (
     <div className="row mb-5">

@@ -94,6 +94,7 @@ router.post("/findBestPart/:id", parts.findBestPart);
 //Challenge Updates
 
 router.post("/viewmyChallengesByReaderId/:id", challengUpdates.viewmyChallengesByReaderId);
+router.post("/viewmyChallengesByWriterId/:id", challengUpdates.viewmyChallengesByWriterId);
 
 router.post("/addchallengeUpdates", challengUpdates.addchallengeUpdates);
 router.post("/viewchallengeUpdatessBychallengeId/:id", challengUpdates.viewchallengeUpdatessBychallengeId);

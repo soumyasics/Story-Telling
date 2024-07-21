@@ -49,9 +49,6 @@ function WriterPublishedStoryChallenge() {
           <div className='col-4 writerview-challenges-imgdiv'>
             <div>
               <img src={`${imageUrl}/${challenge.picture?.filename}`} className='writerview-challenges-img' alt='Challenge' />
-              <Link onClick={handleparticipate} >
-                <button className='writerview-challenges-participatebtn ms-4'>Participate</button>
-              </Link>
             </div>
           </div>
           <div className='col-4'>
