@@ -1,6 +1,7 @@
 const Part = require('../Model/partSchema');
 const Story = require('../Model/storySchema');
 const Writer = require('../Model/WriterSchema');
+const Like = require('../Model/likesSchema');
 
 // Add a part
 const addPart = async (req, res) => {
@@ -25,7 +26,7 @@ const addPart = async (req, res) => {
       part,
       ownerId:story.writerId,
       writerId,
-      date:new date()
+      date:new Date()
     });
 
     const savedPart = await newPart.save();
@@ -155,10 +156,59 @@ const deletePartById = async (req, res) => {
   }
 };
 
+
+const getMostLikedPartForStory = async (req,res) => {
+ try {
+
+
+  } catch (err) {
+    console.log(err);
+      return res.json({ status: 500, msg: 'Error occurred', error: err });
+  }
+};
+
+
+const findBestPart = async (req, res) => {
+  try {
+      
+      const parts = await Part.find({ storyId: req.params.id });
+      console.log('Parts found:', parts);
+
+      if (parts.length === 0) {
+          return res.status(404).json({ message: 'No parts found for the given story.' });
+      }
+
+      const partsWithLikes = await Promise.all(parts.map(async (part) => {
+          const likesCount = await Like.countDocuments({ partId: part._id, liked: true });
+          console.log(`Likes for part ${part._id}:`, likesCount);
+          return { part, likesCount };
+      }));
+
+      console.log('Parts with likes:', partsWithLikes);
+
+      partsWithLikes.sort((a, b) => b.likesCount - a.likesCount);
+
+      console.log('Sorted parts with likes:', partsWithLikes);
+
+      const bestPart = partsWithLikes.length > 0 ? partsWithLikes[0].part : null;
+
+      if (bestPart) {
+          console.log('Best part:', bestPart);
+          return res.status(200).json(bestPart);
+      } else {
+          return res.status(404).json({ message: 'No likes found for any part of the story.' });
+      }
+  } catch (error) {
+      console.error('Error:', error.message);
+      return res.status(500).json({ message: 'Error finding the best part of the story' });
+  }
+};
+
 module.exports = {
   addPart,
   getAllParts,
   getPartById,
   deletePartById,
-  getPartByStoryId
+  getPartByStoryId,
+  findBestPart
 };
