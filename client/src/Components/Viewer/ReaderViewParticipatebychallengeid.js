@@ -9,9 +9,10 @@ function ReaderViewParticipatebychallengeid() {
   const [writerdata, setWriterData] = useState([]);
   const [status, setStatus] = useState('');
   const [error, setError] = useState('');
+  const [challengeId, setChallengeId] = useState(null);
   const navigate = useNavigate();
 
-  const writerId = localStorage.getItem("writer");
+  const readerId = localStorage.getItem("reader");
 
   const {challengeid}=useParams()
   console.log(challengeid);
@@ -24,7 +25,7 @@ function ReaderViewParticipatebychallengeid() {
 
     const data = {
       status,
-      writerId,
+      readerId,
       challengeId:challengeid,
     };
 
@@ -36,6 +37,7 @@ function ReaderViewParticipatebychallengeid() {
         } else {
           alert('Update submitted successfully');
           setStatus('');
+          navigate('/reader-challenge-history/'+challengeid);
         }
       })
       .catch((err) => {
@@ -89,7 +91,7 @@ function ReaderViewParticipatebychallengeid() {
             </div>
             <div className='mt-5 text-center'>
               <button className='writer-participate-challenge-submitbtn' onClick={handleDailyUpdateSubmit}>Submit</button>
-              <Link to={`/writer-challenge-history/${challengeid}`}>
+              <Link to={`/reader-challenge-history/${challengeid}`}>
                 <button className='ms-5 writer-participate-challenge-submitbtn'>History</button>
               </Link>
             </div>

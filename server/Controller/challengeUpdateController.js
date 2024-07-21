@@ -9,24 +9,37 @@ const challengeWinners = require('../Model/challengeWinners');
 
 // Create a new challengeUpdates
 const addchallengeUpdates = async (req, res) => {
-    const { status, readerId, challengeId } = req.body;
+    const { status, readerId, challengeId, writerId } = req.body;
 // Get the start of today
 const today = new Date();
 today.setHours(0, 0, 0, 0);
+var data;
 
 // Get the start of tomorrow
 const tomorrow = new Date(today);
 tomorrow.setDate(tomorrow.getDate() + 1);
-
-// Find if a challengeUpdate already exists for today
-let existingChallenge = await challengeUpdates.findOne({
+if (readerId) {
+  data = {
     readerId: readerId,
     challengeId: challengeId,
     date: {
         $gte: today,
         $lt: tomorrow
     }
-});
+  }
+} else {
+  data = {
+    writerId: writerId,
+    challengeId: challengeId,
+    date: {
+        $gte: today,
+        $lt: tomorrow
+    }
+  }
+}
+
+// Find if a challengeUpdate already exists for today
+let existingChallenge = await challengeUpdates.findOne(data);
 
  if(existingChallenge)
  {
@@ -35,13 +48,9 @@ let existingChallenge = await challengeUpdates.findOne({
         msg: "You Have already added Updates for Today",
   })
  }
-    const newchallengeUpdates = new challengeUpdates({
-     
-        status,
-        readerId,
-        challengeId,
-        date:new Date()
-    });
+    data.status = status;
+    data.date = new Date();
+    const newchallengeUpdates = new challengeUpdates(data);
 
     try {
         const savedchallengeUpdates = await newchallengeUpdates.save();
@@ -60,25 +69,59 @@ let existingChallenge = await challengeUpdates.findOne({
 };
 
 // View all challengeUpdatess
+// const viewchallengeUpdatessBychallengeId = (req, res) => {
+//     challengeUpdates.find({challengeId:req.params.id}).sort({date:1})
+//         .populate('readerId')
+//         .exec()
+//         .then(data => {
+//             res.json({
+//                 status: 200,
+//                 msg: "Data obtained successfully",
+//                 data: data
+//             });
+//         })
+//         .catch(err => {
+//             res.status(500).json({
+//                 status: 500,
+//                 msg: "Data not obtained",
+//                 Error: err
+//             });
+//         });
+// };
 const viewchallengeUpdatessBychallengeId = (req, res) => {
-    challengeUpdates.find({challengeId:req.params.id}).sort({date:1})
-        .populate('readerId')
-        .exec()
-        .then(data => {
-            res.json({
-                status: 200,
-                msg: "Data obtained successfully",
-                data: data
-            });
-        })
-        .catch(err => {
-            res.status(500).json({
-                status: 500,
-                msg: "Data not obtained",
-                Error: err
-            });
-        });
+  challengeUpdates.find({ challengeId: req.params.id }).sort({ date: 1 })
+      .then(data => {
+          // Create an array of promises for populating the data
+          const populatePromises = data.map(item => {
+              if (item.writerId) {
+                  return challengeUpdates.populate(item, { path: 'writerId' });
+              } else if (item.readerId) {
+                  return challengeUpdates.populate(item, { path: 'readerId' });
+              } else {
+                  return Promise.resolve(item);
+              }
+          });
+
+          // Wait for all promises to resolve
+          return Promise.all(populatePromises);
+      })
+      .then(populatedData => {
+          res.json({
+              status: 200,
+              msg: "Data obtained successfully",
+              data: populatedData
+          });
+      })
+      .catch(err => {
+          res.status(500).json({
+              status: 500,
+              msg: "Data not obtained",
+              Error: err
+          });
+      });
 };
+
+
 
 // View challengeUpdates by ID
 const viewchallengeUpdatesById = (req, res) => {
