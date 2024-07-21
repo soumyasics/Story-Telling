@@ -99,7 +99,7 @@ router.post("/addchallengeUpdates", challengUpdates.addchallengeUpdates);
 router.post("/viewchallengeUpdatessBychallengeId/:id", challengUpdates.viewchallengeUpdatessBychallengeId);
 router.post("/viewchallengeUpdatesById/:id", challengUpdates.viewchallengeUpdatesById);
 router.post("/viewchallengeParticipantsById/:id", challengUpdates.viewchallengeParticipantsById);
-router.post("/addChallengeWinner/:id", challengUpdates.addChallengeWinner);
+router.post("/addChallengeWinner", challengUpdates.addChallengeWinner);
 router.post("/getAllChallengeWinners/:id", challengUpdates.getAllChallengeWinners);
 router.post("/getChallengeWinnersByChallengeId/:id", challengUpdates.getChallengeWinnersByChallengeId);
 
