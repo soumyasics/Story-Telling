@@ -1,30 +1,56 @@
 import React, { useEffect, useState } from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '../../BaseAPIs/axiosinstatnce';
-import image1 from '../../Assets/image1.png';
-import image2 from '../../Assets/image2.png';
 import { imageUrl } from '../../BaseAPIs/ImageUrl/imgApi';
+
 function WriterNewStoryChallenge() {
   const [writerdata, setWriterData] = useState([]);
+  const [participatedChallenges, setParticipatedChallenges] = useState(new Set());
+  const writerId = localStorage.getItem("writer");
+
 
   useEffect(() => {
     axiosInstance
       .post('/viewActiveChallenges')
       .then((res) => {
-        console.log(res.data.data);
-        setWriterData(res.data.data);
+        var writerdata = res.data.data;
+        var fd = [];
+        axiosInstance
+          .post(`/viewmyChallengesByWriterId/${writerId}`)
+          .then((res) => {
+            var t = [];
+            var wd = [];
+            for(var i in res.data.data){
+              var d = res.data.data[i];
+              t.push(d.challengeId._id)
+            }
+
+            for(var j in writerdata){
+              wd = writerdata[j];
+              if(!t.includes(wd._id)) {
+                // console.log('onjn');
+                fd.push(wd)
+              }
+            }
+            console.log(fd);
+            setWriterData(fd)
+          })
+          .catch((err) => {
+            alert("Failed to fetch user details");
+          });
       })
       .catch((err) => {
         alert('Failed to fetch user details');
       });
   }, []);
 
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
-  const handleparticipate=(id)=>{
-    navigate("/writer-participate-challenge/"+id)
-  }
-  
+  const handleParticipate = (id) => {
+    navigate("/writer-participate-challenge/" + id);
+    setParticipatedChallenges((prevSet) => new Set(prevSet).add(id));
+  };
+
   return (
     <div className='mb-5'>
       <div className='text-center mt-5'>
@@ -35,35 +61,43 @@ function WriterNewStoryChallenge() {
           <button className='writerview-challenges-endedbtn'>Ended Challenge</button>
         </Link>
       </div>
-      {writerdata.map((challenge, index) => (
-        <div className='row mt-5' key={index}>
-          <div className='col-2'></div>
-          <div className='col-4 writerview-challenges-imgdiv'>
-            <div>
-              <img src={`${imageUrl}/${challenge.picture?.filename}`} className='writerview-challenges-img' alt='Challenge' />
-              <button onClick={()=>handleparticipate(challenge._id)} >
-                <button className='writerview-challenges-participatebtn ms-4'>Participate</button>
-              </button>
-            </div>
-          </div>
-          <div className='col-4'>
-            <div className='writerview-challenges-img1'>
-              <div className='text-center pt-2'>
-                <h3>{challenge.title}</h3>
-                <div className='writerview-challenges-p ms-3 me-3'>
-                  <p>{challenge.description}</p>
-                </div>
-                <div className='text-end'>
-                  <h2 className='writerview-challenges-h2 me-5'>
-                    Start On {new Date(challenge.startDate).toLocaleDateString()} and End on {new Date(challenge.endDate).toLocaleDateString()}
-                  </h2>
+      {writerdata
+        .filter((challenge) => !participatedChallenges.has(challenge._id))
+        .map((challenge, index) => (
+          <div className='row mt-5' key={index}>
+            <div className='col-2'></div>
+            <div className='col-4 writerview-challenges-imgdiv'>
+              <div>
+                <img
+                  src={`${imageUrl}/${challenge.picture?.filename}`}
+                  className='writerview-challenges-img'
+                  alt='Challenge'
+                />
+                <div onClick={() => handleParticipate(challenge._id)}>
+                  <button className='writerview-challenges-participatebtn ms-4'>
+                    Participate
+                  </button>
                 </div>
               </div>
             </div>
+            <div className='col-4'>
+              <div className='writerview-challenges-img1'>
+                <div className='text-center pt-2'>
+                  <h3>{challenge.title}</h3>
+                  <div className='writerview-challenges-p ms-3 me-3'>
+                    <p>{challenge.description}</p>
+                  </div>
+                  <div className='text-end'>
+                    <h2 className='writerview-challenges-h2 me-5'>
+                      Start On {new Date(challenge.startDate).toLocaleDateString()} and End on {new Date(challenge.endDate).toLocaleDateString()}
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='col-2'></div>
           </div>
-          <div className='col-2'></div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 }

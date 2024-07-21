@@ -109,7 +109,7 @@ function App() {
         <Route path="/admindashviewchallengers" element={[<AdminNav/>,<ViewChallengers />,<Footer/>]} />
         <Route path="/admindashviewchallengesTitle/:id" element={[<AdminNav/>,<ViewChallengersTitle />,<Footer/>]} />
         <Route path="/announcechallengesummary/:id" element={[<AdminNav/>,<AnnounceChallengeSummary />,<Footer/>]} />
-        <Route path="/viewchallengesummary" element={[<AdminNav/>,<ViewChallengeSummary/>,<Footer/>]} />
+        <Route path="/viewchallengesummary/:id" element={[<AdminNav/>,<ViewChallengeSummary/>,<Footer/>]} />
         <Route path="/request" element={<Requests url={url} />} />
         <Route path="/writers" element={<AdminviewWriters url={url} />} />
         <Route path="/readers" element={<AllReader url={url} />} />
