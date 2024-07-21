@@ -4,23 +4,49 @@ import axiosInstance from "../../BaseAPIs/axiosinstatnce";
 import { imageUrl } from "../../BaseAPIs/ImageUrl/imgApi";
 
 function ReaderViewChallenges() {
-  const [writerdata, setWriterData] = useState([]);
+  // const [writerdata, setWriterData] = useState([]);
+  const [myc, setmyc] = useState([]);
   const navigate = useNavigate();
+  const readerid = localStorage.getItem("reader");
 
   useEffect(() => {
     axiosInstance
       .post("/viewActiveChallenges")
       .then((res) => {
-        console.log(res.data.data);
-        setWriterData(res.data.data);
+        // console.log(res.data.data);
+        var writerdata = res.data.data;
+        var fd = [];
+        axiosInstance
+          .post(`/viewmyChallengesByReaderId/${readerid}`)
+          .then((res) => {
+            var t = [];
+            var wd = [];
+            for(var i in res.data.data){
+              var d = res.data.data[i];
+              t.push(d.challengeId._id)
+            }
+
+            for(var j in writerdata){
+              wd = writerdata[j];
+              if(!t.includes(wd._id)) {
+                // console.log('onjn');
+                fd.push(wd)
+              }
+            }
+            console.log(fd);
+            setmyc(fd)
+          })
+          .catch((err) => {
+            alert("Failed to fetch user details");
+          });
       })
       .catch((err) => {
         alert("Failed to fetch user details");
       });
   }, []);
 
-  const handleParticipate = () => {
-    navigate("/readerviewparticipatedchallenges");
+  const handleParticipate = (id) => {
+    navigate("/reader-participate-challenge/" + id);
   };
 
   return (
@@ -35,7 +61,7 @@ function ReaderViewChallenges() {
           </button>
         </Link>
       </div>
-      {writerdata.map((challenge, index) => (
+      {myc?myc.map((challenge, index) => (
         <div className="row mt-5" key={index}>
           <div className="col-2"></div>
           <div className="col-4 writerview-challenges-imgdiv">
@@ -64,7 +90,9 @@ function ReaderViewChallenges() {
               </div>
               <div className="text-center">
                 <button
-                  onClick={handleParticipate}
+                  onClick={() =>
+                    handleParticipate(challenge._id, challenge.startDate)
+                  }
                   className="writerview-challenges-participatebtn"
                 >
                   Participate
@@ -74,7 +102,7 @@ function ReaderViewChallenges() {
           </div>
           <div className="col-2"></div>
         </div>
-      ))}
+      )):''}
     </div>
   );
 }
