@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link ,useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import axiosInstance from '../../BaseAPIs/axiosinstatnce';
 import image1 from '../../Assets/image1.png';
 import image2 from '../../Assets/image2.png';
@@ -21,8 +21,8 @@ function WriterNewStoryChallenge() {
 
   const navigate=useNavigate()
 
-  const handleparticipate=()=>{
-    navigate("/readerviewparticipatedchallenges")
+  const handleparticipate=(id)=>{
+    navigate("/writer-participate-challenge/"+id)
   }
   
   return (
@@ -41,9 +41,9 @@ function WriterNewStoryChallenge() {
           <div className='col-4 writerview-challenges-imgdiv'>
             <div>
               <img src={`${imageUrl}/${challenge.picture?.filename}`} className='writerview-challenges-img' alt='Challenge' />
-              <Link onClick={handleparticipate} >
+              <button onClick={()=>handleparticipate(challenge._id)} >
                 <button className='writerview-challenges-participatebtn ms-4'>Participate</button>
-              </Link>
+              </button>
             </div>
           </div>
           <div className='col-4'>

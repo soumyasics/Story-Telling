@@ -1,68 +1,90 @@
-import React from 'react'
 import AdminSidebar from '../Pages/AdminSidebar'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axiosInstance from "../../BaseAPIs/axiosinstatnce";
+
 
 function ViewChallengersTitle() {
+
+    const [data, setData] = useState([]);
+    const [c, setC] = useState([]);
+  const { id } = useParams();
+
+  useEffect(() => {
+    axiosInstance
+      .post(`/viewchallengeUpdatessBychallengeId/${id}`)
+      .then((res) => {
+        console.log(res.data.data);
+        setData(res.data.data);
+      })
+      .catch((err) => {
+        alert("Failed to fetch user details");
+      });
+      axiosInstance
+          .post(`/viewChallengeById/${id}`)
+          .then((res) => {
+            console.log(res.data.data);
+            setC(res.data.data);
+          })
+          .catch((err) => {
+            alert("Failed to fetch user details");
+          });
+  }, []);
+
   return (
     <div className='row'>
         <div className='col-3'>
             <AdminSidebar/>
         </div>
         <div className='col-9 container'>
-            <h1 className='mt-5'>Truth Or Dare Challenge</h1>
-            <label>(15 Jun 2024 to 15 july 2024)</label>
-            <div className='row mt-4 view-challenges-title-back ps-5 pt-3'>
-                <div className='col-3'>
-                    <h6>Date</h6>
+            <h1 className='mt-5'>{c.title}</h1>
+            <label>({c.startDate?.split('T')[0]} to {c.endDate?.split('T')[0]})</label>
+            <div className="row mb-5" style={{minHeight:"100vh"}}>
+      <div className="col-2"></div>
+      <div className="col-8">
+        <h2 className="my-5 text-center">Challenge History</h2>
+        {data.map((d,i) => {
+          return (
+            data[i-1] && data[i-1].date == d.date ? <>
+            <div className="col-9">
+            <div className="row writer-challenges-history-name-back container pe-5 ">
+              <div className="col-4">
+                <h6>@{d.readerId ? d.readerId.name : d.writerId.name}</h6>
+              </div>
+              <div className="col-4">
+                <h6>{d.readerId ? 'Reader' : 'Writer'}</h6>
+              </div>
+              <div className="col-4">
+                <h6>{d.status}</h6>
+              </div>
+              </div>
+            </div></> 
+            : 
+            <div className="row mt-3">
+              <div className="col-3 writer-challenges-history-date-back text-center ">
+                <h6 className="p-2">{d.date.split('T')[0]}</h6>
+              </div>
+              <div className="col-9">
+                <div className="row writer-challenges-history-name-back container pt-2 pe-5 ">
+                  <div className="col-4 p-2">
+                    <h6>@{d.readerId ? d.readerId.name : d.writerId.name}</h6>
+                  </div>
+                  <div className="col-4">
+                    <h6>{d.readerId ? 'Reader' : 'Writer'}</h6>
+                  </div>
+                  <div className="col-4">
+                    <h6>{d.status}</h6>
+                  </div>
                 </div>
-                <div className='col-3'>
-                    <h6>Participants</h6>
-                </div>
-                <div className='col-3'>
-                    <h6> User Category</h6>
-                </div>
-                <div className='col-3'>
-                    <h6>Daily Status</h6>
-                </div>
+              </div>
             </div>
-            <div className='row mt-3'>
-                <div className='col-3 view-challenges-date-back text-center pt-5'>
-                    <h6 className='mt-5'>15-06-2024</h6>
-                </div>
-                <div className='col-9'>
-                    <div className='row view-challenges-name-back container pt-2 pe-5 '>
-                        <div className='col-4'>
-                            <h6>@Arjun</h6>
-                        </div>
-                        <div className='col-4'>
-                            <h6>Reader</h6>
-                        </div>
-                        <div className='col-4'>
-                            <h6>Read 5 Page</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className='row mt-3'>
-                <div className='col-3 view-challenges-date-back text-center pt-5'>
-                    <h6 className='mt-5'>16-06-2024</h6>
-                </div>
-                <div className='col-9'>
-                    <div className='row view-challenges-name-back container pt-2 pe-5 '>
-                        <div className='col-4'>
-                            <h6>@Arjun</h6>
-                        </div>
-                        <div className='col-4'>
-                            <h6>Reader</h6>
-                        </div>
-                        <div className='col-4'>
-                            <h6>Read 5 Page</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          );
+        })}
+      </div>
+      <div className="col-2"></div>
+    </div>
             <div className='mt-4 text-end me-5'>
-                <Link to='/announcechallengesummary'>
+                <Link to={"/announcechallengesummary/"+id}>
                     <button className='view-challenders-title-announcebtn'>Announce Winner</button>
                 </Link>
             </div>

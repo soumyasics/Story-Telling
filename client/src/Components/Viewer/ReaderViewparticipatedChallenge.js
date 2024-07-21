@@ -46,7 +46,7 @@ function ReaderViewParticipatedChallenge() {
                 alt='Challenge'
               />
               <button
-                onClick={() => handleParticipate(challenge._id)}
+                onClick={() => handleParticipate(challenge.challengeId._id)}
                 className='writerview-challenges-participatebtn ms-4'
               >
                 Update Status

@@ -37,7 +37,7 @@ function ReaderViewParticipatebychallengeid() {
         } else {
           alert('Update submitted successfully');
           setStatus('');
-          navigate('/writer-challenge-history');
+          navigate('/reader-challenge-history/'+challengeid);
         }
       })
       .catch((err) => {
@@ -91,7 +91,7 @@ function ReaderViewParticipatebychallengeid() {
             </div>
             <div className='mt-5 text-center'>
               <button className='writer-participate-challenge-submitbtn' onClick={handleDailyUpdateSubmit}>Submit</button>
-              <Link to='/reader-challenge-history'>
+              <Link to={`/reader-challenge-history/${challengeid}`}>
                 <button className='ms-5 writer-participate-challenge-submitbtn'>History</button>
               </Link>
             </div>

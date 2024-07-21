@@ -429,14 +429,12 @@
 /* Writer Challenge History */
 
 .writer-challenges-history-title-back{
-  height: 8vh;
   width: 100%;
   border-radius: 10px;
   background-color: #75606C;
   color: white;
 }
 .writer-challenges-history-date-back{
-  height: 30vh;
   width: 100%;
   border-radius: 10px;
   background-color: #75606C;
@@ -444,7 +442,6 @@
 }
 .writer-challenges-history-name-back{
   background-color: #D6C8C2;
-  height: 5vh;
   border-radius: 10px;
   width: 100%;
 }
