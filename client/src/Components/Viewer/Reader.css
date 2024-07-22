@@ -65,3 +65,14 @@
     background-color: black;
     color: white;
 }
+
+/* Reader view published story */
+
+.readerview-apublished-story-commentimg{
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+}
+.readerview-apublished-story-label{
+    margin-left: -100px;
+}
