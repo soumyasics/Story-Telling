@@ -79,6 +79,7 @@ router.post("/viewChallengeById/:id", Challenge.viewChallengeById);
 router.post("/updateChallengeById/:id",Challenge.upload,Challenge.updateChallengeById);
 router.post("/deleteChallengeById/:id", Challenge.deleteChallengeById);
 router.post("/viewActiveChallengesByWriterId/:id", Challenge.viewActiveChallengesByWriterId);
+router.post("/viewPreviousChallenges", Challenge.viewPreviousChallenges);
 
 
 //parts
