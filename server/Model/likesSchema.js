@@ -4,7 +4,13 @@ const sSchema=mongoose.Schema({
     storyId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'stories',
-        required:true,
+       
+       
+    },
+    partId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'parts',
+       
        
     },
     liked:{

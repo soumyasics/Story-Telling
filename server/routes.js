@@ -67,7 +67,10 @@ router.post("/addLike", like.addLike);
 router.post("/countDislikes/:storyId", like.countDislikes);
 router.post("/countLikes/:storyId", like.countLikes);
 
-
+router.post("/addLiketoPart", like.addLiketoPart);
+router.post("/addDisliketoPart", like.addDisliketoPart);
+router.post("/countDislikesforPart/:id", like.countDislikesforPart);
+router.post("/countLikesforPartId/:id", like.countLikesforPartId);
 //challenge
 router.post("/addChallenge",Challenge.upload, Challenge.addChallenge);
 router.post("/viewActiveChallenges", Challenge.viewActiveChallenges);
@@ -76,6 +79,7 @@ router.post("/viewChallengeById/:id", Challenge.viewChallengeById);
 router.post("/updateChallengeById/:id",Challenge.upload,Challenge.updateChallengeById);
 router.post("/deleteChallengeById/:id", Challenge.deleteChallengeById);
 router.post("/viewActiveChallengesByWriterId/:id", Challenge.viewActiveChallengesByWriterId);
+router.post("/viewPreviousChallenges", Challenge.viewPreviousChallenges);
 
 
 //parts
@@ -84,18 +88,24 @@ router.post("/getAllParts", parts.getAllParts);
 router.post("/getPartById/:id", parts.getPartById);
 router.post("/getPartByStoryId/:id", parts.getPartByStoryId);
 router.post("/deletePartById/:id", parts.deletePartById);
+router.post("/findBestPart/:id", parts.findBestPart);
 
 
 
 //Challenge Updates
 
+router.post("/viewmyChallengesByReaderId/:id", challengUpdates.viewmyChallengesByReaderId);
+router.post("/viewmyChallengesByWriterId/:id", challengUpdates.viewmyChallengesByWriterId);
 
 router.post("/addchallengeUpdates", challengUpdates.addchallengeUpdates);
 router.post("/viewchallengeUpdatessBychallengeId/:id", challengUpdates.viewchallengeUpdatessBychallengeId);
 router.post("/viewchallengeUpdatesById/:id", challengUpdates.viewchallengeUpdatesById);
 router.post("/viewchallengeParticipantsById/:id", challengUpdates.viewchallengeParticipantsById);
-router.post("/addChallengeWinner/:id", challengUpdates.addChallengeWinner);
+router.post("/addChallengeWinner", challengUpdates.addChallengeWinner);
 router.post("/getAllChallengeWinners/:id", challengUpdates.getAllChallengeWinners);
 router.post("/getChallengeWinnersByChallengeId/:id", challengUpdates.getChallengeWinnersByChallengeId);
+
+
+
 
 module.exports = router;

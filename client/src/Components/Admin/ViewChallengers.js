@@ -1,8 +1,23 @@
-import React from 'react'
 import AdminSidebar from '../Pages/AdminSidebar'
 import '../Pages/AdminLogin.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axiosInstance from "../../BaseAPIs/axiosinstatnce";
+
 function ViewChallengers() {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        axiosInstance
+          .post(`/viewChallenges`)
+          .then((res) => {
+            console.log(res.data.data);
+            setData(res.data.data);
+          })
+          .catch((err) => {
+            alert("Failed to fetch user details");
+          });
+      }, []);
   return (
     <div className='row'>
         <div className='col-3'>
@@ -10,13 +25,15 @@ function ViewChallengers() {
         </div>
         <div className='col-9'>
             <h1 className='mt-5'>View Challengers</h1>
+        {data.map((d)=>{
+            return(<>
             <div className='row'>
                 <div className='col-2'></div>
                 <div className='col-8 view-challengers-title mt-3'>
                     <div className='row ms-5 pt-4'>
                         <div className='col-3'>Title</div>
                         <div className='col-1'>:</div>
-                        <div className='col-8'>Truth or Dare</div>
+                        <div className='col-8'>{d.title}</div>
                     </div>
                 </div>
                 <div className='col-2'></div>
@@ -27,7 +44,7 @@ function ViewChallengers() {
                     <div className='row ms-5 pt-4'>
                         <div className='col-3'>Challenge End Date</div>
                         <div className='col-1'>:</div>
-                        <div className='col-8'>23/06/2024</div>
+                        <div className='col-8'>{d.endDate}</div>
                     </div>  
                 </div>
                 <div className='col-2'></div>
@@ -39,17 +56,10 @@ function ViewChallengers() {
                         <div className='col-3'>Description</div>
                         <div className='col-1'>:</div>
                         <div className='col-8 view-challengers-description-div'>
-                            Get friends to share secrets and take on dares in this 
-                            classic game. Truth or Dare is a tried-and-true party 
-                            game—but it’s popular for a reason! To Play a Truth or 
-                            Dare decide who will go first. That person must choose 
-                            a “truth” or a “dare.” If they pick truth, ask them a 
-                            question they must answer truthfully. If they choose dare, 
-                            challenge them to do something funny or bold. Go around 
-                            the group to give everyone a chance to play.
+                            {d.description}
                         </div>
                         <div className='mt-5 pt-4 text-end'>
-                            <Link to='/admindashviewchallengesTitle'>
+                            <Link to={`/admindashviewchallengesTitle/${d._id}`}>
                                 <button className='view-challengers-view-btn'>
                                     View More
                                 </button>
@@ -59,6 +69,9 @@ function ViewChallengers() {
                 </div>
                 <div className='col-2'></div>
             </div>
+            </>)
+        })}
+            
         </div>
     </div>
   )

@@ -35,7 +35,7 @@ function Header() {
           <Navbar.Collapse id="responsive-navbar-nav text-light  bg-light">
             <Nav className="me-auto"></Nav>
             <Nav>
-              <Nav.Link href="#deets" className="text-light me-5">
+              <Nav.Link href="/story_telling/aboutus" className="text-light me-5">
                 About Us
               </Nav.Link>
               <Nav.Link eventKey={2} href="#memes" className="text-light me-5">

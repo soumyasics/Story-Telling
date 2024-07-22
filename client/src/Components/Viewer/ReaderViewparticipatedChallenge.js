@@ -3,15 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '../../BaseAPIs/axiosinstatnce';
 import { imageUrl } from '../../BaseAPIs/ImageUrl/imgApi';
 
-function WriterViewChallenge() {
+function ReaderViewParticipatedChallenge() {
   const [writerdata, setWriterData] = useState([]);
   const navigate = useNavigate();
   
-  const writerid = localStorage.getItem("writer");
+  const readerid = localStorage.getItem("reader");
   
   useEffect(() => {
     axiosInstance
-      .post(`/viewmyChallengesByWriterId/${writerid}`)
+      .post(`/viewmyChallengesByReaderId/${readerid}`)
       .then((res) => {
         console.log(res.data.data);
         setWriterData(res.data.data);
@@ -19,10 +19,10 @@ function WriterViewChallenge() {
       .catch((err) => {
         alert("Failed to fetch user details");
       });
-  }, [writerid]);
+  }, [readerid]);
   
   const handleParticipate = (challengeId) => {
-    navigate(`/writer-participate-challenge/${challengeId}`);
+    navigate(`/reader-participate-challenge/${challengeId}`);
   };
 
   return (
@@ -41,12 +41,12 @@ function WriterViewChallenge() {
           <div className='col-4 writerview-challenges-imgdiv'>
             <div>
               <img
-                src={`${imageUrl}/${challenge.picture?.filename}`}
+                src={`${imageUrl}/${challenge.challengeId.picture?.filename}`}
                 className='writerview-challenges-img'
                 alt='Challenge'
               />
               <button
-                onClick={() => handleParticipate(challenge._id)}
+                onClick={() => handleParticipate(challenge.challengeId._id)}
                 className='writerview-challenges-participatebtn ms-4'
               >
                 Update Status
@@ -75,4 +75,4 @@ function WriterViewChallenge() {
   );
 }
 
-export default WriterViewChallenge;
+export default ReaderViewParticipatedChallenge;

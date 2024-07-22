@@ -8,8 +8,8 @@ const sSchema=mongoose.Schema({
        
     },
     part:{
-        type:Boolean,
-        default:false
+        type:String,
+        required:true,
     },
     ownerId:{
         type:mongoose.Schema.Types.ObjectId,
