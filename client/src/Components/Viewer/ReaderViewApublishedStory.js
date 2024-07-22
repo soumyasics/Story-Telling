@@ -20,6 +20,8 @@ function ReaderViewApublishedStory() {
   const [id, setId] = useState(localStorage.getItem("reader"));
   const writerid = localStorage.getItem("writer")
   const[comment,setComment]=useState();
+
+  const[data,setData]=useState([])
   useEffect(() => {
     if (
       localStorage.getItem("token") == null &&
@@ -140,6 +142,19 @@ function ReaderViewApublishedStory() {
       console.error("Failed to add Comment");
     })
   }
+
+  useEffect(() => {
+    axiosInstance.post(`/viewCommentsByStory/${storyid}`)
+    .then ((res) => {
+      if(res.data.status === 200){
+        console.log(res);
+        setData(res.data.data)
+      }
+    })
+    .catch((err) => {
+      console(err)
+    })
+  },[])
 
   const [errors, setErrors] = useState({
     title: "",
@@ -413,16 +428,25 @@ function ReaderViewApublishedStory() {
           <h5>Comments</h5>
         </div>
         <hr></hr>
-        <div className="row">
-
-          <div className="col-2 ps-5">
-            <img src={crime} className="readerview-apublished-story-commentimg"></img>
-          </div>
-          <div className="col-10">
-            <label className="readerview-apublished-story-label">@anupriya123</label><br></br>
-            <label className="readerview-apublished-story-label">It’s going interesting and i Love It</label>
-          </div>
-        </div>
+       { console.log(data.length)}
+        {data.length > 0 ? (
+          data.map ((com) => {
+            {console.log(com.comment)}
+            return(
+            <div className="row mb-3">
+              <div className="col-2 ps-5">
+                <img src={`${imageUrl}/${com?.readerId?.profilePicture.filename}`} className="readerview-apublished-story-commentimg"></img>
+              </div>
+              <div className="col-10">
+                <label className="readerview-apublished-story-label">{com?.readerId?.name}</label><br></br>
+                <label className="readerview-apublished-story-label">{com.comment}</label>
+              </div>
+            </div>
+            )
+          })
+        ):(
+          <div>Nothing found</div>
+        )}
         <>
 
 
