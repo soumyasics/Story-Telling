@@ -5,6 +5,7 @@ const Like = require('../Model/likesSchema');
 
 // Add a part
 const addPart = async (req, res) => {
+  console.log(req.body);
   try {
     const { storyId, part, writerId } = req.body;
 

@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Martel+Sans:wght@200;300;400;600;700;800;900&display=swap');
+
+.AContainDiv {
+
+    display: flex;
+    flex-direction: column;
+    background-image: url('../../Assets/unsplash_3OiYMgDKJ6k.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: -80px;
+    height: 578px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.AboutUs-h1 {
+
+    font-family: Martel Sans;
+    font-size: 30px;
+    color: white;
+
+}
+
+.AboutUs-h1-2 {
+
+    font-family: Martel Sans;
+    font-size: 24px;
+    color: white;
+    width: 1128px;
+    text-align: center;
+
+}
+
+.AContainDiv-2 {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+
+}
+
+.AboutUs-h1-3 {
+
+    font-family: Martel Sans;
+    font-size: 24px;
+    color: black;
+
+
+}
+
+.AboutUs-h1-4 {
+
+    font-family: Martel Sans;
+    font-size: 16px;
+    color: black;
+    margin-left: 40px;
+
+}
+
+.AContainDiv-3 {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.AContainDiv-4 {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.AboutUs-h1-3-1 {
+
+    font-family: Martel Sans;
+    font-size: 24px;
+    text-align: center;
+
+}
+
+.AboutUs-h1-4-1 {
+
+    font-family: Martel Sans;
+    font-size: 16px;
+    text-align: center;
+
+}
+
+.AContainDiv-5 {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.AContainDiv-5-bg {
+
+    
+    background: rgba(0, 0, 0, 0.50) url("../../Assets/image 29.png") no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1127px;
+    height: 374px;
+
+}
+
+.AContainDiv-5-bg-over {
+
+    background: rgba(0, 0, 0, 0.50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1127px;
+    height: 374px;
+
+}
+
+.AboutUs-h1-4-2 {
+
+    font-family: Martel Sans;
+    text-align: center;
+    font-size: 16px;
+    width: 848px;
+    color: white;
+
+}
+
+.AContainDiv-6 {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.AboutUs-h1-4-3 {
+
+    font-family: Martel Sans;
+    text-align: center;
+    font-size: 16px;
+    width: 848px;
+    color: rgb(0, 0, 0);
+
+}
