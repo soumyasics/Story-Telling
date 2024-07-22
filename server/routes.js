@@ -83,7 +83,7 @@ router.post("/viewPreviousChallenges", Challenge.viewPreviousChallenges);
 
 
 //parts
-router.post("/addPart", parts.addPart);
+router.post("/addPart",parts.upload, parts.addPart);
 router.post("/getAllParts", parts.getAllParts);
 router.post("/getPartById/:id", parts.getPartById);
 router.post("/getPartByStoryId/:id", parts.getPartByStoryId);

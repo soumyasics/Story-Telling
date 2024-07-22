@@ -2,12 +2,37 @@ const Part = require('../Model/partSchema');
 const Story = require('../Model/storySchema');
 const Writer = require('../Model/WriterSchema');
 const Like = require('../Model/likesSchema');
+const storySchema = require('../Model/storySchema');
+const multer=require('multer')
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'upload/'); 
+  },
+  filename: function (req, file, cb) {
+    const uniquePrefix = 'prefix-'; 
+    const originalname = file.originalname;
+    const extension = originalname.split('.').pop();
+    const filename = uniquePrefix + originalname.substring(0, originalname.lastIndexOf('.')) + '-' + Date.now() + '.' + extension;
+    cb(null, filename);
+  }
+});
+
+const upload = multer({ storage: storage }).single('partAudio');
 
 // Add a part
 const addPart = async (req, res) => {
   console.log(req.body);
   try {
-    const { storyId, part, writerId } = req.body;
+    const { storyId,partText, writerId } = req.body;
+
+    let storyData=await storySchema.findById(storyId)
+    console.log(storyData);
+    const partAudio = (storyData.type)=== 'audio' && req.file? req.file : null;
+
+    if (storyData.type === 'audio' && !partAudio) {
+      return res.status(400).json({ status: 400, message: "Audio file is required for audio type stories" });
+    }
 
 
     // Check if the storyId exists
@@ -24,7 +49,8 @@ const addPart = async (req, res) => {
 
     const newPart = new Part({
       storyId,
-      part,
+      partText,
+      partAudio,
       ownerId:story.writerId,
       writerId,
       date:new Date()
@@ -211,5 +237,6 @@ module.exports = {
   getPartById,
   deletePartById,
   getPartByStoryId,
-  findBestPart
+  findBestPart,
+  upload
 };
