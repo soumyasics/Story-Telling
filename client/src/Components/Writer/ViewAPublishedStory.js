@@ -233,16 +233,16 @@ function ViewAPublishedStory() {
     axiosInstance
       .post(endpoint, { partId: partId, readerId: null, writerId: id })
       .then((res) => {
-        countpartlike();
+        countpartlike(partId);
         console.log(res, "banu");
       })
       .catch((err) => {});
     
   };
 
-  const countpartlike = () => {
+  const countpartlike = (partId) => {
     axiosInstance
-      .post(`/countDislikes/${storyid}`)
+      .post(`/countDislikesforPart/${partId}`)
       .then((res) => {
         console.log(res, "countDislikes");
         setpartDislikecount(res.data.count);
@@ -252,7 +252,7 @@ function ViewAPublishedStory() {
       });
 
     axiosInstance
-      .post(`/countLikes/${storyid}`)
+      .post(`/countLikesforPartId/${partId}`)
       .then((res) => {
         console.log(res, "countLikes");
         setpartLikecount(res.data.count);
@@ -495,8 +495,7 @@ function ViewAPublishedStory() {
                         >
                         <img
                           src={dislike}
-                          className="writer-story-addpage-like-img ms-4"
-                          
+                          className="writer-story-addpage-like-img ms-4"        
                         />
                         </div>
                         <span className="ms-2">{partdislikecount}</span>
