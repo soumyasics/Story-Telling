@@ -4,21 +4,21 @@ import bg from "../../Assets/bg.png";
 import { Form, Radio, Input } from "antd";
 import { FaCamera } from "react-icons/fa";
 import axiosInstance from "../../BaseAPIs/axiosinstatnce";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import { imageUrl } from "../../BaseAPIs/ImageUrl/imgApi";
 import axiosMultipartInstance from "../../BaseAPIs/AxiosMultipartInstance";
 import like from "../../Assets/Group.png";
 import dislike from "../../Assets/iconamoon_like-bold (1).png";
 import { AiOutlineMessage } from "react-icons/ai";
 import { Modal } from "react-bootstrap";
-import crime from '../../Assets/Crime.png'
+import crime from "../../Assets/Crime.png";
 
 function ViewAPublishedStory() {
   const navigate = useNavigate();
   const [id, setId] = useState(localStorage.getItem("writer"));
-  const readerid = localStorage.getItem("reader")
-  const[comment,setComment]=useState();
-
+  const readerid = localStorage.getItem("reader");
+  const [comment, setComment] = useState();
+  const [storypart, setStorypart] = useState([]);
   useEffect(() => {
     if (
       localStorage.getItem("token") == null &&
@@ -26,7 +26,7 @@ function ViewAPublishedStory() {
     ) {
       navigate("/");
     }
-  }, [navigate]);
+  }, []);
 
   const [writerdata, setWriterData] = useState({
     profilePicture: { filename: "" },
@@ -81,8 +81,18 @@ function ViewAPublishedStory() {
       .catch((err) => {
         alert("Failed to fetch user details");
       });
-      countlike();
-      
+    countlike();
+
+    axiosInstance
+      .post(`/getPartByStoryId/${storyid}`)
+      .then((res) => {
+        console.log(res, "add part");
+        setStorypart(res.data.data);
+      })
+      .catch((err) => {
+        alert("Failed to fetch user details");
+      });
+    countlike();
   }, []);
 
   const countlike = () => {
@@ -96,7 +106,7 @@ function ViewAPublishedStory() {
         alert("Failed to fetch user details");
       });
 
-      axiosInstance
+    axiosInstance
       .post(`/countLikes/${storyid}`)
       .then((res) => {
         console.log(res, "countLikes");
@@ -105,38 +115,37 @@ function ViewAPublishedStory() {
       .catch((err) => {
         alert("Failed to fetch user details");
       });
-  }
+  };
 
   const commentData = {
-    storyId:storyid,
-    comment:comment,
-    readerId:readerid,
-    writerId:id
-  }
+    storyId: storyid,
+    comment: comment,
+    readerId: readerid,
+    writerId: id,
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("comment data",commentData);
-    axiosInstance.post('/createComment',commentData)
-    .then((res) => {
-      console.log(res);
-      if(res.status === 200) {
-        alert("Comment Added Successfully!")
-        console.log("Comment Added Successfully!")
-        handleClose();
-      }
-      else{
-        alert("Comment not Inserted")
-        console.log("Comment not Inserted");
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      alert("Failed to add Comment")
-      console.error("Failed to add Comment");
-    })
-  }
-
+    console.log("comment data", commentData);
+    axiosInstance
+      .post("/createComment", commentData)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          alert("Comment Added Successfully!");
+          console.log("Comment Added Successfully!");
+          handleClose();
+        } else {
+          alert("Comment not Inserted");
+          console.log("Comment not Inserted");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Failed to add Comment");
+        console.error("Failed to add Comment");
+      });
+  };
 
   const [errors, setErrors] = useState({
     title: "",
@@ -163,16 +172,17 @@ function ViewAPublishedStory() {
   const handleCommentChange = (event) => {
     const { name, value } = event.target;
     setComment(value);
-  console.log(value);
+    console.log(value);
   };
 
   const [errorcover, setErrorCover] = useState(null);
   const [erroraudio, setErrorAudio] = useState(null);
   const [audioUrl, setAudioUrl] = useState(null);
   const [isDiabled, setIsDiabled] = useState("d-none");
-  const [likecount, setLikecount] = useState('');
+  const [likecount, setLikecount] = useState("");
   const [dislikecount, setDislikecount] = useState("d-none");
-
+  const [partlikecount, setpartLikecount] = useState("");
+  const [partdislikecount, setpartDislikecount] = useState("");
   const [image, setImage] = useState(null);
 
   const handleFileCoverChange = (coverPicture) => {
@@ -208,6 +218,50 @@ function ViewAPublishedStory() {
       .catch((err) => {});
   };
 
+  const GotoAddpart = (sid) => {
+    console.log("k");
+    navigate("/writer-add-part/" + sid);
+  };
+  console.log(storydata._id, "storydata");
+
+  console.log(storypart, "part");
+
+
+  const partLikeManage = (action, partId) => {
+    console.log(action, "pp");
+    var endpoint = action == "like" ? "/addLiketoPart" : "/addDisliketoPart";
+    axiosInstance
+      .post(endpoint, { partId: partId, readerId: null, writerId: id })
+      .then((res) => {
+        countpartlike();
+        console.log(res, "banu");
+      })
+      .catch((err) => {});
+    
+  };
+
+  const countpartlike = () => {
+    axiosInstance
+      .post(`/countDislikes/${storyid}`)
+      .then((res) => {
+        console.log(res, "countDislikes");
+        setpartDislikecount(res.data.count);
+      })
+      .catch((err) => {
+        alert("Failed to fetch user details");
+      });
+
+    axiosInstance
+      .post(`/countLikes/${storyid}`)
+      .then((res) => {
+        console.log(res, "countLikes");
+        setpartLikecount(res.data.count);
+      })
+      .catch((err) => {
+        alert("Failed to fetch user details");
+      });
+  };
+
   return (
     <>
       <div className="mb-5 mt-5">
@@ -218,7 +272,11 @@ function ViewAPublishedStory() {
 
               <div className="col-3 text-center">
                 <img
-                  src={`${imageUrl}/${writerdata.profilePicture.filename}`}
+                  src={`${imageUrl}/${
+                    writerdata.profilePicture.filename
+                      ? writerdata.profilePicture.filename
+                      : writerdata.profilePicture
+                  }`}
                   className="writer-story-addpage-profileimg mt-3"
                 ></img>
               </div>
@@ -301,7 +359,7 @@ function ViewAPublishedStory() {
                           )}
                         </Form.Item>
                       </div>
-                      
+
                       <div className="mt-3 mx-5 writer-story-addpage-summery ">
                         <div class="form-floating">
                           <textarea
@@ -357,9 +415,9 @@ function ViewAPublishedStory() {
                     </div>
                   </div>
                   <div className="pt-5 ms-5">
-
-                    <div  onClick={handleCommantsShow}>
-                    <AiOutlineMessage className="readerview-apublished-story-icon" />3,456
+                    <div onClick={handleCommantsShow}>
+                      <AiOutlineMessage className="readerview-apublished-story-icon" />
+                      3,456
                     </div>
                   </div>
                   <div className="text-center p-3">
@@ -372,7 +430,12 @@ function ViewAPublishedStory() {
                     >
                       Continue
                     </button>
-                    <button className="btn btn-dark px-5">Add Part</button>
+                    <Link
+                      to={`/writer-add-part/${storydata._id}`}
+                      className="btn btn-dark px-5"
+                    >
+                      Add Part
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -402,46 +465,99 @@ function ViewAPublishedStory() {
                   ""
                 )}
               </div>
+              {storypart.map((part, index) => (
+                <div key={part._id} className={`'row ps-5 mt-5 w-100' ${isDiabled}`}>
+                  <div className="col writer-story-addpage-div2">
+                    <div className="text-center mt-3">
+                      <h5>Part {index + 2}</h5>
+                      <p>{part.part}</p>
+                      <audio controls src={`${imageUrl}/${part.part}`} />
+                      <div className="mt-3">
+                      <div
+                          className="col mx-3  like"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            partLikeManage("like");
+                          }}
+                        >
+                        <img
+                          src={like}
+                          className="writer-story-addpage-like-img"
+                        />
+                        </div>
+                        <span className="ms-2">{partlikecount}</span>
+                        <div
+                          className="col mx-3  like"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            partdislikecount("like");
+                          }}
+                        >
+                        <img
+                          src={dislike}
+                          className="writer-story-addpage-like-img ms-4"
+                          
+                        />
+                        </div>
+                        <span className="ms-2">{partdislikecount}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </form>
         </div>
-        
+
         <div className="container readerview-apublished-story-commentdiv">
-        <div className="pt-4 ms-5">
-          <h5>Comments</h5>
-        </div>
-        <hr></hr>
-        <div className="row">
-
-          <div className="col-2 ps-5">
-            <img src={crime} className="readerview-apublished-story-commentimg"></img>
+          <div className="pt-4 ms-5">
+            <h5>Comments</h5>
           </div>
-          <div className="col-10">
-            <label className="readerview-apublished-story-label">@anupriya123</label><br></br>
-            <label className="readerview-apublished-story-label">It’s going interesting and i Love It</label>
+          <hr></hr>
+          <div className="row">
+            <div className="col-2 ps-5">
+              <img
+                src={crime}
+                className="readerview-apublished-story-commentimg"
+              ></img>
+            </div>
+            <div className="col-10">
+              <label className="readerview-apublished-story-label">
+                @anupriya123
+              </label>
+              <br></br>
+              <label className="readerview-apublished-story-label">
+                It’s going interesting and i Love It
+              </label>
+            </div>
           </div>
+          <>
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Comments</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <textarea
+                  className="form-control"
+                  cols="60"
+                  rows="10"
+                  name="comment"
+                  onChange={handleCommentChange}
+                ></textarea>
+              </Modal.Body>
+              <Modal.Footer>
+                <div>
+                  <button
+                    className="readerview-apublished-story-submitbtn"
+                    onClick={handleSubmit}
+                  >
+                    Submit
+                  </button>
+                </div>
+              </Modal.Footer>
+            </Modal>
+          </>
         </div>
-        <>
-
-
-          <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Comments</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <textarea  className="form-control" cols='60' rows='10' name="comment"
-              onChange={handleCommentChange}
-              ></textarea>
-            </Modal.Body>
-            <Modal.Footer>
-              <div>
-                <button className="readerview-apublished-story-submitbtn" onClick={handleSubmit}>Submit</button>
-              </div>
-            </Modal.Footer>
-          </Modal>
-        </>
-      </div>
-
       </div>
     </>
   );

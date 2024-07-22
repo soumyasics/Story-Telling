@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { imageUrl } from "../../BaseAPIs/ImageUrl/imgApi";
 import axiosMultipartInstance from "../../BaseAPIs/AxiosMultipartInstance";
 
-function WriterStoryEditPage() {
+function WriterAddPart() {
   const navigate = useNavigate();
   const [id, setId] = useState(localStorage.getItem("writer"));
 
@@ -33,6 +33,9 @@ function WriterStoryEditPage() {
     text: "",
     audio: "",
     coverPicture: { filename: "" },
+    addtextpart:"",
+    addaudiopart:""
+
   });
 
   useEffect(() => {
@@ -83,6 +86,8 @@ function WriterStoryEditPage() {
     text: "",
     coverPicture: "",
     audio: "",
+    addtextpart:"",
+    addaudiopart:""
   });
 
   const handleChange = (event) => {
@@ -126,80 +131,6 @@ function WriterStoryEditPage() {
     console.log(storydata);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    let errors = {};
-
-    let formValid = true;
-
-    if (!storydata.title.trim()) {
-      formValid = false;
-      errors.title = "Title is required";
-    }
-    if (!storydata.storyCategory) {
-      formValid = false;
-      console.log("3", formValid);
-      errors.storyCategory = "Story Category is required";
-    }
-    if (!storydata.summary.trim()) {
-      formValid = false;
-      console.log("z4", formValid);
-      errors.summary = "Summary is required";
-    }
-    if (!storydata.coverPicture) {
-      formValid = false;
-      console.log("z5", formValid);
-      errors.description = "Cover Picture is required";
-    }
-    setErrors(errors);
-
-    if (
-      storydata.title &&
-      storydata.summary &&
-      storydata.storyCategory &&
-      storydata.coverPicture
-    ) {
-      formValid = true;
-    }
-
-    if (Object.keys(errors).length === 0 && formValid) {
-      const formData = new FormData();
-      formData.append("title", storydata.title);
-      formData.append("summary", storydata.summary);
-      formData.append("storyCategory", storydata.storyCategory);
-      formData.append("coverPicture", storydata.coverPicture);
-      formData.append("type", storydata.type);
-      if (storydata.type === "text") {
-        formData.append("text", storydata.text);
-      } else {
-        formData.append("audio", storydata.audio);
-        console.log("pp");
-
-      }
-      try {
-        var response;
-        if (storydata) {
-          response = await axiosMultipartInstance.post(
-            `/editStory/${story_id.id}`,
-            formData
-          );
-        }
-        console.log("Response:", response);
-        if (response.status == 200) {
-          alert("Save As Draft");
-          setStoryData(response.data.data);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        let msg = error?.response?.data?.msg || "Error occurred";
-        alert(msg);
-      }
-    } else {
-      console.log("Form is not valid", formValid);
-      console.log("Data entered", storydata);
-    }
-  };
 
   const publishStory = async (e) => {
     e.preventDefault();
@@ -207,16 +138,20 @@ function WriterStoryEditPage() {
     try {
       var response;
       if (storydata) {
-        response = await axiosMultipartInstance.post(
-          `/publishStory`,
-          storydata
+        response = await axiosInstance.post(
+          `/addpart`,
+        {
+            storyId:story_id.id,
+             part:storydata.text, 
+             writerId: localStorage.getItem("writer")
+        }
         );
       }
       console.log("Response:", response);
-      if (response.status == 200) {
+      
         alert(response.data.message);
         navigate('/writer-view-stories')
-      }
+      
     } catch (error) {
       console.error("Error:", error);
       let msg = error?.response?.data?.msg || "Error occurred";
@@ -230,14 +165,6 @@ function WriterStoryEditPage() {
         <div className="container mt-5">
           <div className="writer-story-addpage-navdiv">
             <div className="row">
-              <div className="col-4">
-                <button
-                  onClick={handleSubmit}
-                  className="mt-4 me-5 writer-story-editpage-savebtn"
-                >
-                  Save
-                </button>
-              </div>
 
               <div className="col-3 text-center">
                 <img
@@ -253,9 +180,6 @@ function WriterStoryEditPage() {
             </div>
           </div>
           <form
-            onSubmit={(e) => {
-              handleSubmit(e);
-            }}
           >
           <div className="row">
           <div className="col ">
@@ -266,25 +190,23 @@ function WriterStoryEditPage() {
                     <input
                       className="writer-story-addpage-addtitle"
                       name="title"
-                      value={storydata.title}
-                      placeholder={storydata.title}
+                      value={storydata?.title}
+                      placeholder={storydata?.title}
                       onChange={handleChange}
+                      disabled
                     />
-                    {errors.title && (
-                      <div className="text-danger errortext">
-                        {errors.title}
-                      </div>
-                    )}
+                   
                   </div>
                   <div className="text-center  mt-2">
                     <select
                       id="dropdown"
                       name="storyCategory"
-                      value={storydata.storyCategory}
-                      placeholder={storydata.storyCategory}
+                      value={storydata?.storyCategory}
+                      placeholder={storydata?.storyCategory}
                       onChange={handleChange}
                       className="writer-story-addpage-category"
                       title="Story Category"
+                      disabled
                     >
                       <option>Story Category</option>
                       <option>Horror</option>
@@ -294,16 +216,12 @@ function WriterStoryEditPage() {
                       <option>Fantasy</option>
                       <option>Crime</option>
                     </select>
-                    {errors.storyCategory && (
-                      <div className="text-danger errortext">
-                        {errors.storyCategory}
-                      </div>
-                    )}
+                   
                   </div>
                   <div className="mx-5 mt-2">
                     <Form.Item>
                       <Radio.Group onChange={handleOnChange} name="type">
-                        {storydata.text ? (
+                        {storydata?.text ? (
                           <Radio
                             onChange={handleChange}
                             value="text"
@@ -350,34 +268,7 @@ function WriterStoryEditPage() {
                       )}
                     </Form.Item>
                   </div>
-                  <div className="text-center mt-5">
-                    <FaCamera
-                      className="writer-add_story-icon"
-                      onClick={() =>
-                        document.getElementById("coverPicture").click()
-                      }
-                    />{" "}
-                    Change Cover Picture
-                    <input
-                      type="file"
-                      style={{ display: "none" }}
-                      name="coverPicture"
-                      onChange={(event) => {
-                        handleFileCoverChange(event.target.files[0]);
-                      }}
-                      id="coverPicture"
-                    />
-                    {errors.coverPicture && (
-                      <div className="text-danger errortext">
-                        {errors.coverPicture}
-                      </div>
-                    )}
-                    {errorcover && (
-                      <div className="text-danger errortext">
-                        {errorcover}
-                      </div>
-                    )}
-                  </div>
+                  
                   <div className="mt-3 mx-5 writer-story-addpage-summery ">
                     <div class="form-floating">
                       <textarea
@@ -385,16 +276,13 @@ function WriterStoryEditPage() {
                         id="floatingTextarea2"
                         style={{ height: "120px" }}
                         name="summary"
-                        value={storydata.summary}
-                        placeholder={storydata.summary}
+                        value={storydata?.summary}
+                        placeholder={storydata?.summary}
                         onChange={handleChange}
+                        disabled
                       ></textarea>
                       <label for="floatingTextarea2">Summary</label>
-                      {errors.summary && (
-                        <div className="text-danger errortext">
-                          {errors.summary}
-                        </div>
-                      )}
+                      
                     </div>
                   </div>
                 </div>
@@ -403,7 +291,7 @@ function WriterStoryEditPage() {
                     src={`${
                       image
                         ? image
-                        : imageUrl + "/" + storydata.coverPicture?.filename
+                        : imageUrl + "/" + storydata?.coverPicture?.filename
                     }`}
                     className="writer-story-addpage-sideimg mt-5"
                     alt="Upload cover Image"
@@ -416,8 +304,8 @@ function WriterStoryEditPage() {
             {textb.showTextBox && (
               <textarea
                 className="writer-story-addtextarea"
-                value={storydata.text}
-                placeholder={storydata.text}
+                value={storydata.addtextpart}
+                placeholder={storydata.addtextpart}
                 name="text"
                 onChange={handleChange}
               />
@@ -429,7 +317,7 @@ function WriterStoryEditPage() {
               src={
                 audioUrl
                   ? audioUrl
-                  : imageUrl + "/" + storydata.audio?.filename
+                  : imageUrl + "/" + storydata.addaudiopart?.filename
               }
             />
           )}
@@ -441,4 +329,4 @@ function WriterStoryEditPage() {
   );
 }
 
-export default WriterStoryEditPage;
+export default WriterAddPart;
