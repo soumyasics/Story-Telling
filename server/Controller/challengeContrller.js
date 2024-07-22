@@ -201,6 +201,24 @@ const viewActiveChallengesByWriterId = async (req, res) => {
         });
     }
 };
+const viewPreviousChallenges = async (req, res) => {
+    try {
+        const currentDate = new Date();
+        const prevChallenges = await Challenge.find({ endDate: { $lte: currentDate } }).populate('writerId');
+
+        res.status(200).json({
+            status: 200,
+            msg: "Prev challenges retrieved successfully",
+            data: prevChallenges
+        });
+    } catch (err) {
+        res.status(500).json({
+            status: 500,
+            msg: "Failed to retrieve active challenges",
+            Error: err.message
+        });
+    }
+};
 module.exports = {
     addChallenge,
     updateChallengeById,
@@ -209,5 +227,6 @@ module.exports = {
     viewChallengeById,
     viewActiveChallenges,
     viewActiveChallengesByWriterId,
-    upload
+    upload,
+    viewPreviousChallenges
 };
