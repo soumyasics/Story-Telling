@@ -4,7 +4,7 @@ import image1 from '../../Assets/image1.png';
 import image2 from '../../Assets/image2.png';
 import axiosInstance from '../../BaseAPIs/axiosinstatnce';
 
-function WriterEndChallenge() {
+function ReaderEndChallenge() {
   const [writerdata, setWriterData] = useState([]);
   const navigate = useNavigate();
   const writerid = localStorage.getItem("writer");
@@ -67,4 +67,4 @@ function WriterEndChallenge() {
   );
 }
 
-export default WriterEndChallenge;
+export default ReaderEndChallenge;

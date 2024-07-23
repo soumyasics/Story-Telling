@@ -28,7 +28,7 @@ function WriterAddChallenges() {
         console.log(writerdata,"writerdata");
     })
     .catch((err)=>{
-      alert("Failed to fetch user details")
+      console.log("Failed to fetch user details")
   });
   },[])
 
@@ -140,6 +140,7 @@ function WriterAddChallenges() {
         console.log("Response:", response);
         if (response.status == 200) {
           alert(response.data.msg);
+          navigate("/writer-newstory-challenge")
         //   window.location.reload(false)
         }
       } catch (error) {

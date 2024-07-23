@@ -55,7 +55,7 @@ function ReaderViewChallenges() {
         <h4>New Story Challenge</h4>
       </div>
       <div className="mt-3 text-end me-5 pe-5">
-        <Link to="/writer-end-challenge">
+        <Link to="/reader-end-challenge">
           <button className="writerview-challenges-endedbtn">
             Ended Challenge
           </button>
