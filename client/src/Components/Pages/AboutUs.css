@@ -155,3 +155,13 @@
     color: rgb(0, 0, 0);
 
 }
+.writer-challenges-historydate{
+    border-radius: 10px;
+    background-color: #0ea387;
+    color: white;
+}
+.writer-challenges-historynameback{
+    border-radius: 10px;
+    background-color: #a3d8ce;
+    color: white;
+}

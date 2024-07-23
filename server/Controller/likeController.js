@@ -224,7 +224,7 @@ const countLikesforPartId = async (req, res) => {
 
 // Count dislikes for a story
 const countDislikesforPart = async (req, res) => {
-    const { partId } = req.params;
+    const partId = req.params.id;
 
     try {
         const dislikeCount = await Like.countDocuments({ partId, disliked: true });

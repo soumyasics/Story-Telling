@@ -52,6 +52,7 @@ router.post("/deleteStoryById/:id", Story.deleteStoryById);
 router.post("/viewAllStories", Story.viewAllStories);
 router.post("/publishStory",Story.upload,Story.publishStory);
 router.post("/viewAllStorYByCategory/:category", Story.viewAllStorYByCategory);
+
 router.post("/addRating/:id", Story.addRating);
 
 
@@ -79,15 +80,17 @@ router.post("/viewChallengeById/:id", Challenge.viewChallengeById);
 router.post("/updateChallengeById/:id",Challenge.upload,Challenge.updateChallengeById);
 router.post("/deleteChallengeById/:id", Challenge.deleteChallengeById);
 router.post("/viewActiveChallengesByWriterId/:id", Challenge.viewActiveChallengesByWriterId);
+
 router.post("/viewPreviousChallenges", Challenge.viewPreviousChallenges);
 
 
 //parts
-router.post("/addPart",parts.upload, parts.addPart);
+router.post("/addPart",parts.upload,parts.addPart);
 router.post("/getAllParts", parts.getAllParts);
 router.post("/getPartById/:id", parts.getPartById);
 router.post("/getPartByStoryId/:id", parts.getPartByStoryId);
 router.post("/deletePartById/:id", parts.deletePartById);
+
 router.post("/findBestPart/:id", parts.findBestPart);
 
 

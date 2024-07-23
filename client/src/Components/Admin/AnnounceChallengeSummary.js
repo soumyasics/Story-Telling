@@ -62,9 +62,9 @@ function AnnounceChallengeSummary() {
   const submit = () => {
     var type = {}
     for (var i in p) {
-      var id = p[i].readerId ? p[i].readerId : p[i].writerId;
+      var ida = p[i].readerId ? p[i].readerId : p[i].writerId;
       var role =p[i].readerId ? 'readers' : 'writers'
-      type[id] = role;
+      type[ida] = role;
     }
     var bData = {
       first:{
@@ -109,6 +109,9 @@ function AnnounceChallengeSummary() {
     axiosInstance
       .post(`/addChallengeWinner/`,finaldata)
       .then((res) => {
+        if(res.status==400){
+          console.log(res.data)
+        }
         alert('done')
         navigate('/viewchallengesummary/'+id)
       })

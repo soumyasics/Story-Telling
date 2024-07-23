@@ -1,35 +1,37 @@
 import React, { useState, useEffect } from "react";
-import "../Writer/Writer.css";
 import bg from "../../Assets/bg.png";
 import { Form, Radio, Input } from "antd";
 import { FaCamera } from "react-icons/fa";
 import axiosInstance from "../../BaseAPIs/axiosinstatnce";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import { imageUrl } from "../../BaseAPIs/ImageUrl/imgApi";
 import axiosMultipartInstance from "../../BaseAPIs/AxiosMultipartInstance";
 import like from "../../Assets/Group.png";
 import dislike from "../../Assets/iconamoon_like-bold (1).png";
 import { AiOutlineMessage } from "react-icons/ai";
-import crime from '../../Assets/Crime.png'
-
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-
+import { Modal } from "react-bootstrap";
+import crime from "../../Assets/Crime.png";
+import { GoStarFill } from "react-icons/go";
+import ReactStars from "react-rating-stars-component";
+import { PiCrownFill } from "react-icons/pi";
 function ReaderViewApublishedStory() {
   const navigate = useNavigate();
   const [id, setId] = useState(localStorage.getItem("reader"));
-  const writerid = localStorage.getItem("writer")
-  const[comment,setComment]=useState();
+  const readerid = localStorage.getItem("reader");
+  const [comment, setComment] = useState();
+  const [storypart, setStorypart] = useState([]);
+  const [partlikecountobj, setPartlikecountobj] = useState({});
+  const [rating, setRating] = useState();
+  const [bestpart, setBestpart] = useState();
 
-  const[data,setData]=useState([])
   useEffect(() => {
     if (
       localStorage.getItem("token") == null &&
-      localStorage.getItem("writer") == null
+      localStorage.getItem("reader") == null
     ) {
       navigate("/");
     }
-  }, [navigate]);
+  }, []);
 
   const [writerdata, setWriterData] = useState({
     profilePicture: { filename: "" },
@@ -44,7 +46,6 @@ function ReaderViewApublishedStory() {
     audio: "",
     coverPicture: { filename: "" },
   });
-
 
   const [show, setShow] = useState(false);
 
@@ -75,12 +76,10 @@ function ReaderViewApublishedStory() {
 
   const { storyid } = useParams();
 
-
   useEffect(() => {
     axiosInstance
       .post(`/viewStoryById/${storyid}`)
       .then((res) => {
-        console.log(res, "banu");
         setStoryData(res.data.data);
       })
       .catch((err) => {
@@ -88,13 +87,33 @@ function ReaderViewApublishedStory() {
       });
     countlike();
 
+    axiosInstance
+      .post(`/getPartByStoryId/${storyid}`)
+      .then((res) => {
+        setStorypart(res.data.data);
+        getPartLikeCounts(res.data.data);
+      })
+      .catch((err) => {
+        alert("Failed to fetch user details");
+      });
+
+      axiosInstance
+      .post(`/findBestPart/${storyid}`)
+      .then((res) => {
+        console.log(res.data, "setBestpart");
+        setBestpart(res.data);
+      })
+      .catch((err) => {
+        alert("Failed to fetch user details");
+      });
+
+    countlike();
   }, []);
 
   const countlike = () => {
     axiosInstance
       .post(`/countDislikes/${storyid}`)
       .then((res) => {
-        console.log(res, "countDislikes");
         setDislikecount(res.data.count);
       })
       .catch((err) => {
@@ -104,57 +123,51 @@ function ReaderViewApublishedStory() {
     axiosInstance
       .post(`/countLikes/${storyid}`)
       .then((res) => {
-        console.log(res, "countLikes");
         setLikecount(res.data.count);
       })
       .catch((err) => {
         alert("Failed to fetch user details");
       });
-  }
+  };
 
-  console.log(storyid);
   const commentData = {
-    storyId:storyid,
-    comment:comment,
-    readerId:id,
-    writerId:writerid
-  }
+    storyId: storyid,
+    comment: comment,
+    readerId: readerid,
+    writerId: id,
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  console.log("comment data",commentData);
-    axiosInstance.post('/createComment',commentData)
-    .then((res) => {
-      console.log(res);
-      if(res.status === 200) {
-        alert("Comment Added Successfully!")
-        console.log("Comment Added Successfully!")
-        handleClose();
-      }
-      else{
-        alert("Comment not Inserted")
-        console.log("Comment not Inserted");
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      alert("Failed to add Comment")
-      console.error("Failed to add Comment");
-    })
-  }
+    axiosInstance
+      .post("/createComment", commentData)
+      .then((res) => {
+        if (res.status === 200) {
+          alert("Comment Added Successfully!");
+          handleClose();
+        } else {
+          alert("Comment not Inserted");
+        }
+      })
+      .catch((err) => {
+        alert("Failed to add Comment");
+      });
+  };
+
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    axiosInstance.post(`/viewCommentsByStory/${storyid}`)
-    .then ((res) => {
-      if(res.data.status === 200){
-        console.log(res);
-        setData(res.data.data)
-      }
-    })
-    .catch((err) => {
-      console(err)
-    })
-  },[])
+    axiosInstance
+      .post(`/viewCommentsByStory/${storyid}`)
+      .then((res) => {
+        if (res.data.status === 200) {
+          setData(res.data.data);
+        }
+      })
+      .catch((err) => {
+        console(err);
+      });
+  }, []);
 
   const [errors, setErrors] = useState({
     title: "",
@@ -181,16 +194,16 @@ function ReaderViewApublishedStory() {
   const handleCommentChange = (event) => {
     const { name, value } = event.target;
     setComment(value);
-  console.log(value);
   };
 
   const [errorcover, setErrorCover] = useState(null);
   const [erroraudio, setErrorAudio] = useState(null);
   const [audioUrl, setAudioUrl] = useState(null);
   const [isDiabled, setIsDiabled] = useState("d-none");
-  const [likecount, setLikecount] = useState('');
+  const [likecount, setLikecount] = useState("");
   const [dislikecount, setDislikecount] = useState("d-none");
-
+  const [partlikecount, setpartLikecount] = useState("");
+  const [partdislikecount, setpartDislikecount] = useState("");
   const [image, setImage] = useState(null);
 
   const handleFileCoverChange = (coverPicture) => {
@@ -215,20 +228,108 @@ function ReaderViewApublishedStory() {
   };
 
   const likeManage = (action) => {
-    console.log(action, "pp");
     var endpoint = action == "like" ? "/addLike" : "/addDislike";
     axiosInstance
-      .post(endpoint, { storyId: storyid, readerId: id, writerId: null })
+      .post(endpoint, { storyId: storyid, readerId: null, writerId: id })
       .then((res) => {
         countlike();
-        console.log(res, "banu");
       })
-      .catch((err) => { });
+      .catch((err) => {});
+  };
+
+  const partLikeManage = (action, index) => {
+    var endpoint = action == "like" ? "/addLiketoPart" : "/addDisliketoPart";
+    axiosInstance
+      .post(endpoint, {
+        partId: storypart[index]._id,
+        readerId: null,
+        writerId: id,
+      })
+      .then((res) => {
+        getPartLikeCounts();
+      })
+      .catch((err) => {});
+  };
+
+  const countpartlike = (partId) => {
+    axiosInstance
+      .post(`/countDislikesforPart/${partId}`)
+      .then((res) => {
+        setpartDislikecount(res.data.count);
+      })
+      .catch((err) => {
+        alert("Failed to fetch user details");
+      });
+
+    axiosInstance
+      .post(`/countLikesforPartId/${partId}`)
+      .then((res) => {
+        setpartLikecount(res.data.count);
+      })
+      .catch((err) => {
+        alert("Failed to fetch user details");
+      });
+  };
+
+  const setalllike = (partid, partlikcnt, partdislikcnt) => {
+    axiosInstance
+      .post(`/countLikesforPartId/${partid}`)
+      .then((res) => {
+        partlikcnt = res.data.count;
+        axiosInstance
+          .post(`/countDislikesforPart/${partid}`)
+          .then((res) => {
+            partdislikcnt = res.data.count;
+            console.log(res.data.count, "partdislikcnt");
+            setPartlikecountobj((prev) => ({
+              ...prev,
+              [partid]: {
+                like: partlikcnt,
+                dislike: partdislikcnt,
+              },
+            }));
+          })
+          .catch((err) => {
+            console.log("Failed to fetch user details");
+          });
+      })
+      .catch((err) => {
+        console.log("Failed to fetch user details");
+      });
+  };
+
+  const getPartLikeCounts = async (storypartpram) => {
+    var storypartff = storypartpram ? storypartpram : storypart;
+
+    for (var i in storypartff) {
+      var spart = storypartff[i];
+      var partid = spart._id;
+      var partlikcnt = 0;
+      var partdislikcnt = 0;
+      await setalllike(partid, partlikcnt, partdislikcnt);
+      console.log(partlikecountobj, "setPartlikecountobj");
+    }
+  };
+
+  const handleRating = (newRating) => {
+    setRating(newRating);
+    axiosInstance
+      .post(`/addRating/${storyid}`, { rating: newRating })
+      .then((res) => {
+        if (res.status === 200) {
+          alert("Rating submitted successfully!");
+        } else {
+          alert("Failed to submit rating");
+        }
+      })
+      .catch((err) => {
+        alert("Failed to submit rating");
+      });
   };
 
   return (
     <>
-      <div className="mb-5 mt-5 mb-5">
+      <div className="mb-5 mt-5">
         <div className="container mt-5">
           <div className="writer-story-addpage-navdiv">
             <div className="row">
@@ -236,7 +337,11 @@ function ReaderViewApublishedStory() {
 
               <div className="col-3 text-center">
                 <img
-                  src={`${imageUrl}/${writerdata.profilePicture.filename}`}
+                  src={`${imageUrl}/${
+                    writerdata.profilePicture.filename
+                      ? writerdata.profilePicture.filename
+                      : writerdata.profilePicture
+                  }`}
                   className="writer-story-addpage-profileimg mt-3"
                 ></img>
               </div>
@@ -325,7 +430,7 @@ function ReaderViewApublishedStory() {
                           <textarea
                             class="form-control "
                             id="floatingTextarea2"
-                            style={{ height: "120px" }}
+                            style={{ minHeight: "100px" }}
                             name="summary"
                             value={storydata.summary}
                             placeholder={storydata.summary}
@@ -361,22 +466,69 @@ function ReaderViewApublishedStory() {
                           <div>{dislikecount}</div>
                         </div>
                       </div>
+                      <div className="row">
+                        <div className="col-6">
+                          {" "}
+                          <b>Branch</b>
+                          {storypart.map((part, index) => (
+                            <div>
+                              <div className="card p-3 m-2 bg-light">
+                              {bestpart._id == part._id ? <PiCrownFill className="text-warning" /> : ''}
+                                <h6>Part {index + 1}</h6>
+                                
+                                <img
+                                  src={like}
+                                  className="writer-story-addpage-like-img "
+                                  style={{ width: "20px" }}
+                                />
+
+                                <b className="ms-2">
+                                  {partlikecountobj &&
+                                  partlikecountobj[part._id]
+                                    ? partlikecountobj[part._id].like
+                                    : "0"}
+                                </b>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="col-6">
+                          <b>Co/Creators</b>
+                          {storypart.map((item) => (
+                            <div className="card p-3 m-2 bg-light">
+                              <span>
+                                <img
+                                  style={{ width: "30px", height: "30px" }}
+                                  src={
+                                    imageUrl +
+                                    "/" +
+                                    item.writerId.profilePicture
+                                  }
+                                ></img>
+                              </span>
+                              <div>{item.writerId.name}</div>
+                              <div>{item.writerId.email}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                     <div className="col ">
                       <img
-                        src={`${image
+                        src={`${
+                          image
                             ? image
                             : imageUrl + "/" + storydata.coverPicture?.filename
-                          }`}
+                        }`}
                         className="writer-story-addpage-sideimg mt-5"
                         alt="Upload cover Image"
                       ></img>
                     </div>
                   </div>
                   <div className="pt-5 ms-5">
-
-                    <div  onClick={handleCommantsShow}>
-                    <AiOutlineMessage className="readerview-apublished-story-icon" />3,456
+                    <div onClick={handleCommantsShow}>
+                      <AiOutlineMessage className="readerview-apublished-story-icon" />
+                      {data.length}
                     </div>
                   </div>
                   <div className="text-center p-3">
@@ -385,12 +537,22 @@ function ReaderViewApublishedStory() {
                       onClick={(e) => {
                         e.preventDefault();
                         setIsDiabled("");
+                        console.log(partlikecountobj, "console");
                       }}
                     >
                       Continue
                     </button>
-                    <button className="btn btn-dark px-5">Add Part</button>
                   </div>
+                </div>
+
+                <div className="text-center mt-3">
+                  <ReactStars
+                    count={5}
+                    value={storydata.rating}
+                    onChange={handleRating}
+                    size={24}
+                    activeColor="#ffd700"
+                  />
                 </div>
               </div>
               <div className={`'writer-story-addtextarea-div' ${isDiabled}`}>
@@ -409,6 +571,7 @@ function ReaderViewApublishedStory() {
                 {storydata.type == "audio" ? (
                   <audio
                     controls
+                    className="mt-5 w-100"
                     src={
                       audioUrl
                         ? audioUrl
@@ -419,53 +582,125 @@ function ReaderViewApublishedStory() {
                   ""
                 )}
               </div>
+              <div>
+                {storypart.map((part, index) => (
+                  <div key={part._id} className={`'row  mt-5' ${isDiabled}`}>
+                    <div className="col writer-story-addpage-div2">
+                      <div className="text-center mt-3">
+                        <h5>Part {index + 1}</h5>
+                        {part.partText ? (
+                          <p>{part.partText}</p>
+                        ) : (
+                          <audio
+                            controls
+                            src={`${imageUrl}/${part.partAudio?.filename}`}
+                          />
+                        )}
+
+                        <div className="mt-3">
+                          <div
+                            className="col mx-3  like"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              partLikeManage("like", index);
+                            }}
+                          >
+                            <img
+                              src={like}
+                              className="writer-story-addpage-like-img"
+                            />
+                          </div>
+                          <span className="ms-2">
+                            {partlikecountobj && partlikecountobj[part._id]
+                              ? partlikecountobj[part._id].like
+                              : "0"}
+                          </span>
+                          <div
+                            className="col mx-3  like"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              partLikeManage("dislike", index);
+                            }}
+                          >
+                            <img
+                              src={dislike}
+                              className="writer-story-addpage-like-img ms-4"
+                            />
+                          </div>
+                          <span className="ms-2">
+                            {partlikecountobj && partlikecountobj[part._id]
+                              ? partlikecountobj[part._id].dislike
+                              : "0"}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </form>
         </div>
-      </div>
-      <div className="container readerview-apublished-story-commentdiv">
-        <div className="pt-4 ms-5">
-          <h5>Comments</h5>
+
+        <div className="container readerview-apublished-story-commentdiv">
+          <div className="pt-4 ms-5">
+            <h5>Comments</h5>
+          </div>
+          <hr></hr>
+
+          {data.length > 0 ? (
+            data.map((com) => {
+              return (
+                <div className="row mb-3">
+                  <div className="col-2 ps-5">
+                    <img
+                      src={`${imageUrl}/${com?.readerId?.profilePicture.filename}`}
+                      className="readerview-apublished-story-commentimg"
+                    ></img>
+                  </div>
+                  <div className="col-10">
+                    <label className="readerview-apublished-story-label">
+                      {com?.readerId?.name}
+                    </label>
+                    <br></br>
+                    <label className="readerview-apublished-story-label">
+                      {com.comment}
+                    </label>
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <div>Nothing found</div>
+          )}
+
+          <>
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Comments</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <textarea
+                  className="form-control"
+                  cols="60"
+                  rows="10"
+                  name="comment"
+                  onChange={handleCommentChange}
+                ></textarea>
+              </Modal.Body>
+              <Modal.Footer>
+                <div>
+                  <button
+                    className="readerview-apublished-story-submitbtn"
+                    onClick={handleSubmit}
+                  >
+                    Submit
+                  </button>
+                </div>
+              </Modal.Footer>
+            </Modal>
+          </>
         </div>
-        <hr></hr>
-       { console.log(data.length)}
-        {data.length > 0 ? (
-          data.map ((com) => {
-            {console.log(com.comment)}
-            return(
-            <div className="row mb-3">
-              <div className="col-2 ps-5">
-                <img src={`${imageUrl}/${com?.readerId?.profilePicture.filename}`} className="readerview-apublished-story-commentimg"></img>
-              </div>
-              <div className="col-10">
-                <label className="readerview-apublished-story-label">{com?.readerId?.name}</label><br></br>
-                <label className="readerview-apublished-story-label">{com.comment}</label>
-              </div>
-            </div>
-            )
-          })
-        ):(
-          <div>Nothing found</div>
-        )}
-        <>
-
-
-          <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Comments</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <textarea  className="form-control" cols='60' rows='10' name="comment"
-              onChange={handleCommentChange}
-              ></textarea>
-            </Modal.Body>
-            <Modal.Footer>
-              <div>
-                <button className="readerview-apublished-story-submitbtn" onClick={handleSubmit}>Submit</button>
-              </div>
-            </Modal.Footer>
-          </Modal>
-        </>
       </div>
     </>
   );

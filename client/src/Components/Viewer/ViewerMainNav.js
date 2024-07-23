@@ -122,6 +122,7 @@ function ViewerMainNav() {
         <Modal.Header >
           <Modal.Title>Are You Confirm For UpGrade To Writer?</Modal.Title>
         </Modal.Header>
+        <div className="text-center"> Perimium MemberShip <b>199/-</b></div>
         
         <Modal.Footer>
         <Button variant="primary " onClick={handleUpGrade}>

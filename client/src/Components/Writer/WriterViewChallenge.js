@@ -25,6 +25,7 @@ function WriterViewChallenge() {
     navigate(`/writer-participate-challenge/${challengeId}`);
   };
 
+  console.log(writerdata,"p");
   return (
     <div className='mb-5' style={{ minHeight: "100vh" }}>
       <div className='text-center mt-5'>
@@ -41,12 +42,12 @@ function WriterViewChallenge() {
           <div className='col-4 writerview-challenges-imgdiv'>
             <div>
               <img
-                src={`${imageUrl}/${challenge.picture?.filename}`}
+                src={`${imageUrl}/${challenge.challengeId.picture?.filename}`}
                 className='writerview-challenges-img'
                 alt='Challenge'
               />
               <button
-                onClick={() => handleParticipate(challenge._id)}
+                onClick={() => handleParticipate(challenge.challengeId._id)}
                 className='writerview-challenges-participatebtn ms-4'
               >
                 Update Status
@@ -56,13 +57,13 @@ function WriterViewChallenge() {
           <div className='col-4'>
             <div className='writerview-challenges-img1'>
               <div className='text-center pt-2'>
-                <h3>{challenge.title}</h3>
+                <h3>{challenge.challengeId.title}</h3>
                 <div className='writerview-challenges-p ms-3 me-3'>
-                  <p>{challenge.description}</p>
+                  <p>{challenge.challengeId.description}</p>
                 </div>
                 <div className='text-end'>
                   <h2 className='writerview-challenges-h2 me-5'>
-                    Start On {new Date(challenge.startDate).toLocaleDateString()} and End on {new Date(challenge.endDate).toLocaleDateString()}
+                    Start On {new Date(challenge.challengeId.startDate).toLocaleDateString()} and End on {new Date(challenge.challengeId.endDate).toLocaleDateString()}
                   </h2>
                 </div>
               </div>

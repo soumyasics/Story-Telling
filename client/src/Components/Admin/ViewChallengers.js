@@ -59,6 +59,7 @@ function ViewChallengers() {
                             {d.description}
                         </div>
                         <div className='mt-5 pt-4 text-end'>
+                        
                             <Link to={`/admindashviewchallengesTitle/${d._id}`}>
                                 <button className='view-challengers-view-btn'>
                                     View More
