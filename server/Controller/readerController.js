@@ -227,12 +227,10 @@ const deleteReaderById = (req, res) => {
 // Forgot Password for Reader
 const upgradeToWriter = async (req, res) => {
   const datas = await Reader.findById({ _id: req.params.id });
-  console.log(datas);
 
   if (datas != null) {
     let flag = 0;
     const { name, age, contact, email, password, userCategory } = datas;
-    console.log(datas);
 
     const newWriter = new WriterSchema({
       name: datas.name,
@@ -368,7 +366,6 @@ const login = async (req, res) => {
       }
     }
   } catch (err) {
-    console.log(err);
     return res.json({ status: 500, msg: "Something went wrong" });
   }
 };
@@ -378,13 +375,10 @@ const login = async (req, res) => {
 const requireAuth = (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
 
-  console.log("t1", token);
-  console.log("secret", secret);
   if (!token) {
     return res.json({ status: 401, msg: "Unauthorized" });
   }
   jwt.verify(token, secret, (err, decodedToken) => {
-    console.log(decodedToken);
     if (err) {
       return res.json({ status: 401, messagge: "Unauthorized", err: err });
     }
@@ -393,7 +387,6 @@ const requireAuth = (req, res, next) => {
     next();
     return res.json({ status: 200, msg: "ok", user: decodedToken.userId });
   });
-  console.log(req.user);
 };
 
 //Login Custome --finished

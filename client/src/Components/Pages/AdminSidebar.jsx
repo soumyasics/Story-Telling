@@ -28,8 +28,12 @@ function AdminSidebar() {
   };
   const writerLogout = () => {
     localStorage.removeItem('admin')
+    setTimeout(() => {
+      navigate("/adminlogin");
+    }, 3000);
     alert("logged out successfully")
-    navigate("/admindashviewchallengers");
+     
+    
   };
 
   const [dropdownVisible, setDropdownVisible] = useState(false);

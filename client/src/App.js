@@ -109,6 +109,7 @@ function App() {
         <Route path="/reader-participate-challenge/:challengeid" element={[<ViewerMainNav/>,<ReaderViewParticipatebychallengeid/>,<Footer/>]} />
         <Route path="/reader-challenge-history/:id" element={[<ViewerMainNav/>,<ReaderchallengeHistory/>,<Footer/>]} />
         <Route path="/reader-end-challenge" element={[<ViewerMainNav/>,<ReaderEndChallenge/>,<Footer/>]} />
+        <Route path="/reader-viewsummary-challenge/:challengeid" element={[<ViewerMainNav/>,<ReaderViewSummaryChallenge/>,<Footer/>]} />
 
         {/* Admin */}
         <Route path="/adminlogin" element={<AdminLogin />} />

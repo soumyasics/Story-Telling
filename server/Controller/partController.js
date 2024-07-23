@@ -22,12 +22,10 @@ const upload = multer({ storage: storage }).single('partAudio');
 
 // Add a part
 const addPart = async (req, res) => {
-  console.log(req.body);
   try {
     const { storyId,partText, writerId } = req.body;
 
     let storyData=await storySchema.findById(storyId)
-    console.log(storyData);
     const partAudio = (storyData.type)=== 'audio' && req.file? req.file : null;
 
     if (storyData.type === 'audio' && !partAudio) {
@@ -189,7 +187,6 @@ const getMostLikedPartForStory = async (req,res) => {
 
 
   } catch (err) {
-    console.log(err);
       return res.json({ status: 500, msg: 'Error occurred', error: err });
   }
 };
@@ -199,7 +196,6 @@ const findBestPart = async (req, res) => {
   try {
       
       const parts = await Part.find({ storyId: req.params.id });
-      console.log('Parts found:', parts);
 
       if (parts.length === 0) {
           return res.status(404).json({ message: 'No parts found for the given story.' });
@@ -207,20 +203,16 @@ const findBestPart = async (req, res) => {
 
       const partsWithLikes = await Promise.all(parts.map(async (part) => {
           const likesCount = await Like.countDocuments({ partId: part._id, liked: true });
-          console.log(`Likes for part ${part._id}:`, likesCount);
           return { part, likesCount };
       }));
 
-      console.log('Parts with likes:', partsWithLikes);
 
       partsWithLikes.sort((a, b) => b.likesCount - a.likesCount);
 
-      console.log('Sorted parts with likes:', partsWithLikes);
 
       const bestPart = partsWithLikes.length > 0 ? partsWithLikes[0].part : null;
 
       if (bestPart) {
-          console.log('Best part:', bestPart);
           return res.status(200).json(bestPart);
       } else {
           return res.status(404).json({ message: 'No likes found for any part of the story.' });

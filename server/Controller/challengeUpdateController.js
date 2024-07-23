@@ -164,7 +164,6 @@ const viewmyChallengesByReaderId = (req, res) => {
           });
       })
       .catch(err => {
-        console.log(err);
           res.status(500).json({
               status: 500,
               msg: "Data not obtained",
@@ -190,7 +189,7 @@ const viewmyChallengesByWriterId = (req, res) => {
           });
       })
       .catch(err => {
-        console.log(err);
+        
           res.status(500).json({
               status: 500,
               msg: "Data not obtained",
@@ -389,7 +388,6 @@ const getChallengeWinnersByChallengeId = async (req, res) => {
       // points:challengeWinners
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };
