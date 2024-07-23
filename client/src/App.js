@@ -55,7 +55,7 @@ import ReaderchallengeHistory from "./Components/Viewer/ReaderchallengeHistory";
 import WriterAddPart from "./Components/Writer/WriterAddPart";
 import AboutUs from "./Components/Pages/About";
 import ReaderEndChallenge from "./Components/Viewer/ReaderEndChallenge";
-
+import Contact from "./Components/Pages/Contact";
 function App() {
   const url = "http://localhost:4025/";
 
@@ -74,6 +74,8 @@ function App() {
         <Route path="/readerhome" element={<ReaderHome />} />
         <Route path="/readernav" element={<ViewerMainNav />} />
         <Route path="/aboutus" element={[<Header/>,<AboutUs />,<Footer/>]} />
+        <Route path='/contact' element={[<Header/>,<Contact/>,<Footer/>]} />
+
         {/* Writer */}
         <Route path="/writer-profile" element={[<WritterMainNav/>,<WriterProfile url={url} />,<Footer/>]} />
         <Route path="/writer-edit-profile" element={[<WritterMainNav/>,<WriterEditProfile/>,<Footer/>]} />
