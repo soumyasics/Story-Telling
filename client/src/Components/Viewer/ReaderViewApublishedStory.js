@@ -59,7 +59,7 @@ function ReaderViewApublishedStory() {
         setWriterData(res.data.data);
       })
       .catch((err) => {
-        alert("Failed to fetch user details");
+        console.log("Failed to fetch user details");
       });
   }, []);
 
@@ -83,7 +83,7 @@ function ReaderViewApublishedStory() {
         setStoryData(res.data.data);
       })
       .catch((err) => {
-        alert("Failed to fetch user details");
+        console.log("Failed to fetch user details");
       });
     countlike();
 
@@ -94,7 +94,7 @@ function ReaderViewApublishedStory() {
         getPartLikeCounts(res.data.data);
       })
       .catch((err) => {
-        alert("Failed to fetch user details");
+        console.log("Failed to fetch user details");
       });
 
       axiosInstance
@@ -104,7 +104,7 @@ function ReaderViewApublishedStory() {
         setBestpart(res.data);
       })
       .catch((err) => {
-        alert("Failed to fetch user details");
+        console.log("Failed to fetch user details");
       });
 
     countlike();
@@ -117,7 +117,7 @@ function ReaderViewApublishedStory() {
         setDislikecount(res.data.count);
       })
       .catch((err) => {
-        alert("Failed to fetch user details");
+        console.log("Failed to fetch user details");
       });
 
     axiosInstance
@@ -126,7 +126,7 @@ function ReaderViewApublishedStory() {
         setLikecount(res.data.count);
       })
       .catch((err) => {
-        alert("Failed to fetch user details");
+        console.log("Failed to fetch user details");
       });
   };
 
@@ -150,7 +150,7 @@ function ReaderViewApublishedStory() {
         }
       })
       .catch((err) => {
-        alert("Failed to add Comment");
+        console.log("Failed to add Comment");
       });
   };
 
@@ -258,7 +258,7 @@ function ReaderViewApublishedStory() {
         setpartDislikecount(res.data.count);
       })
       .catch((err) => {
-        alert("Failed to fetch user details");
+        console.log("Failed to fetch user details");
       });
 
     axiosInstance
@@ -267,7 +267,7 @@ function ReaderViewApublishedStory() {
         setpartLikecount(res.data.count);
       })
       .catch((err) => {
-        alert("Failed to fetch user details");
+        console.log("Failed to fetch user details");
       });
   };
 
@@ -319,11 +319,11 @@ function ReaderViewApublishedStory() {
         if (res.status === 200) {
           alert("Rating submitted successfully!");
         } else {
-          alert("Failed to submit rating");
+          console.log("Failed to submit rating");
         }
       })
       .catch((err) => {
-        alert("Failed to submit rating");
+        console.log("Failed to submit rating");
       });
   };
 

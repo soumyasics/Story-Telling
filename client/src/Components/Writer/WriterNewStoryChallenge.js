@@ -44,6 +44,8 @@ function WriterNewStoryChallenge() {
       });
   }, []);
 
+  console.log(writerdata,"l");
+
   const navigate = useNavigate();
 
   const handleParticipate = (id) => {
@@ -52,7 +54,7 @@ function WriterNewStoryChallenge() {
   };
 
   return (
-    <div className='mb-5'>
+    <div className='mb-5' style={{minHeight:"100vh"}}>
       <div className='text-center mt-5'>
         <h4>New Challenge</h4>
       </div>

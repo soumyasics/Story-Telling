@@ -22,7 +22,7 @@ function WriterEndChallenge() {
   }, [writerid]);
 
   return (
-    <div className='mb-5'>
+    <div className='mb-5' style={{minHeight:"100vh"}}>
       <div className='text-center mt-5'>
         <h4>Ended Challenges</h4>
       </div>

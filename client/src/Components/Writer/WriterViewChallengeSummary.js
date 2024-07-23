@@ -21,15 +21,15 @@ function WriterViewChallengeSummary() {
         setWriterData(res.data.data);
       })
       .catch((err) => {
-        alert("Failed to fetch user details");
+        console.log("Failed to fetch user details");
       });
   }, []);
   
   return (
-    <div className="row">
+    <div className="row" style={{minHeight:"100vh"}}>
       <div className="col-9">
         <div className="mt-5 pt-3">
-        <h2 className='text-center'> Challenge Summary</h2>
+        <h2 className='text-center'> End Challenge Winners</h2>
         </div>
         <div className="row mt-5">
           <div className="col-2"></div>

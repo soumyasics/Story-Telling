@@ -22,7 +22,7 @@ function ReaderEndChallenge() {
   }, [writerid]);
 
   return (
-    <div className='mb-5'>
+    <div className='mb-5' style={{minHeight:"100vh"}}>
       <div className='text-center mt-5'>
         <h4>Ended Challenges</h4>
       </div>
@@ -34,7 +34,7 @@ function ReaderEndChallenge() {
               <div className='col-4 writerview-challenges-imgdiv'>
                 <div>
                   <img src={index % 2 === 0 ? image1 : image2} className='writerview-challenges-img' alt='Challenge' />
-                  <Link to={`/writer-viewsummary-challenge/${challenge._id}`}>
+                  <Link to={`/reader-viewsummary-challenge/${challenge._id}`}>
                     <button className='writerview-challenges-participatebtn ms-4'>View Winners</button>
                   </Link>
                 </div>

@@ -56,7 +56,7 @@ function ViewAPublishedStory() {
         setWriterData(res.data.data);
       })
       .catch((err) => {
-        alert("Failed to fetch user details");
+      console.log("Failed to fetch user details");
       });
   }, []);
 
@@ -80,7 +80,7 @@ function ViewAPublishedStory() {
         setStoryData(res.data.data);
       })
       .catch((err) => {
-        alert("Failed to fetch user details");
+        console.log("Failed to fetch user details");
       });
     countlike();
 
@@ -91,7 +91,7 @@ function ViewAPublishedStory() {
         getPartLikeCounts(res.data.data);
       })
       .catch((err) => {
-        alert("Failed to fetch user details");
+        console.log("Failed to fetch user details");
       });
     countlike();
   }, []);
@@ -103,7 +103,7 @@ function ViewAPublishedStory() {
         setDislikecount(res.data.count);
       })
       .catch((err) => {
-        alert("Failed to fetch user details");
+        console.log("Failed to fetch user details");
       });
 
     axiosInstance
@@ -112,7 +112,7 @@ function ViewAPublishedStory() {
         setLikecount(res.data.count);
       })
       .catch((err) => {
-        alert("Failed to fetch user details");
+        console.log("Failed to fetch user details");
       });
   };
 
@@ -136,7 +136,7 @@ function ViewAPublishedStory() {
         }
       })
       .catch((err) => {
-        alert("Failed to add Comment");
+        console.log("Failed to add Comment");
       });
   };
 
@@ -248,7 +248,7 @@ function ViewAPublishedStory() {
         setpartDislikecount(res.data.count);
       })
       .catch((err) => {
-        alert("Failed to fetch user details");
+        console.log("Failed to fetch user details");
       });
 
     axiosInstance
@@ -257,7 +257,7 @@ function ViewAPublishedStory() {
         setpartLikecount(res.data.count);
       })
       .catch((err) => {
-        alert("Failed to fetch user details");
+        console.log("Failed to fetch user details");
       });
   };
 
@@ -441,7 +441,7 @@ function ViewAPublishedStory() {
                         </div>
                         <div className="mt-5">
                           {" "}
-                          <GoStarFill /> Rating : {storydata?.rating}
+                          <GoStarFill className="text-warning" /> Rating : {storydata?.rating}
                         </div>
                       </div>
                     </div>
@@ -517,7 +517,7 @@ function ViewAPublishedStory() {
                 >
                   <div className="col writer-story-addpage-div2">
                     <div className="text-center mt-3">
-                      <h5>Part {index + 2}</h5>
+                      <h5>Part {index + 1}</h5>
                       {part.partText ? (
                         <p>{part.partText}</p>
                       ) : (
