@@ -56,6 +56,7 @@ import WriterAddPart from "./Components/Writer/WriterAddPart";
 import AboutUs from "./Components/Pages/About";
 import ReaderEndChallenge from "./Components/Viewer/ReaderEndChallenge";
 import Contact from "./Components/Pages/Contact";
+import ReaderViewOneCustomizedStory from "./Components/Viewer/ReaderViewOneCustomizedStory";
 function App() {
   // const url = "http://localhost:4025/";
 
@@ -110,6 +111,7 @@ function App() {
         <Route path="/reader-challenge-history/:id" element={[<ViewerMainNav/>,<ReaderchallengeHistory/>,<Footer/>]} />
         <Route path="/reader-end-challenge" element={[<ViewerMainNav/>,<ReaderEndChallenge/>,<Footer/>]} />
         <Route path="/reader-viewsummary-challenge/:challengeid" element={[<ViewerMainNav/>,<ReaderViewSummaryChallenge/>,<Footer/>]} />
+        <Route path="/readerview-one-customized-story" element={[<ViewerMainNav/>,<ReaderViewOneCustomizedStory/>,<Footer/>]} />
 
         {/* Admin */}
         <Route path="/adminlogin" element={<AdminLogin />} />
