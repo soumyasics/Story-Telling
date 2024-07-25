@@ -83,7 +83,6 @@ function WritterMainNav() {
                     <Navbar.Text onClick={navigateTopublishChallenges} ><Link>PublishedChallenges</Link></Navbar.Text>
                   </div>
                 </div></Nav>
-              <Nav><div className="ms-3">Contact Us</div></Nav>
               <Nav><div onClick={handleLogout} className="ms-3">Logout</div></Nav>
             </Navbar.Collapse>
           </Container>

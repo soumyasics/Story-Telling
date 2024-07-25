@@ -138,11 +138,12 @@ function WriterAddPart() {
     try {
       var response;
       if (storydata) {
-        response = await axiosInstance.post(
+        response = await axiosMultipartInstance.post(
           `/addpart`,
         {
             storyId:story_id.id,
-             part:storydata.text, 
+             partText:storydata.text, 
+             partAudio:storydata.audio,
              writerId: localStorage.getItem("writer")
         }
         );

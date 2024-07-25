@@ -279,7 +279,6 @@ const acceptWriterById =async (req, res) => {
         const datas = await ReaderSchema.findOne({ email: emaildata.email });
         if(datas)
           flag=1
-        console.log(datas);
         if (flag == 1) 
           await ReaderSchema.findOneAndDelete({email: emaildata.email});
 };
@@ -370,7 +369,6 @@ const forgotPWDsentMail=async(req,res)=>{
             });
         }
         catch(err) {
-          console.log(err);
           res.json({
             status: 500,
             msg: "Data not Updated",
@@ -382,7 +380,6 @@ const forgotPWDsentMail=async(req,res)=>{
 
 // Reset Password for Writer
 const resetPassword = async (req, res) => {
-    console.log(req.body);
 if(req.body.userrole=='reader')
     {
         await ReaderSchema.findByIdAndUpdate({ _id: req.params.id }, {
@@ -468,7 +465,6 @@ const createToken = (user) => {
             token });
      
     }).catch(err=>{
-     console.log(err);
             return res.json({status:500,msg: 'Something went wrong' });
           
     })
@@ -494,14 +490,12 @@ const createToken = (user) => {
       next();
       return res.json({ status:200,msg: 'ok' ,user:decodedToken.userId});
     });
-    console.log(req.user);
   };
   
   //Login Custome --finished
 
   // Delete Reader by ID
 const addPayment = (req, res) => {
-    console.log(req.body);
     Writer.findByIdAndUpdate({ _id: req.params.id },{paymentStatus:true,amount:req.body.amount})
         .exec()
         .then(data => {

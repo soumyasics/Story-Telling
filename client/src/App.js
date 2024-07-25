@@ -54,13 +54,12 @@ import ReaderViewParticipatebychallengeid from "./Components/Viewer/ReaderViewPa
 import ReaderchallengeHistory from "./Components/Viewer/ReaderchallengeHistory";
 import WriterAddPart from "./Components/Writer/WriterAddPart";
 import AboutUs from "./Components/Pages/About";
+import ReaderEndChallenge from "./Components/Viewer/ReaderEndChallenge";
 import Contact from "./Components/Pages/Contact";
-
-
 function App() {
-  const url = "http://localhost:4025/";
+  // const url = "http://localhost:4025/";
 
-  // const url= "http://hybrid.srishticampus.in:4025/"
+  const url= "http://hybrid.srishticampus.in:4025/"
 
   return (
     <BrowserRouter basename="/story_telling">
@@ -99,7 +98,7 @@ function App() {
         <Route path="/writer-add-challenges" element={[<WritterMainNav/>,<WriterAddChallenges/>,<Footer/>]} />
         <Route path="/writer-edit-challenges/:challengeid" element={[<WritterMainNav/>,<WriterEditChallenges/>,<Footer/>]} />
         <Route path="/writer-challenge-history/:id" element={[<WritterMainNav/>,<WriterChallengeHistory/>,<Footer/>]} />
-        <Route path="/writer-viewsummary-challenge" element={[<WritterMainNav/>,<WriterViewChallengeSummary/>,<Footer/>]} />
+        <Route path="/writer-viewsummary-challenge/:challengeid" element={[<WritterMainNav/>,<WriterViewChallengeSummary/>,<Footer/>]} />
         <Route path="/writer-newstory-challenge" element={[<WritterMainNav/>,<WriterNewStoryChallenge/>,<Footer/>]} />
         <Route path="/writer-participate-challenge/:challengeid" element={[<WritterMainNav/>,<WriterParticipatechallenge/>,<Footer/>]} />
         <Route path="/writer-end-challenge" element={[<WritterMainNav/>,<WriterEndChallenge/>,<Footer/>]} />
@@ -109,6 +108,9 @@ function App() {
         <Route path="/readerviewparticipatedchallenges" element={[<ViewerMainNav/>,<ReaderViewparticipatedChallenge />,<Footer/>]} />
         <Route path="/reader-participate-challenge/:challengeid" element={[<ViewerMainNav/>,<ReaderViewParticipatebychallengeid/>,<Footer/>]} />
         <Route path="/reader-challenge-history/:id" element={[<ViewerMainNav/>,<ReaderchallengeHistory/>,<Footer/>]} />
+        <Route path="/reader-end-challenge" element={[<ViewerMainNav/>,<ReaderEndChallenge/>,<Footer/>]} />
+        <Route path="/reader-viewsummary-challenge/:challengeid" element={[<ViewerMainNav/>,<ReaderViewSummaryChallenge/>,<Footer/>]} />
+
         {/* Admin */}
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/admindashboard" element={<AdminDashBoard />} />

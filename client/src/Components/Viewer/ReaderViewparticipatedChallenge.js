@@ -31,7 +31,7 @@ function ReaderViewParticipatedChallenge() {
         <h4>My Challenge</h4>
       </div>
       <div className='mt-3 text-end me-5 pe-5'>
-        <Link to='/writer-end-challenge'>
+        <Link to='/reader-end-challenge'>
           <button className='writerview-challenges-endedbtn'>Ended Challenge</button>
         </Link>
       </div>
@@ -56,13 +56,13 @@ function ReaderViewParticipatedChallenge() {
           <div className='col-4'>
             <div className='writerview-challenges-img1'>
               <div className='text-center pt-2'>
-                <h3>{challenge.title}</h3>
+                <h3>{challenge.challengeId.title}</h3>
                 <div className='writerview-challenges-p ms-3 me-3'>
-                  <p>{challenge.description}</p>
+                  <p>{challenge.challengeId.description}</p>
                 </div>
                 <div className='text-end'>
                   <h2 className='writerview-challenges-h2 me-5'>
-                    Start On {new Date(challenge.startDate).toLocaleDateString()} and End on {new Date(challenge.endDate).toLocaleDateString()}
+                    Start On {new Date(challenge.challengeId.startDate).toLocaleDateString()} and End on {new Date(challenge.challengeId.endDate).toLocaleDateString()}
                   </h2>
                 </div>
               </div>

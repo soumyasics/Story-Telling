@@ -44,18 +44,12 @@ function WriterViewStories({ url }) {
         alert("Failed to fetch user details");
       });
 
-    axiosInstance
+      axiosInstance
       .post(`/viewAllStories`)
       .then((res) => {
         console.log(res.data.data, "viewAllStories");
-        var d=[]
-        for(var i in res.data.data){
-          if(res.data.data[i].published){
-            d.push(res.data.data[i])
-          }
-        }
-        setData(d);
-        setFilterResult(d);
+        setData(res.data.data);
+        setFilterResult(res.data.data);
       })
       .catch((err) => {
         alert("Failed to fetch user details");

@@ -134,19 +134,7 @@ function AdminDashboardSub() {
             </div>
           </div>
         </div>
-        <div className="col-3">
-          <div className="card">
-            <p className="p-2">Requests</p>
-            <div className="row ms-3">
-              <div className="col-6">
-                <h1>{requests.length}</h1>
-              </div>
-              <div className="col-6">
-                <img className="w-25" src={user} alt="Request Icon" />
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
       <div className="mt-5">
         <div className="mt-4">
