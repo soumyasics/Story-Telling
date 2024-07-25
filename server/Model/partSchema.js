@@ -7,9 +7,11 @@ const sSchema=mongoose.Schema({
         required:true,
        
     },
-    part:{
+    partText:{
         type:String,
-        required:true,
+    },
+    partAudio:{
+        type:Object,
     },
     ownerId:{
         type:mongoose.Schema.Types.ObjectId,
