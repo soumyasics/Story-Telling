@@ -26,6 +26,11 @@ function AdminSidebar() {
   const writerviewchallenge = () => {
     navigate("/admindashviewchallengers");
   };
+
+  const writerrequest= () => {
+    navigate("/request");
+  };
+
   const writerLogout = () => {
     localStorage.removeItem('admin')
     setTimeout(() => {
@@ -83,6 +88,17 @@ function AdminSidebar() {
             <label className="ms-2 admin-sidebar-dash ">Writers</label>
             <img
               className="admin-sidebar-dash-img-writer"
+              src={Adminarrow}
+            ></img>
+          </div>
+        </div>
+
+        <div className="pt-3">
+          <div onClick={writerrequest}>
+            <img src={writer} className="ms-4"></img>
+            <label className="ms-2 admin-sidebar-dash ">Writers Request</label>
+            <img
+              className="ms-5 ps-3"
               src={Adminarrow}
             ></img>
           </div>
