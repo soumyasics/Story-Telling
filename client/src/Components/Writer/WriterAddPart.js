@@ -306,7 +306,7 @@ function WriterAddPart() {
               <textarea
                 className="writer-story-addtextarea"
                 value={storydata.addtextpart}
-                placeholder={storydata.addtextpart}
+                placeholder="Please enter the story"
                 name="text"
                 onChange={handleChange}
               />

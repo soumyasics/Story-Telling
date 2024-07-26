@@ -30,24 +30,49 @@ function Contact() {
         if (typeof value === 'string' && !value.trim()) {
           return `${fieldName} is required`;
         }
-        if (fieldName === "Email" && typeof value === 'string' && !value.endsWith("@gmail.com")) {
-          return "Email must be a valid Gmail address.";
+        // if (fieldName === "Email" && typeof value === 'string') {
+        //   return "Email must be a valid Gmail address.";
+        // }
+        // return "";
+    }
+
+    const validateContact = (fieldName, value) => {
+        if (!value.trim()) {
+          return `${fieldName} is required`;
+        } else if (value.length !== 10) {
+          return "Please enter a valid Contact Number";
         }
         return "";
-    }
+      };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         let errors = {};
-        let formIsValid = true;
+        let formIsValid =true;
 
-        errors.name= validateField("Name",data.name);
-        errors.email= validateField("Email",data.email);
-        errors.contact= validateField("contact",data.contact);
-        errors.comment= validateField("Comment",data.comment);
+        if(formIsValid =true){
+            errors.name= validateField("Name",data.name);
+            errors.email= validateField("Email",data.email);
+            errors.contact= validateContact("contact",data.contact);
+            errors.comment= validateField("Comment",data.comment);
 
-        setErrors(errors);
+            setErrors(errors);
+        }
+        else{
+            console.log("l");
+            alert("success");
+        }
+
+        
+        
+        // formIsValid = Object.keys(errors).every(key => errors[key] === '');
+
+        // if (formIsValid==false) {
+            
+        // }
+    
     }
+    
   return (
     <div>
         <div className='contact-img'>
@@ -85,7 +110,7 @@ function Contact() {
                             />
                             {errors.email && <span className='text-danger'>{errors.email}</span>}
                             <hr></hr>
-                            <input type='text' 
+                            <input type='number' 
                             className='contact-text' 
                             placeholder='Enter your Contact No'
                             name='contact'
