@@ -403,7 +403,7 @@ function ViewAPublishedStory() {
                         <div class="form-floating">
                           <textarea
                             class="form-control "
-                            id="floatingTextarea2"
+                            id="floatingTextarea2 "
                             style={{ height: "120px" }}
                             name="summary"
                             value={storydata.summary}
@@ -486,9 +486,9 @@ function ViewAPublishedStory() {
               <div className={`'writer-story-addtextarea-div' ${isDiabled}`}>
                 {storydata.type == "text" ? (
                   <textarea
-                    className="writer-story-addtextarea"
+                    className="writer-story-addtextarea ps-5"
                     value={storydata.text}
-                    placeholder={storydata.text}
+                    placeholder='Please enter story'
                     name="text"
                     disabled
                   />
