@@ -14,6 +14,9 @@ function Header() {
   const Contact = () => {
     navigate("/contact");
   };
+  const stories = () => {
+    navigate("/commonviewstories");
+  };
   return (
     <div>
       <Navbar collapseOnSelect expand="lg" className="mainnav">
@@ -41,7 +44,7 @@ function Header() {
               <Nav.Link href="/story_telling/aboutus" className="text-light me-5">
                 About Us
               </Nav.Link>
-              <Nav.Link eventKey={2} href="#memes" className="text-light me-5">
+              <Nav.Link eventKey={2} href="#memes" className="text-light me-5" onClick={stories}>
                 Stories
               </Nav.Link>
               <Nav.Link eventKey={2} href="#memes" className="text-light me-5" onClick={Contact}>

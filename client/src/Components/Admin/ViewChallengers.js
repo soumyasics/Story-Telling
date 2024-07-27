@@ -51,14 +51,14 @@ function ViewChallengers() {
             </div>
             <div className='row'>
                 <div className='col-2'></div>
-                <div className='col-8 view-challengers-description mt-3'>
+                <div className='col-8 view-challengers-description mt-3'> 
                     <div className='row ms-5 pt-4 me-3'>
                         <div className='col-3'>Description</div>
                         <div className='col-1'>:</div>
                         <div className='col-8 view-challengers-description-div'>
                             {d.description}
                         </div>
-                        <div className='mt-5 pt-4 text-end'>
+                        <div className='mb-3 mt-3 text-end'>
                         
                             <Link to={`/admindashviewchallengesTitle/${d._id}`}>
                                 <button className='view-challengers-view-btn'>

@@ -1,5 +1,5 @@
+import '../Writer/Writer.css'
 import React, { useState, useEffect } from "react";
-import "./Writer.css";
 import { useNavigate } from "react-router-dom";
 import { imageUrl } from "../../BaseAPIs/ImageUrl/imgApi";
 import axiosInstance from "../../BaseAPIs/axiosinstatnce";
@@ -9,88 +9,86 @@ import Horror from "../../Assets/Horror.png";
 import Romance from "../../Assets/Romance.png";
 import Fantasy from "../../Assets/Fantasy.png";
 
-function WriterViewStories({ url }) {
-  const [data, setData] = useState([]);
-  const [filterResult, setFilterResult] = useState([]);
-  const [sel, setSel] = useState('border border-primary border-5');
-  const [filter, setFilter] = useState({
-    type: null,
-    category: null,
-  });
-  const navigate = useNavigate();
-  const [id, setId] = useState(localStorage.getItem("writer"));
+function CommonViewStories() {
 
-  useEffect(() => {
-    if (
-      localStorage.getItem("token") == null &&
-      localStorage.getItem("writer") == null
-    ) {
-      navigate("/");
-    }
-  }, [navigate]);
-
-  const [writerdata, setWriterData] = useState({
-    profilePicture: { filename: "" },
-  });
-
-  useEffect(() => {
-    axiosInstance
-      .post(`/viewWriterById/${id}`)
-      .then((res) => {
-        setWriterData(res.data.data);
-        console.log(writerdata, "writerdata");
-      })
-      .catch((err) => {
-        alert("Failed to fetch user details");
-      });
-
-      axiosInstance
-      .post(`/viewAllStories`)
-      .then((res) => {
-        console.log(res.data.data, "viewAllStories");
-        setData(res.data.data);
-        setFilterResult(res.data.data);
-      })
-      .catch((err) => {
-        alert("Failed to fetch user details");
-      });
-  }, []);
-
-  useEffect(() => {
-
-    var fData = data.filter((item) => {
-      var c = filter.category ? item.storyCategory == filter.category : true;
-      var t = filter.type ? item.type == filter.type : true;
-      return c && t;
+    const [data, setData] = useState([]);
+    const [filterResult, setFilterResult] = useState([]);
+    const [sel, setSel] = useState('border border-primary border-5');
+    const [filter, setFilter] = useState({
+      type: null,
+      category: null,
     });
-    setFilterResult(fData);
-  }, [filter]);
+    const navigate = useNavigate();
+    const [id, setId] = useState(localStorage.getItem("writer"));
+  
+    useEffect(() => {
+      if (
+        localStorage.getItem("token") == null &&
+        localStorage.getItem("writer") == null
+      ) {
+        navigate("/");
+      }
+    }, [navigate]);
+  
+    const [writerdata, setWriterData] = useState({
+      profilePicture: { filename: "" },
+    });
+  
+    useEffect(() => {
+    //   axiosInstance
+    //     .post(`/viewWriterById/${id}`)
+    //     .then((res) => {
+    //       setWriterData(res.data.data);
+    //       console.log(writerdata, "writerdata");
+    //     })
+    //     .catch((err) => {
+    //       alert("Failed to fetch user details");
+    //     });
+  
+        axiosInstance
+        .post(`/viewAllStories`)
+        .then((res) => {
+          console.log(res.data.data, "viewAllStories");
+          setData(res.data.data);
+          setFilterResult(res.data.data);
+        })
+        .catch((err) => {
+          alert("Failed to fetch user details");
+        });
+    }, []);
+  
+    useEffect(() => {
+  
+      var fData = data.filter((item) => {
+        var c = filter.category ? item.storyCategory == filter.category : true;
+        var t = filter.type ? item.type == filter.type : true;
+        return c && t;
+      });
+      setFilterResult(fData);
+    }, [filter]);
+  
+    const applyFilter = (f) => {
+  
+      const { type, category } = f;
+      setFilter((d) => ({
+        ...d,
+        type: type ? type : d.type,
+        category: category ? category : d.category,
+      }));
+    };
+  
+  
+    const ViewDetailedStory=(storyid)=>{
+      navigate("/writer-view-a-stories/"+storyid)
+  
+    }    
 
-  const applyFilter = (f) => {
-
-    const { type, category } = f;
-    setFilter((d) => ({
-      ...d,
-      type: type ? type : d.type,
-      category: category ? category : d.category,
-    }));
-  };
-
-
-  const ViewDetailedStory=(storyid)=>{
-    navigate("/writer-view-a-stories/"+storyid)
-
-  }
   return (
-    <>
-      <section className="container" style={{ minHeight: "100vh" }}>
+    <div>
+        <section className="container" style={{ minHeight: "100vh" }}>
         <div className="mt-5 writer-viewstory-navdiv">
           <div className="row">
-            <div className="col-3 text-center">
-              <img
-                src={`${imageUrl}/${writerdata.profilePicture.filename}`}
-                className="writer-viewstory-profileimg mt-3"
-              ></img>
+            <div className="col-3 text-center ">
             </div>
             <div className="col">
               <h4 className="writer-viewstory-name">{writerdata.name}</h4>   
@@ -193,11 +191,7 @@ function WriterViewStories({ url }) {
                           className="storycoverimage"
                         />
                       </div>
-                      <div className="text-center mt-2">
-                        <button onClick={()=>ViewDetailedStory(item._id)} className="btn btn-dark w-25 text-center">
-                          View Story
-                        </button>
-                      </div>
+                    
                     </div>
                   </div>
                 </div>
@@ -206,8 +200,8 @@ function WriterViewStories({ url }) {
           </div>
         </div>
       </section>
-    </>
-  );
+    </div>
+  )
 }
 
-export default WriterViewStories;
+export default CommonViewStories
