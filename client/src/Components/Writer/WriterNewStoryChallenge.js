@@ -8,7 +8,6 @@ function WriterNewStoryChallenge() {
   const [participatedChallenges, setParticipatedChallenges] = useState(new Set());
   const writerId = localStorage.getItem("writer");
 
-
   useEffect(() => {
     axiosInstance
       .post('/viewActiveChallenges')
@@ -20,20 +19,22 @@ function WriterNewStoryChallenge() {
           .then((res) => {
             var t = [];
             var wd = [];
-            for(var i in res.data.data){
+            for (var i in res.data.data) {
               var d = res.data.data[i];
-              t.push(d.challengeId._id)
+              t.push(d.challengeId._id);
             }
 
-            for(var j in writerdata){
+            for (var j in writerdata) {
               wd = writerdata[j];
-              if(!t.includes(wd._id)) {
-                // console.log('onjn');
-                fd.push(wd)
+              if (!t.includes(wd._id)) {
+                fd.push(wd);
               }
             }
+
+            // Sort challenges by createdAt date in descending order
+            fd.sort((b,a) => (b.createdAt) - new Date(a.createdAt));
             console.log(fd);
-            setWriterData(fd)
+            setWriterData(fd);
           })
           .catch((err) => {
             alert("Failed to fetch user details");
@@ -44,7 +45,7 @@ function WriterNewStoryChallenge() {
       });
   }, []);
 
-  console.log(writerdata,"l");
+  console.log(writerdata, "l");
 
   const navigate = useNavigate();
 
@@ -54,7 +55,7 @@ function WriterNewStoryChallenge() {
   };
 
   return (
-    <div className='mb-5' style={{minHeight:"100vh"}}>
+    <div className='mb-5' style={{ minHeight: "100vh" }}>
       <div className='text-center mt-5'>
         <h4>New Challenge</h4>
       </div>

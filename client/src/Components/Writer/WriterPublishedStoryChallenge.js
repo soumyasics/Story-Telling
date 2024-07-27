@@ -25,7 +25,7 @@ function WriterPublishedStoryChallenge() {
         setWriterData(temp);
       })
       .catch((err) => {
-        alert('Failed to fetch user details');
+        console.log('Failed to fetch user details');
       });
   }, []);
 
