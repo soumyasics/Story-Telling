@@ -6,26 +6,26 @@ import { imageUrl } from '../../BaseAPIs/ImageUrl/imgApi';
 function WriterViewChallenge() {
   const [writerdata, setWriterData] = useState([]);
   const navigate = useNavigate();
-  
+
   const writerid = localStorage.getItem("writer");
-  
+
   useEffect(() => {
     axiosInstance
-      .post(`/viewmyChallengesByWriterId/${writerid}`)
+      .post(`/viewChallengeByWriter/${writerid}`)
       .then((res) => {
         console.log(res.data.data);
-        setWriterData(res.data.data);
+        setWriterData(res.data.data.sort((a, b) => new Date(b.challengeId.startDate) - new Date(a.challengeId.startDate)));
       })
       .catch((err) => {
-        alert("Failed to fetch user details");
+        // alert("Failed to fetch user details");
       });
   }, [writerid]);
-  
+
   const handleParticipate = (challengeId) => {
     navigate(`/writer-participate-challenge/${challengeId}`);
   };
 
-  console.log(writerdata,"p");
+  console.log(writerdata, "p");
   return (
     <div className='mb-5' style={{ minHeight: "100vh" }}>
       <div className='text-center mt-5'>

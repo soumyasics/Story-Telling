@@ -15,8 +15,9 @@ function WriterNewStoryChallenge() {
         var writerdata = res.data.data;
         var fd = [];
         axiosInstance
-          .post(`/viewmyChallengesByWriterId/${writerId}`)
+          .post(`/viewChallengeByWriter/${writerId}`)
           .then((res) => {
+            console.log(res,'ppppp')
             var t = [];
             var wd = [];
             for (var i in res.data.data) {
@@ -32,16 +33,18 @@ function WriterNewStoryChallenge() {
             }
 
             // Sort challenges by createdAt date in descending order
-            fd.sort((b,a) => (b.createdAt) - new Date(a.createdAt));
-            console.log(fd);
+            // fd.sort((b,a) => (b.createdAt) - new Date(a.createdAt));
+            fd.sort((b, a) => new Date(a.startDate) - new Date(b.startDate));
+
+            console.log(fd,"datas");
             setWriterData(fd);
           })
           .catch((err) => {
-            alert("Failed to fetch user details");
+            // alert("Failed to fetch user details");
           });
       })
       .catch((err) => {
-        alert('Failed to fetch user details');
+        // alert('Failed to fetch user details');
       });
   }, []);
 
@@ -49,9 +52,24 @@ function WriterNewStoryChallenge() {
 
   const navigate = useNavigate();
 
+  // const handleParticipate = (id) => {
+  //   navigate("/writer-participate-challenge/" + id);
+  //   setParticipatedChallenges((prevSet) => new Set(prevSet).add(id));
+  // };
+
   const handleParticipate = (id) => {
-    navigate("/writer-participate-challenge/" + id);
-    setParticipatedChallenges((prevSet) => new Set(prevSet).add(id));
+    axiosInstance.post("/addParticipants",{
+      challengeId:id,
+      readerId:null,
+      writerId:localStorage.getItem("writer")
+    })
+    .then((res)=>{
+      console.log(res.data.data);
+      alert(res.data.msg)
+      navigate("/writer-view-challenge");
+      setParticipatedChallenges((prevSet) => new Set(prevSet).add());
+    })
+    
   };
 
   return (
