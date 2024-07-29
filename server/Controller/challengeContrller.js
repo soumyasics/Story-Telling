@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Challenge = require('../Model/challengeSchema');
 const multer = require("multer");
+const challengeParticipants = require('../Model/challengeParticipants');
 
 const storage = multer.diskStorage({
   destination: function (req, res, cb) {
@@ -216,6 +217,49 @@ const viewPreviousChallenges = async (req, res) => {
         });
     }
 };
+
+const addParticipants = async (req, res) => {
+    try {
+        const { readerId, writerId, challengeId} = req.body;
+
+        const newChallenge = new challengeParticipants({
+            readerId, writerId, challengeId
+        });
+
+        const savedChallenge = await newChallenge.save();
+        res.status(200).json({
+            status: 200,
+            msg: "Participants added successfully",
+            data: savedChallenge
+        });
+    } catch (err) {
+        res.status(500).json({
+            status: 500,
+            msg: "Failed to add challenge",
+            Error: err.message
+        });
+    }
+};
+
+
+const viewChallengeParticipants = async (req, res) => {
+    try {
+        const participants = await challengeParticipants.find({challengeId:req.params.id}).populate('writerId readerId');
+
+        res.status(200).json({
+            status: 200,
+            msg: "participants retrieved successfully",
+            data: prevChallenges
+        });
+    } catch (err) {
+        res.status(500).json({
+            status: 500,
+            msg: "Failed to retrieve active participants",
+            Error: err.message
+        });
+    }
+};
+
 module.exports = {
     addChallenge,
     updateChallengeById,
@@ -225,5 +269,7 @@ module.exports = {
     viewActiveChallenges,
     viewActiveChallengesByWriterId,
     upload,
-    viewPreviousChallenges
+    viewPreviousChallenges,
+    viewChallengeParticipants,
+    addParticipants
 };
