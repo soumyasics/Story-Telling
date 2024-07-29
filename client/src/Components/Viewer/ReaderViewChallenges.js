@@ -33,7 +33,8 @@ function ReaderViewChallenges() {
                 fd.push(wd)
               }
             }
-            console.log(fd);
+            fd.sort((b, a) => new Date(a.startDate) - new Date(b.startDate));
+            console.log(fd,"p");
             setmyc(fd)
           })
           .catch((err) => {

@@ -112,7 +112,7 @@ function App() {
         <Route path="/reader-challenge-history/:id" element={[<ViewerMainNav/>,<ReaderchallengeHistory/>,<Footer/>]} />
         <Route path="/reader-end-challenge" element={[<ViewerMainNav/>,<ReaderEndChallenge/>,<Footer/>]} />
         <Route path="/reader-viewsummary-challenge/:challengeid" element={[<ViewerMainNav/>,<ReaderViewSummaryChallenge/>,<Footer/>]} />
-        <Route path="/readerview-one-customized-story" element={[<ViewerMainNav/>,<ReaderViewOneCustomizedStory/>,<Footer/>]} />
+        <Route path="/readerview-one-customized-story/:storyid" element={[<ViewerMainNav/>,<ReaderViewOneCustomizedStory/>,<Footer/>]} />
 
         {/* Admin */}
         <Route path="/adminlogin" element={<AdminLogin />} />
@@ -125,7 +125,7 @@ function App() {
         <Route path="/request" element={<Requests url={url} />} />
         <Route path="/writers" element={<AdminviewWriters url={url} />} />
         <Route path="/readers" element={<AllReader url={url} />} />
-        <Route path="/commonviewstories" element={[<Header/>,<CommonViewStories url={url} />,<Footer/>]} />
+        <Route path="/commonviewstories/:storyid" element={[<Header/>,<CommonViewStories url={url} />,<Footer/>]} />
 
 
        {/* add part */}
