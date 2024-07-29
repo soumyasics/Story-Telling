@@ -45,33 +45,26 @@ function Contact() {
         return "";
       };
 
-    const handleSubmit = (e) => {
+      const handleSubmit = (e) => {
         e.preventDefault();
         let errors = {};
-        let formIsValid =true;
-
-        if(formIsValid =true){
-            errors.name= validateField("Name",data.name);
-            errors.email= validateField("Email",data.email);
-            errors.contact= validateContact("contact",data.contact);
-            errors.comment= validateField("Comment",data.comment);
-
-            setErrors(errors);
-        }
-        else{
-            console.log("l");
-            alert("success");
-        }
-
-        
-        
-        // formIsValid = Object.keys(errors).every(key => errors[key] === '');
-
-        // if (formIsValid==false) {
-            
-        // }
+        let formIsValid = true;
     
-    }
+        errors.name = validateField("Name", data.name);
+        errors.email = validateField("Email", data.email);
+        errors.contact = validateContact("Contact", data.contact);
+        errors.comment = validateField("Comment", data.comment);
+    
+        if (errors.name || errors.email || errors.contact || errors.comment) {
+            formIsValid = false;
+        }
+    
+        setErrors(errors);
+    
+        if (formIsValid) {
+            alert("Success");
+        }
+    };
     
   return (
     <div>

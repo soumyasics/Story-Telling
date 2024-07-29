@@ -14,6 +14,7 @@ function WriterPublishedStoryChallenge() {
     axiosInstance
       .post('/viewActiveChallenges')
       .then((res) => {
+        console.log(res,"viewchallenge");
         var temp = [];
         for (var i in res.data.data) {
           var d = res.data.data[i]
@@ -25,7 +26,7 @@ function WriterPublishedStoryChallenge() {
         setWriterData(temp);
       })
       .catch((err) => {
-        alert('Failed to fetch user details');
+        console.log('Failed to fetch user details');
       });
   }, []);
 

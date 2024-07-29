@@ -77,7 +77,7 @@ function ReaderViewStories({ url }) {
 
 
   const ViewDetailedStory=(storyid)=>{
-    navigate("/reader-view-a-stories/"+storyid)
+    navigate("/readerview-one-customized-story/"+storyid)
 
   }
   return (

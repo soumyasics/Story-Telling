@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Modal, Card } from "react-bootstrap";
 import axiosInstance from "../../BaseAPIs/axiosinstatnce";
+import ReactPaginate from 'react-paginate';
+
+const itemsPerPage = 10;
 
 function WritersRequestList({ url }) {
   const [data, setData] = useState([]);
   const [writerdetails, setWriterDetails] = useState({});
   const [show, setShow] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const handleClose = () => setShow(false);
   const handleShow = (id) => {
@@ -21,19 +26,24 @@ function WritersRequestList({ url }) {
       });
   };
 
-  function getData() {
-    axiosInstance
-      .post("/viewWriterReqsforAdmin")
-      .then((res) => {
-        console.log(res, "res");
-        if (res.status === 200) {
-          setData(res.data.data || []); // Ensure setting to empty array if data is undefined
-        }
-      })
-      .catch((err) => {
-        alert("Failed to fetch user details");
-      });
-  }
+  const fetchData = useCallback(async () => {
+    try {
+      setLoading(true);
+      const res = await axiosInstance.post("/viewWriterReqsforAdmin");
+      console.log(res, "res");
+      if (res.status === 200) {
+        setData(res.data.data || []); // Ensure setting to empty array if data is undefined
+      }
+    } catch (err) {
+      alert("Failed to fetch user details");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handleAccept = (id) => {
     axiosInstance
@@ -42,7 +52,7 @@ function WritersRequestList({ url }) {
         console.log(res, "res");
         if (res.status === 200) {
           alert(res.data.msg);
-          getData(); // Refresh data after accepting
+          fetchData(); // Refresh data after accepting
         }
       })
       .catch((err) => {
@@ -57,7 +67,7 @@ function WritersRequestList({ url }) {
         console.log(res, "res");
         if (res.status === 200) {
           alert(res.data.msg);
-          getData(); // Refresh data after rejecting
+          fetchData(); // Refresh data after rejecting
         }
       })
       .catch((err) => {
@@ -65,14 +75,23 @@ function WritersRequestList({ url }) {
       });
   };
 
-  useEffect(() => {
-    getData(); // Fetch initial data on component mount
-  }, []);
+  const handlePageClick = (event) => {
+    setCurrentPage(event.selected);
+  };
+
+  const paginatedData = data.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage
+  );
+
+  const pageCount = Math.ceil(data.length / itemsPerPage);
 
   return (
     <div className="m-3">
       <div className="shopownerpendingrequestdiv">
-        {data.length === 0 ? (
+        {loading ? (
+          <h1 className="text-center">Loading...</h1>
+        ) : data.length === 0 ? (
           <h1 className="text-center">No Writers Found</h1>
         ) : (
           <div>
@@ -91,7 +110,7 @@ function WritersRequestList({ url }) {
                 <b>Accept/Decline</b>
               </div>
             </div>
-            {data.map((item, index) => (
+            {paginatedData.map((item, index) => (
               <div key={index} className="row rounded-pill m-5 p-2 w-100" style={{ backgroundColor: "rgba(217, 217, 217, 1)", boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
                 <div className="col-2">{item.name}</div>
                 <div className="col-4">{item.email}</div>
@@ -120,6 +139,26 @@ function WritersRequestList({ url }) {
                 </div>
               </div>
             ))}
+            <ReactPaginate
+              previousLabel={'Previous'}
+              nextLabel={'Next'}
+              breakLabel={'...'}
+              breakClassName={'break-me'}
+              pageCount={pageCount}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              containerClassName={'pagination justify-content-center'}
+              activeClassName={'active'}
+              pageClassName={'page-item'}
+              pageLinkClassName={'page-link'}
+              previousClassName={'page-item'}
+              previousLinkClassName={'page-link '}
+              nextClassName={'page-item'}
+              nextLinkClassName={'page-link'}
+              breakLinkClassName={'page-link'}
+              activeLinkClassName={'bg-purple text-white'}
+            />
           </div>
         )}
       </div>
