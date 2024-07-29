@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axiosInstance from "../../BaseAPIs/axiosinstatnce";
 import Form from "react-bootstrap/Form";
 import "./editorlogin.css";
 import Footer from "../Pages/Footer";
 import Header from "../Pages/Header";
 import img1 from "../../Assets/Rectangle 44 (1).png";
-import { Link, useNavigate } from "react-router-dom";
-import axiosInstance from "../../BaseAPIs/axiosinstatnce";
+import { FaEye } from "react-icons/fa";
 
 function WriterLogin({ userrole }) {
   const [data, setData] = useState({
@@ -17,6 +18,8 @@ function WriterLogin({ userrole }) {
     email: "",
     password: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const Navigate = useNavigate();
 
@@ -47,6 +50,7 @@ function WriterLogin({ userrole }) {
     });
     setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
+
   const validateForm = () => {
     let formErrors = {};
 
@@ -90,8 +94,8 @@ function WriterLogin({ userrole }) {
           } else if (userCategory === "writer") {
             localStorage.setItem("token", result.data.token);
             localStorage.setItem("writer", userData._id);
-            if (userData.adminApproved == true) {
-              if (userData.paymentStatus == true) {
+            if (userData.adminApproved === true) {
+              if (userData.paymentStatus === true) {
                 alert("Login Success");
 
                 setTimeout(() => {
@@ -118,6 +122,10 @@ function WriterLogin({ userrole }) {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div>
       <Header />
@@ -125,12 +133,11 @@ function WriterLogin({ userrole }) {
         <div className="writerloginsub">
           <div className="row">
             <div className="col-5">
-              <img src={img1} alt="Placeholder"></img>
+              <img src={img1} alt="Placeholder" />
             </div>
             <div className="col-6">
               <h4 className="m-5 text-center"> Login Here!</h4>
-
-              <div className="text-center mx-5 ">
+              <div className="text-center mx-5">
                 <input
                   type="email"
                   id="custom-input"
@@ -138,42 +145,42 @@ function WriterLogin({ userrole }) {
                   placeholder="Email"
                   onChange={handleInputChange}
                   name="email"
-                />{" "}
+                />
                 {errors.email && (
                   <span className="span-required text-danger">
                     {errors.email}
                   </span>
                 )}
-                <input
-                  type="password"
-                  id="custom-input"
-                  className="form-control"
-                  placeholder="Password"
-                  name="password"
-                  onChange={handleInputChange}
-                />{" "}
+                <div className="password-input-wrapper">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    id="custom-input"
+                    className="form-control"
+                    placeholder="Password"
+                    name="password"
+                    onChange={handleInputChange}
+                  />
+                  <FaEye
+                    onClick={togglePasswordVisibility}
+                    style={{ position: "fixed", right: "400px", top: "380px" }}
+                    className="password-toggle-btn "
+                  />
+                </div>
                 {errors.password && (
                   <span className="span-required text-danger">
                     {errors.password}
                   </span>
                 )}
                 <div className="text-end mb-5">
-                  {" "}
-                  <Link className="" to="/forgot">
-                    Forgot password
-                  </Link>
+                  <Link to="/forgot">Forgot password</Link>
                 </div>
               </div>
-
               <div className="text-center">
-                {" "}
-                <div className="btn btn-secondary px-5 " onClick={handleSubmit}>
-                  {" "}
+                <div className="btn btn-secondary px-5" onClick={handleSubmit}>
                   LogIn
                 </div>
                 <div className="mt-4">
-                  New user?,<Link to="/register">Register</Link>
-                  Here!
+                  New user?, <Link to="/register">Register</Link> Here!
                 </div>
               </div>
             </div>
@@ -186,4 +193,3 @@ function WriterLogin({ userrole }) {
 }
 
 export default WriterLogin;
-

@@ -11,13 +11,13 @@ function ReaderViewParticipatedChallenge() {
   
   useEffect(() => {
     axiosInstance
-      .post(`/viewmyChallengesByReaderId/${readerid}`)
+      .post(`/viewChallengeByreader/${readerid}`)
       .then((res) => {
         console.log(res.data.data);
         setWriterData(res.data.data);
       })
       .catch((err) => {
-        alert("Failed to fetch user details");
+        // alert("Failed to fetch user details");
       });
   }, [readerid]);
   

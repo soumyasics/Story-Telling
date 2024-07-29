@@ -260,6 +260,44 @@ const viewChallengeParticipants = async (req, res) => {
     }
 };
 
+const viewChallengeByWriter = async (req, res) => {
+    try {
+        const participants = await challengeParticipants.find({writerId:req.params.id}).populate('writerId readerId challengeId');
+
+        res.status(200).json({
+            status: 200,
+            msg: "participants retrieved successfully",
+            data: participants
+        });
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            status: 500,
+            msg: "Failed to retrieve active participants",
+            Error: err.message
+        });
+    }
+};
+
+const viewChallengeByReader = async (req, res) => {
+    try {
+        const participants = await challengeParticipants.find({readerId:req.params.id}).populate('writerId readerId challengeId');
+
+        res.status(200).json({
+            status: 200,
+            msg: "participants retrieved successfully",
+            data: participants
+        });
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            status: 500,
+            msg: "Failed to retrieve active participants",
+            Error: err.message
+        });
+    }
+};
+
 module.exports = {
     addChallenge,
     updateChallengeById,
@@ -271,5 +309,7 @@ module.exports = {
     upload,
     viewPreviousChallenges,
     viewChallengeParticipants,
-    addParticipants
+    addParticipants,
+    viewChallengeByWriter,
+    viewChallengeByReader
 };

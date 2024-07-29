@@ -82,9 +82,11 @@ router.post("/deleteChallengeById/:id", Challenge.deleteChallengeById);
 router.post("/viewActiveChallengesByWriterId/:id", Challenge.viewActiveChallengesByWriterId);
 
 router.post("/viewPreviousChallenges", Challenge.viewPreviousChallenges);
-router.post("/addParticipants", Challenge.addParticipants);
-router.post("/viewChallengeParticipants", Challenge.viewChallengeParticipants);
 
+router.post("/addParticipants", Challenge.addParticipants);
+router.post("/viewChallengeParticipants/:id", Challenge.viewChallengeParticipants);
+router.post("/viewChallengeByWriter/:id", Challenge.viewChallengeByWriter);
+router.post("/viewChallengeByreader/:id", Challenge.viewChallengeByReader);
 
 //parts
 router.post("/addPart",parts.upload,parts.addPart);

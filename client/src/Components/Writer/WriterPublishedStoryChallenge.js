@@ -23,6 +23,8 @@ function WriterPublishedStoryChallenge() {
           }
         }
         console.log(res.data.data);
+        temp.sort((b, a) => new Date(a.startDate) - new Date(b.startDate));
+
         setWriterData(temp);
       })
       .catch((err) => {
