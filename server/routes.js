@@ -82,7 +82,7 @@ router.post("/deleteChallengeById/:id", Challenge.deleteChallengeById);
 router.post("/viewActiveChallengesByWriterId/:id", Challenge.viewActiveChallengesByWriterId);
 
 router.post("/viewPreviousChallenges", Challenge.viewPreviousChallenges);
-router.post("/addChallenge", Challenge.addChallenge);
+router.post("/addParticipants", Challenge.addParticipants);
 router.post("/viewChallengeParticipants", Challenge.viewChallengeParticipants);
 
 
