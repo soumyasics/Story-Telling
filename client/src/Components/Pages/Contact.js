@@ -79,54 +79,9 @@ function Contact() {
                     <img src={contact} alt='img' className='contact-img-img'></img>
                 </div>
                 <div className='col-5 contact-div mb-5'>
-                    <div className='text-center '>
-                        <h2 className='pt-4'>Contact Us</h2>
-                    </div>
-                    <div className='row'>
-                        <div className='col-1'></div>
-                        <div className='col-10'>
-                            <input type='text' 
-                            className='contact-text mt-3' 
-                            placeholder='Enter your Name'
-                            name='name'
-                            value={data.name}
-                            onChange={handlechange}
-                            />
-                            {errors.name && <span className='text-danger'>{errors.name}</span>}
-                            <hr></hr>
-                            <input type='text' 
-                            className='contact-text' 
-                            placeholder='Enter your Email'
-                            name='email'
-                            value={data.email}
-                            onChange={handlechange}
-                            />
-                            {errors.email && <span className='text-danger'>{errors.email}</span>}
-                            <hr></hr>
-                            <input type='number' 
-                            className='contact-text' 
-                            placeholder='Enter your Contact No'
-                            name='contact'
-                            value={data.contact}
-                            onChange={handlechange}
-                            />
-                            {errors.contact && <span className='text-danger'>{errors.contact}</span>}
-                            <hr></hr>
-                            <input type='text' 
-                            className='contact-text' 
-                            placeholder='Leave a Comment'
-                            name='comment'
-                            value={data.comment}
-                            onChange={handlechange}
-                            />
-                            {errors.comment && <span className='text-danger'>{errors.comment}</span>}
-                            <hr></hr>
-                            <div className='text-center pt-4'>
-                                <button className='contact-submit-btn' onClick={handleSubmit}>Submit</button>
-                            </div>
-                        </div>
-                        <div className='col-1'></div>
-                    </div>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.3677869559274!2d76.87851777466639!3d8.56058789148324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05bf9c97373c0f%3A0x71bf4c1c255160a4!2sSrishti%20Innovative!5e0!3m2!1sen!2sin!4v1722321461134!5m2!1sen!2sin" 
+                 allowfullscreen="" className='contact-img-map' loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                   
                 </div>
                 <div className='col-1'></div>
             </div>

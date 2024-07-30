@@ -77,6 +77,7 @@ function App() {
         <Route path="/readernav" element={<ViewerMainNav />} />
         <Route path="/aboutus" element={[<Header/>,<AboutUs />,<Footer/>]} />
         <Route path='/contact' element={[<Header/>,<Contact/>,<Footer/>]} />
+        <Route path='/stories' element={[<Header/>,<CommonViewStories/>,<Footer/>]} />
 
         {/* Writer */}
         <Route path="/writer-profile" element={[<WritterMainNav/>,<WriterProfile url={url} />,<Footer/>]} />
