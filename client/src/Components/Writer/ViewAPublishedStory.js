@@ -459,7 +459,7 @@ function ViewAPublishedStory() {
                   </div>
                   <div className="pt-5 ms-5">
                     <div onClick={handleCommantsShow}>
-                      <AiOutlineMessage className="readerview-apublished-story-icon" />
+                      <AiOutlineMessage className="readerview-apublished-story-icon" /><label>Comment</label>
                       {data.length}
                     </div>
                   </div>
