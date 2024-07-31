@@ -107,7 +107,7 @@ function AdminSidebar() {
         <div className="pt-3">
           <div onClick={writerviewchallenge}>
             <img src={Report} className="ms-4"></img>
-            <label className="ms-2 admin-sidebar-dash ">Challengers</label>
+            <label className="ms-2 admin-sidebar-dash ">Challenges</label>
           </div>
         </div>
 
