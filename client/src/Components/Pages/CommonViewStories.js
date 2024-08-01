@@ -175,7 +175,7 @@ function CommonViewStories() {
                 <div className="col" key={index}>
                   <div className="card writer-viewstory-categoryview">
                     <div className="row g-0 m-3">
-                      <div className="col-md-6 viewstorysdiv1 ps-5 pt-3">
+                      <div className="col-md-6 viewstorysdiv1 ps-5 pt-3 ">
                        
                         <h1>
                         {item.title}
