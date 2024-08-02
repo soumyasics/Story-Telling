@@ -140,7 +140,7 @@ function ReaderHome() {
                           <div className="dropdown_menu sidebar_dash_drop">
                               <div className="reader-home-step1">
                                 {/* <Link to="reader-home-link" className="text-dark">  */}
-                                  <h5>Choose a challenge</h5>
+                                  <h6>Choose a challenge</h6>
                                   <label>Select the challenge that </label>
                                   <label>excites you the most</label> 
                                 {/* </Link> */}
@@ -160,7 +160,7 @@ function ReaderHome() {
                           <div className="dropdown_menu sidebar_dash_drop">
                               <div className="reader-home-step1">
                                 {/* <Link to="reader-home-link" className="text-dark">  */}
-                                  <h5>Submit your update</h5>
+                                  <h6>Submit your update</h6>
                                   <label>Post your updates daily  </label>
                                   <label>and let others</label> 
                                   <label>knew your participation</label>
@@ -181,10 +181,10 @@ function ReaderHome() {
                           <div className="dropdown_menu sidebar_dash_drop">
                               <div className="reader-home-step1 ps-5">
                                 {/* <Link to="reader-home-link" className="text-dark">  */}
-                                  <h5>Winner of the challenge</h5>
-                                  <label>Challenge winner will be </label>
-                                  <label>announced after the end of the </label> 
-                                  <label>deadline of the challenge</label>
+                                  <h6>Winner of the challenge</h6>
+                                  <label className="reader-home-step1-label">Challenge winner will be </label>
+                                  <label>announced after the end  </label> 
+                                  <label>date of the challenge</label>
                                 {/* </Link> */}
                               </div>
                           </div>

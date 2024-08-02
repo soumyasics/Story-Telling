@@ -77,10 +77,10 @@ function WriterStoryAddPage() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    if (name === "summary" && value.length > 200) {
+    if (name === "summary" && value.length > 150) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        summary: `Summary cannot exceed ${200} characters`,
+        summary: `Summary cannot exceed ${150} characters`,
       }));
       return;
     }
@@ -427,7 +427,7 @@ function WriterStoryAddPage() {
                           onChange={handleChange}
                         ></textarea>
                         <label for="floatingTextarea2">Summary</label>
-                        <div className="text-muted mb-3">{`${addstorydata.summary.length}/${200} characters`}</div>
+                        <div className="text-muted mb-3">{`${addstorydata.summary.length}/${150} characters`}</div>
                         {errors.summary && (
                           <div className="text-danger errortext">
                             {errors.summary}

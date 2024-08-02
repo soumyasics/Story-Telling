@@ -58,12 +58,20 @@
 .admin-sidebar-dropdown-link{
   color: black;
 }
-
+.admin-sidebar-dash:hover{
+  color: white;
+}
 
 /* View Challengers */
 
 .view-challengers-title{
   background-color: #BAE6DD;
+  width: 100%;
+  height: 10vh;
+  border-radius: 10px;
+}
+.view-challengers-title1{
+  background-color:  rgb(14, 163, 135);
   width: 100%;
   height: 10vh;
   border-radius: 10px;

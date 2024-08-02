@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Footer from "../Pages/Footer";
 import Header from "../Pages/Header";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import img1 from "../../Assets/Rectangle 44 (1).png";
 import axiosInstance from "../../BaseAPIs/axiosinstatnce";
 
@@ -36,10 +36,11 @@ function WriterResetPassword() {
    
     return "";
   };
+  const navigate=useNavigate()
 
-
-  const id=localStorage.getItem("writer")
-  const handleInputChange = (event) => {
+  const {id}=useParams()
+  console.log(id);
+    const handleInputChange = (event) => {
     const { name, value } = event.target;
     setData({
       ...data,
@@ -94,6 +95,7 @@ function WriterResetPassword() {
         .then((result) => {
           console.log(result);
           alert(result.data.msg);
+          navigate("/login")
         })
         .catch((err) => {
           const errorMsg =

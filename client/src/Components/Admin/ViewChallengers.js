@@ -9,7 +9,7 @@ function ViewChallengers() {
 
     useEffect(() => {
         axiosInstance
-          .post(`/viewChallenges`)
+          .post(`/viewPreviousChallenges`)
           .then((res) => {
             console.log(res.data.data);
             setData(res.data.data);
@@ -24,16 +24,16 @@ function ViewChallengers() {
             <AdminSidebar/>
         </div>
         <div className='col-9'>
-            <h1 className='mt-5'>View Challengers</h1>
+            <h1 className='mt-5'>View Challenges</h1>
         {data.map((d)=>{
             return(<>
             <div className='row'>
                 <div className='col-2'></div>
-                <div className='col-8 view-challengers-title mt-3'>
+                <div className='col-8 view-challengers-title1 mt-3'>
                     <div className='row ms-5 pt-4'>
-                        <div className='col-3'>Title</div>
-                        <div className='col-1'>:</div>
-                        <div className='col-8'>{d.title}</div>
+                        <div className='col-3'><b>Title</b></div>
+                        <div className='col-1'><b>:</b></div>
+                        <div className='col-8'><b>{d.title}</b></div>
                     </div>
                 </div>
                 <div className='col-2'></div>

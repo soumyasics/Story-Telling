@@ -371,12 +371,11 @@
 }
 .viewstorysdiv1 {
   background-color: rgba(244, 237, 229, 1);
-  min-height: 50vh;
+  height: 50vh;
 }
 .storycoverimage{
-    min-height: 50vh;
+    height: 50vh;
     width:100%
-  
 }
 
 /* WriterView Summary Challenges */
