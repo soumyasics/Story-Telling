@@ -17,8 +17,9 @@ function WriterEditProfile({ url }) {
     profilePicture: { filename: "" },
   });
 
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-  
+
   const id = localStorage.getItem("writer"); // Ensure the correct key is used here
   const [profileImage, setProfileImage] = useState(null);
 
@@ -50,8 +51,27 @@ function WriterEditProfile({ url }) {
     }
   };
 
+  const validate = () => {
+    let validationErrors = {};
+    if (!data.name) validationErrors.name = "Name is required";
+    if (!data.email) validationErrors.email = "Email is required";
+    if (!data.contact) {
+      validationErrors.contact = "Phone number is required";
+    } else if (!/^\d{10}$/.test(data.contact)) {
+      validationErrors.contact = "Phone number must be 10 digits";
+    }
+    if (!data.age) validationErrors.age = "Age is required";
+    return validationErrors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
     const formData = new FormData();
     formData.append("name", data.name);
@@ -91,7 +111,7 @@ function WriterEditProfile({ url }) {
           src={
             profileImage
               ? URL.createObjectURL(profileImage)
-              : `${imageUrl}/${data.profilePicture}`
+              : `${imageUrl}/${data.profilePicture}` || `${imageUrl}/${data.profilePicture.filename}`
           }
           style={{ position: "relative" }}
           alt="Profile"
@@ -125,6 +145,7 @@ function WriterEditProfile({ url }) {
                   value={data.name}
                   onChange={handleChange}
                 />
+                {errors.name && <p className="error">{errors.name}</p>}
               </div>
             </div>
             <hr />
@@ -138,7 +159,9 @@ function WriterEditProfile({ url }) {
                   name="email"
                   value={data.email}
                   onChange={handleChange}
+                  disabled
                 />
+                {errors.email && <p className="error">{errors.email}</p>}
               </div>
             </div>
             <hr />
@@ -168,6 +191,7 @@ function WriterEditProfile({ url }) {
                   value={data.contact}
                   onChange={handleChange}
                 />
+                {errors.contact && <p className="error">{errors.contact}</p>}
               </div>
             </div>
             <hr />
@@ -182,6 +206,7 @@ function WriterEditProfile({ url }) {
                   value={data.age}
                   onChange={handleChange}
                 />
+                {errors.age && <p className="error">{errors.age}</p>}
               </div>
             </div>
             <hr />

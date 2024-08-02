@@ -120,7 +120,7 @@ function WriterList({ url }) {
                         onClick={() => toggleShopOwnerStatus(item._id, item.isActive)}
                         className="btn btn-success rounded-pill"
                       >
-                        {item.isActive ? "To DeActivate" : "To Activate"}
+                        {item.isActive ? "DeActivate" : "Activate"}
                       </button>
                     </div>
                   </div>

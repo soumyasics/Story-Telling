@@ -8,13 +8,13 @@ import axiosInstance from "../../BaseAPIs/axiosinstatnce";
 
 function WriterResetPassword() {
   const [data, setData] = useState({
-    userrole:"",
+    
     newpassword: "",
     confirmpassword: "",
   });
 
   const [errors, setErrors] = useState({
-    userrole:"",
+    
     newpassword: "",
     confirmpassword: "",
   });
@@ -36,7 +36,7 @@ function WriterResetPassword() {
    
     return "";
   };
-
+  const navigate=useNavigate()
 
   const id=localStorage.getItem("writer")
   const handleInputChange = (event) => {
@@ -94,6 +94,7 @@ function WriterResetPassword() {
         .then((result) => {
           console.log(result);
           alert(result.data.msg);
+          navigate("/login")
         })
         .catch((err) => {
           const errorMsg =
@@ -118,7 +119,7 @@ function WriterResetPassword() {
                 <div className="col-5  mx-5 text-center ">
                 <h4 className="m-5 text-center">Forgot Password</h4>
                 
-                  <select
+                  {/*<select
                     className="form-control custom-input"
                     name="userrole"
                     onChange={handleInputChange}
@@ -130,7 +131,7 @@ function WriterResetPassword() {
                   </select>
                   {errors.userrole && (
                     <div className="text-danger">{errors.userrole}</div>
-                  )}
+                  )}*/}
                 <input
                     type="password"
                     className="form-control custom-input"

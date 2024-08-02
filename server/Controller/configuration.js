@@ -2,7 +2,7 @@
 const config = {
     development: {
         localUrl: 'http://localhost:3000/story_telling/reset-password/',
-        serverUrl: 'http://hybrid.srishticampus.in/story_telling/reset-password/',
+        // serverUrl: 'http://hybrid.srishticampus.in/story_telling/reset-password/',
     },
   
 };

@@ -28,7 +28,7 @@ function ViewerMainNav() {
       .post("/upgradeToWriter/" + localStorage.getItem("reader"))
       .then((result) => {
         console.log(result, "Upgrade result");
-        alert("Please Login Again For Upgrade To Writer")
+        alert("Please login again to upgrade to Writer status.And kindly await For admin approval...")
         setTimeout(() => {
           navigate("/login");
         }, 1000);

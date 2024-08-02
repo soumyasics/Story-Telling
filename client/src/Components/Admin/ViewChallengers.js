@@ -9,7 +9,7 @@ function ViewChallengers() {
 
     useEffect(() => {
         axiosInstance
-          .post(`/viewChallenges`)
+          .post(`/viewPreviousChallenges`)
           .then((res) => {
             console.log(res.data.data);
             setData(res.data.data);
