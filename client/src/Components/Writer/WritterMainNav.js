@@ -69,7 +69,7 @@ function WritterMainNav() {
                   <button class="dropbtn">Customised Story</button>
                   <div class="dropdown-content">
                     <Navbar.Text onClick={navigateToAddStory} ><Link>Add Story</Link></Navbar.Text>
-                    <Navbar.Text onClick={navigateToViewCustmStory} ><Link>View Story</Link></Navbar.Text>
+                    <Navbar.Text onClick={navigateToViewCustmStory} ><Link>Your Drafts</Link></Navbar.Text>
                   </div>
                 </div>
               </Nav>

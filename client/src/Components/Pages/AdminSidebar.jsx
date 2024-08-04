@@ -31,6 +31,10 @@ function AdminSidebar() {
     navigate("/request");
   };
 
+  const challenges= () => {
+    navigate("/adminchallenges");
+  };
+
   const writerLogout = () => {
     localStorage.removeItem('admin')
     setTimeout(() => {
@@ -65,7 +69,6 @@ function AdminSidebar() {
           <div onClick={AdminDashBoardicon}>
             <img src={Admindashboardimg} className="ms-4"></img>
             <label className="ms-2 admin-sidebar-dash ">Dashboard</label>
-            <img className="admin-sidebar-dash-img" src={Adminarrow}></img>
           </div>
         </div>
 
@@ -75,10 +78,7 @@ function AdminSidebar() {
           <div onClick={AllReaders}>
             <img src={reader} className="ms-4"></img>
             <label className="ms-2 admin-sidebar-dash ">Readers</label>
-            <img
-              className="admin-sidebar-dash-img-reader"
-              src={Adminarrow}
-            ></img>
+           
           </div>
         </div>
 
@@ -86,10 +86,7 @@ function AdminSidebar() {
           <div onClick={AllWriters}>
             <img src={writer} className="ms-4"></img>
             <label className="ms-2 admin-sidebar-dash ">Writers</label>
-            <img
-              className="admin-sidebar-dash-img-writer"
-              src={Adminarrow}
-            ></img>
+           
           </div>
         </div>
 
@@ -97,17 +94,21 @@ function AdminSidebar() {
           <div onClick={writerrequest}>
             <img src={writer} className="ms-4"></img>
             <label className="ms-2 admin-sidebar-dash ">Writers Request</label>
-            <img
-              className="ms-5 ps-3"
-              src={Adminarrow}
-            ></img>
+           
+          </div>
+        </div>
+
+        <div className="pt-3">
+          <div onClick={challenges}>
+            <img src={Report} className="ms-4"></img>
+            <label className="ms-2 admin-sidebar-dash ">Challenges</label>
           </div>
         </div>
 
         <div className="pt-3">
           <div onClick={writerviewchallenge}>
             <img src={Report} className="ms-4"></img>
-            <label className="ms-2 admin-sidebar-dash ">Challenges</label>
+            <label className="ms-2 admin-sidebar-dash ">Announce Challenge Winner</label>
           </div>
         </div>
 
@@ -129,3 +130,4 @@ function AdminSidebar() {
 }
 
 export default AdminSidebar;
+// <img className="admin-sidebar-dash-img" src={Adminarrow}></img>

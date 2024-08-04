@@ -44,7 +44,7 @@ function ViewChallengers() {
                     <div className='row ms-5 pt-4'>
                         <div className='col-3'>Challenge End Date</div>
                         <div className='col-1'>:</div>
-                        <div className='col-8'>{d.endDate}</div>
+                        <div className='col-8'>{new Date(d.endDate).toLocaleDateString()}</div>
                     </div>  
                 </div>
                 <div className='col-2'></div>
