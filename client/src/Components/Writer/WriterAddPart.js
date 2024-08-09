@@ -20,7 +20,10 @@ function WriterAddPart() {
       navigate("/");
     }
   }, [navigate]);
-
+  const [textb, setState] = useState({
+    showTextBox: false,
+    showFileUpload: false,
+  });
   const [writerdata, setWriterData] = useState({
     profilePicture: { filename: "" },
   });
@@ -51,10 +54,7 @@ function WriterAddPart() {
       });
   }, []);
 
-  const [textb, setState] = useState({
-    showTextBox: false,
-    showFileUpload: false,
-  });
+
   const handleOnChange = (e) => {
     setState({
       showTextBox: e.target.value === "text",
@@ -134,31 +134,36 @@ function WriterAddPart() {
 
   const publishStory = async (e) => {
     e.preventDefault();
-    storydata.storyId = story_id.id
+    storydata.storyId = story_id.id;
+  
+    if (!storydata.addtextpart && !storydata.addaudiopart) {
+      alert("Please enter your ideas in part (either text or audio).");
+      return;
+    }
+  
     try {
-      var response;
+      let response;
       if (storydata) {
         response = await axiosMultipartInstance.post(
           `/addpart`,
-        {
-            storyId:story_id.id,
-             partText:storydata.text, 
-             partAudio:storydata.audio,
-             writerId: localStorage.getItem("writer")
-        }
+          {
+            storyId: story_id.id,
+            partText: storydata.addtextpart,
+            partAudio: storydata.addaudiopart,
+            writerId: localStorage.getItem("writer"),
+          }
         );
       }
       console.log("Response:", response);
-      
-        alert(response.data.message);
-        navigate('/writer-view-stories')
-      
+      alert(response.data.message);
+      navigate('/writer-view-stories');
     } catch (error) {
       console.error("Error:", error);
-      let msg = error?.response?.data?.msg || "Error occurred";
+      let msg = error?.response?.data?.msg || "Please enter your ideas in part.";
       alert(msg);
     }
   };
+  
 
   return (
     <>
@@ -174,7 +179,8 @@ function WriterAddPart() {
                 ></img>
               </div>
               <div className="col-5">
-                <button className="mt-4 writer-story-editpage-publishbtn" onClick={publishStory}>
+              
+                <button className="mt-4 writer-story-editpage-publishbtn" onClick={publishStory} >
                   Publish
                 </button>
               </div>
@@ -307,7 +313,7 @@ function WriterAddPart() {
                 className="writer-story-addtextarea"
                 value={storydata.addtextpart}
                 placeholder="Please enter the story"
-                name="text"
+                name="addtextpart"
                 onChange={handleChange}
               />
             )}

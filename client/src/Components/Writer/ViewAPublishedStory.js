@@ -115,6 +115,21 @@ function ViewAPublishedStory() {
         console.log("Failed to fetch user details");
       });
   };
+  const fetchComments = () => {
+    axiosInstance
+      .post(`/viewCommentsByStory/${storyid}`)
+      .then((res) => {
+        if (res.data.status === 200) {
+          setData(res.data.data);
+        }
+      })
+      .catch((err) => {
+        console.log("Failed to fetch comments");
+      });
+  };
+  useEffect(() => {
+    fetchComments()
+  }, []);
 
   const commentData = {
     storyId: storyid,
@@ -131,6 +146,7 @@ function ViewAPublishedStory() {
         if (res.status === 200) {
           alert("Comment Added Successfully!");
           handleClose();
+          fetchComments();
         } else {
           alert("Comment not Inserted");
         }
@@ -142,18 +158,8 @@ function ViewAPublishedStory() {
 
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    axiosInstance
-      .post(`/viewCommentsByStory/${storyid}`)
-      .then((res) => {
-        if (res.data.status === 200) {
-          setData(res.data.data);
-        }
-      })
-      .catch((err) => {
-        console(err);
-      });
-  }, []);
+
+  
 
   const [errors, setErrors] = useState({
     title: "",

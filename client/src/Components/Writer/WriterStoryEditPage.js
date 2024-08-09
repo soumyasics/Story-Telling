@@ -188,6 +188,7 @@ function WriterStoryEditPage() {
         console.log("Response:", response);
         if (response.status == 200) {
           alert("Save As Draft");
+          navigate("/writer-view-customstory")
           setStoryData(response.data.data);
         }
       } catch (error) {
