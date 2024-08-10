@@ -58,6 +58,7 @@ import ReaderEndChallenge from "./Components/Viewer/ReaderEndChallenge";
 import Contact from "./Components/Pages/Contact";
 import ReaderViewOneCustomizedStory from "./Components/Viewer/ReaderViewOneCustomizedStory";
 import CommonViewStories from "./Components/Pages/CommonViewStories";
+import ChallengesView from "./Components/Admin/ChallengesView";
 function App() {
   // const url = "http://localhost:4025/";
 
@@ -127,7 +128,7 @@ function App() {
         <Route path="/writers" element={<AdminviewWriters url={url} />} />
         <Route path="/readers" element={<AllReader url={url} />} />
         <Route path="/commonviewstories/:storyid" element={[<Header/>,<CommonViewStories url={url} />,<Footer/>]} />
-
+        <Route path="/adminchallenges" element={[<AdminNav/>,<ChallengesView url={url} />]} />
 
        {/* add part */}
 

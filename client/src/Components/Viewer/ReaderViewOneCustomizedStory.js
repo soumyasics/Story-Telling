@@ -54,9 +54,18 @@ function ReaderViewOneCustomizedStory() {
 
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
-  const handleClose = () =>{ setShow1(false); viewStory()}
-  const handleCommantsShow = () => {setShow1(true); viewStory();}
-  const handlepartClose = () => {setShow2(false); viewStory();}
+  const handleClose = () => {
+    setShow1(false);
+    viewStory();
+  };
+  const handleCommantsShow = () => {
+    setShow1(true);
+    viewStory();
+  };
+  const handlepartClose = () => {
+    setShow2(false);
+    viewStory();
+  };
 
   useEffect(() => {
     axiosInstance
@@ -81,19 +90,18 @@ function ReaderViewOneCustomizedStory() {
   };
 
   const { storyid } = useParams();
-  const viewStory=()=>{
+  const viewStory = () => {
     axiosInstance
-    .post(`/viewStoryById/${storyid}`)
-    .then((res) => {
-      setStoryData(res.data.data);
-    })
-    .catch((err) => {
-      console.log("Failed to fetch user details");
-    });
-  }
+      .post(`/viewStoryById/${storyid}`)
+      .then((res) => {
+        setStoryData(res.data.data);
+      })
+      .catch((err) => {
+        console.log("Failed to fetch user details");
+      });
+  };
   useEffect(() => {
-   
-    viewStory()
+    viewStory();
     countlike();
 
     axiosInstance
@@ -115,7 +123,7 @@ function ReaderViewOneCustomizedStory() {
       .catch((err) => {
         console.log("Failed to fetch user details");
       });
-      viewStory()
+    viewStory();
     countlike();
   }, []);
 
@@ -139,6 +147,25 @@ function ReaderViewOneCustomizedStory() {
       });
   };
 
+  const fetchdata = () => {
+    axiosInstance
+      .post(`/viewCommentsByStory/${storyid}`)
+      .then((res) => {
+        if (res.data.status === 200) {
+          console.log("comments", res.data.data);
+          setData(res.data.data);
+          viewStory();
+        }
+      })
+      .catch((err) => {
+        console(err);
+      });
+  };
+
+  useEffect(() => {
+    fetchdata();
+  }, []);
+
   const commentData = {
     storyId: storyid,
     comment: comment,
@@ -154,7 +181,8 @@ function ReaderViewOneCustomizedStory() {
         if (res.status === 200) {
           alert("Comment Added Successfully!");
           handleClose();
-          viewStory()
+          viewStory();
+          fetchdata();
         } else {
           alert("Comment not Inserted");
         }
@@ -165,21 +193,6 @@ function ReaderViewOneCustomizedStory() {
   };
 
   const [data, setData] = useState([]);
-
-  useEffect(() => {
-    axiosInstance
-      .post(`/viewCommentsByStory/${storyid}`)
-      .then((res) => {
-        if (res.data.status === 200) {
-          console.log("comments", res.data.data);
-          setData(res.data.data);
-          viewStory()
-        }
-      })
-      .catch((err) => {
-        console(err);
-      });
-  }, []);
 
   const [errors, setErrors] = useState({
     title: "",
@@ -485,13 +498,21 @@ function ReaderViewOneCustomizedStory() {
                   </div>
                   <div className="col-5 mt-5 pt-2">
                     <div className="text-center mt-3">
-                      <ReactStars
-                        count={5}
-                        value={storydata.rating}
-                        onChange={handleRating}
-                        size={24}
-                        activeColor="#ffd700"
-                      />
+                      <div className="row">
+                        <h6
+                          className="col-4">Add your rating here :</h6>
+                    <div className="
+                          col-6"
+                        >
+                          <ReactStars
+                            count={5}
+                            value={storydata.rating}
+                            onChange={handleRating}
+                            size={30}
+                            activeColor="#ffd700"
+                          />
+                        </div>
+                      </div>
                     </div>
                     {storypart.length > 0 ? (
                       <div>
