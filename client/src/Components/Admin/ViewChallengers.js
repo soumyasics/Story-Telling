@@ -24,7 +24,7 @@ function ViewChallengers() {
             <AdminSidebar/>
         </div>
         <div className='col-9'>
-            <h1 className='mt-5'>View Challenges</h1>
+            <h1 className='mt-5'> Announce challenge winners</h1>
         {data.map((d)=>{
             return(<>
             <div className='row'>

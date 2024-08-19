@@ -107,16 +107,19 @@ function WriterEditProfile({ url }) {
         />
       </div>
       <div className="text-center">
-        <img
-          src={
-            profileImage
-              ? URL.createObjectURL(profileImage)
-              : `${imageUrl}/${data.profilePicture}` || `${imageUrl}/${data.profilePicture.filename}`
-          }
-          style={{ position: "relative" }}
-          alt="Profile"
-          className="writer-edit-profile-front-img"
-        />
+      <img
+      src={
+        profileImage
+          ? URL.createObjectURL(profileImage)
+          : data.profilePicture.filename
+          ? `${imageUrl}/${data.profilePicture.filename}`
+          : `${imageUrl}/${data.profilePicture}`
+      }
+      style={{ position: "relative" }}
+      alt="Profile"
+      className="writer-edit-profile-front-img"
+    />
+    
         <label className="upload-icon">
           <FaCamera
             className="writer-edit-profile-icon"

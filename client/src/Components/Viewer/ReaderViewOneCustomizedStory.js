@@ -381,6 +381,7 @@ function ReaderViewOneCustomizedStory() {
             ></img>{" "}
             <span className="ms-3 mt-5 readerview-one-customised-story-span">
               {writerdata.name}
+
             </span>
           </div>
           <div className="readerview-one-customised-story-maindiv mb-5">
@@ -407,7 +408,17 @@ function ReaderViewOneCustomizedStory() {
                       </h3>
                     </div>
                     <div className="readerview-one-customised-story-para ">
-                      <p className="ms-5">{storydata.summary}</p>
+                      <p className="ms-5 text-dark mt-4">Summary</p>
+                      <p className="ms-5 my-1">{storydata.summary}</p>
+                      <p className="ms-5 text-dark">part 1</p>
+                      <p className="ms-5"> {storydata.text ? (
+                        <p>{storydata.text}</p>
+                      ) : (
+                        <audio
+                          controls
+                          src={`${imageUrl}/${storydata.audio?.filename}`}
+                        />
+                      )}</p>
                     </div>
                     <div className="row m-5">
                       <div
@@ -463,7 +474,7 @@ function ReaderViewOneCustomizedStory() {
                                     ) : (
                                       ""
                                     )}
-                                    <h6>Part {index + 1}</h6>
+                                    <h6>Part {index + 2}</h6>
 
                                     <img
                                       src={like}
@@ -603,9 +614,13 @@ function ReaderViewOneCustomizedStory() {
                       </div>
                     </div>
                   </Modal>
+
                 </div>
+
               </div>
             </div>
+
+            
           </div>
         </div>
         <div className="container readerview-apublished-story-commentdiv">

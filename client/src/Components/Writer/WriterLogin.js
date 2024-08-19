@@ -96,11 +96,14 @@ function WriterLogin({ userrole }) {
             localStorage.setItem("writer", userData._id);
             if (userData.adminApproved === true) {
               if (userData.paymentStatus === true) {
-                alert("Login Success");
-
-                setTimeout(() => {
-                  Navigate("/writerhome");
-                }, 1500);
+                if(userData.isActive === true){
+                  alert("Login Success");
+                  setTimeout(() => {
+                    Navigate("/writerhome");
+                  }, 1500);
+                }else{
+                  alert("admin Inactivated Please contact admin")
+                }
               } else {
                 setTimeout(() => {
                   Navigate("/upgradetowriter");
