@@ -28,11 +28,23 @@ function ViewerMainNav() {
       .post("/upgradeToWriter/" + localStorage.getItem("reader"))
       .then((result) => {
         console.log(result, "Upgrade result");
-        alert("Please login again to upgrade to Writer status.And kindly await For admin approval...")
+        if(result.data.status==200){
+        alert("Your Request has been Send to Admin . Please Login Again to Continue")
         setTimeout(() => {
           navigate("/login");
         }, 1000);
+      }else   if(result.data.status==400){
+        alert(result.data.msg)
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
+      }
+        else{
+        alert(result.data.msg)
+
+      }
       })
+    
       .catch((error) => {
         console.error("Upgrade error:", error);
       });

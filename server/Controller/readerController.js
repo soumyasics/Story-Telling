@@ -113,76 +113,76 @@ const viewReaders = (req, res) => {
 
 // Update Reader by ID
 const editReaderById = async (req, res) => {
-    try {
-      const { name, age, contact, email, userCategory } = req.body;
-  
-      // Check if another reader already has the same contact number
-      const existingReader = await Reader.findOne({ contact });
-      if (existingReader && existingReader._id.toString() !== req.params.id) {
-        return res.status(409).json({
-          status: 409,
-          msg: "Contact Number Already Registered With Us !!",
-          data: null,
-        });
-      }
-  
-      // Check if the email is already registered with another reader or writer
-      if (email !== req.body.email) {
-        const existingWriter = await WriterSchema.findOne({ email });
-        const existingReaderByEmail = await Reader.findOne({ email });
-        if (existingWriter || existingReaderByEmail) {
-          return res.status(409).json({
-            status: 409,
-            msg: "Email Already Registered With Us !!",
-            data: null,
-          });
-        }
-      }
-  
-      // Prepare the update data
-      const updateData = {
-        name,
-        age,
-        contact,
-        email,
-        userCategory,
-      };
-  
-      // If req.file contains the new profile picture, update it
-      if (req.file) {
-        updateData.profilePicture = req.file;
-      }
-  
-      // Update the reader data
-      const updatedReader = await Reader.findByIdAndUpdate(
-        req.params.id,
-        updateData,
-        { new: true }
-      );
-  
-      if (!updatedReader) {
-        return res.status(404).json({
-          status: 404,
-          msg: "Reader not found",
-          data: null,
-        });
-      }
-  
-      res.json({
-        status: 200,
-        msg: "Updated successfully",
-        data: updatedReader,
-      });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({
-        status: 500,
-        msg: "Failed to update reader",
-        error: err.message,
+  try {
+    const { name, age, contact, email, userCategory } = req.body;
+
+    // Check if another reader already has the same contact number
+    const existingReader = await Reader.findOne({ contact });
+    if (existingReader && existingReader._id.toString() !== req.params.id) {
+      return res.status(409).json({
+        status: 409,
+        msg: "Contact Number Already Registered With Us !!",
+        data: null,
       });
     }
-  };
-  
+
+    // Check if the email is already registered with another reader or writer
+    if (email !== req.body.email) {
+      const existingWriter = await WriterSchema.findOne({ email });
+      const existingReaderByEmail = await Reader.findOne({ email });
+      if (existingWriter || existingReaderByEmail) {
+        return res.status(409).json({
+          status: 409,
+          msg: "Email Already Registered With Us !!",
+          data: null,
+        });
+      }
+    }
+
+    // Prepare the update data
+    const updateData = {
+      name,
+      age,
+      contact,
+      email,
+      userCategory,
+    };
+
+    // If req.file contains the new profile picture, update it
+    if (req.file) {
+      updateData.profilePicture = req.file;
+    }
+
+    // Update the reader data
+    const updatedReader = await Reader.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      { new: true }
+    );
+
+    if (!updatedReader) {
+      return res.status(404).json({
+        status: 404,
+        msg: "Reader not found",
+        data: null,
+      });
+    }
+
+    res.json({
+      status: 200,
+      msg: "Updated successfully",
+      data: updatedReader,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: 500,
+      msg: "Failed to update reader",
+      error: err.message,
+    });
+  }
+};
+
 
 // View Reader by ID
 const viewReaderById = (req, res) => {
@@ -227,7 +227,15 @@ const deleteReaderById = (req, res) => {
 // Forgot Password for Reader
 const upgradeToWriter = async (req, res) => {
   const datas = await Reader.findById({ _id: req.params.id });
-
+  const writers = await WriterSchema.findOne({ email: datas.email });
+  console.log(writers,'writers');
+  
+  if (writers!=null) {
+    return res.json({
+      status: 400,
+      msg: "You Have Already Send Request to Admin",
+    });
+  }
   if (datas != null) {
     let flag = 0;
     const { name, age, contact, email, password, userCategory } = datas;
@@ -245,7 +253,7 @@ const upgradeToWriter = async (req, res) => {
     await newWriter
       .save()
       .then((data) => {
-       
+
         return res.json({
           status: 200,
           msg: "Inserted successfully",
@@ -253,13 +261,15 @@ const upgradeToWriter = async (req, res) => {
         });
       })
       .catch((err) => {
+        console.log(err);
+        
         return res.json({
           status: 500,
           msg: "Data not Inserted",
           data: err,
         });
       });
-   
+
   } else {
     return res.json({
       status: 500,

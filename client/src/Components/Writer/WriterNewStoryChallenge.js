@@ -95,13 +95,13 @@ function WriterNewStoryChallenge() {
                   alt='Challenge'
                 />
                 <div onClick={() => handleParticipate(challenge._id)}>
-                  <button className='writerview-challenges-participatebtn ms-4'>
+                  <button className='writerview-challenges-participatebtn ms-4 mt-5'>
                     Participate
                   </button>
                 </div>
               </div>
             </div>
-            <div className='col-4'>
+            <div className='col-6'>
               <div className='writerview-challenges-img1'>
                 <div className='text-center pt-2'>
                   <h3>{challenge.title}</h3>
@@ -110,13 +110,13 @@ function WriterNewStoryChallenge() {
                   </div>
                   <div className='text-end'>
                     <h2 className='writerview-challenges-h2 me-5'>
-                      Start On {new Date(challenge.startDate).toLocaleDateString()} and End on {new Date(challenge.endDate).toLocaleDateString()}
+                      Started From : {new Date(challenge.startDate).toLocaleDateString()} - To : {new Date(challenge.endDate).toLocaleDateString()}
                     </h2>
                   </div>
                 </div>
               </div>
             </div>
-            <div className='col-2'></div>
+            
           </div>
         ))}
     </div>

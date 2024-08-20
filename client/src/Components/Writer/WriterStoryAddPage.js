@@ -11,7 +11,7 @@ import axiosMultipartInstance from "../../BaseAPIs/AxiosMultipartInstance";
 import axiosInstance from "../../BaseAPIs/axiosinstatnce";
 import { useNavigate } from "react-router-dom";
 import { imageUrl } from "../../BaseAPIs/ImageUrl/imgApi";
-
+import img1 from '../../Assets/image.png'
 function WriterStoryAddPage() {
   const navigate = useNavigate();
 
@@ -99,7 +99,7 @@ function WriterStoryAddPage() {
   const [erroraudio, setErrorAudio] = useState(null);
   const [audioUrl, setAudioUrl] = useState(null);
 
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(img1);
 
   const handleFileCoverChange = (coverPicture) => {
     if (!coverPicture.name.match(/\.(jpg|jpeg|png|gif)$/)) {
@@ -181,7 +181,7 @@ function WriterStoryAddPage() {
         }
         console.log("Response:", response);
         if (response.status == 200) {
-          alert("Save As Draft");
+          alert("Saved to Drafts");
           navigate('/writer-view-customstory')
         }
       } catch (error) {

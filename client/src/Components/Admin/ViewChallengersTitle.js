@@ -47,29 +47,29 @@ function ViewChallengersTitle() {
         <AdminSidebar />
       </div>
       <div className="col-9 container">
-        <h1 className="mt-5">{c.title}</h1>
+        <h1 className="mt-5">{c?.title}</h1>
         <label>
-          ({c.startDate?.split("T")[0]} to {c.endDate?.split("T")[0]})
+          ({c?.startDate?.split("T")[0]} to {c?.endDate?.split("T")[0]})
         </label>
         <div className="row mb-5" style={{ minHeight: "100vh" }}>
           <div className="col-2"></div>
           <div className="col-8">
             <h2 className="my-5 text-center">Challenge History</h2>
             {data.map((d, i) => {
-              return data[i - 1] && data[i - 1].date == d.date ? (
+              return data[i - 1] && data[i - 1]?.date == d?.date ? (
                 <>
                   <div className="col-9">
                     <div className="row writer-challenges-historynameback container pe-5 " >
                       <div className="col-4">
                         <h6>
-                          @{d.readerId ? d.readerId.name : d.writerId.name}
+                          @{d?.readerId ? d?.readerId?.name : d?.writerId?.name}
                         </h6>
                       </div>
                       <div className="col-4">
-                        <h6>{d.readerId ? "Reader" : "Writer"}</h6>
+                        <h6>{d?.readerId ? "Reader" : "Writer"}</h6>
                       </div>
                       <div className="col-4">
-                        <h6>{d.status}</h6>
+                        <h6>{d?.status}</h6>
                       </div>
                     </div>
                   </div>
@@ -77,20 +77,20 @@ function ViewChallengersTitle() {
               ) : (
                 <div className="row mt-3">
                   <div className="col-3 writer-challenges-historydate text-center ">
-                    <h6 className="p-2">{d.date.split("T")[0]}</h6>
+                    <h6 className="p-2">{d?.date?.split("T")[0]}</h6>
                   </div>
                   <div className="col-9">
                     <div className="row writer-challenges-history-name-back container pt-2 pe-5 ">
                       <div className="col-4 p-2">
                         <h6>
-                          @{d.readerId ? d.readerId.name : d.writerId.name}
+                          @{d?.readerId ? d?.readerId?.name : d?.writerId?.name}
                         </h6>
                       </div>
                       <div className="col-4">
-                        <h6>{d.readerId ? "Reader" : "Writer"}</h6>
+                        <h6>{d?.readerId ? "Reader" : "Writer"}</h6>
                       </div>
                       <div className="col-4">
-                        <h6>{d.status}</h6>
+                        <h6>{d?.status}</h6>
                       </div>
                     </div>
                   </div>
@@ -102,9 +102,9 @@ function ViewChallengersTitle() {
         </div>
 
         <div className="my-4 text-end me-5">
-          <Link to={winnerannounced ? '/viewchallengesummary/'+id: "/announcechallengesummary/" + id}>
+          <Link to={winnerannounced ? '/viewchallengesummary/' +id : "/announcechallengesummary/" + id}>
             <button className="view-challenders-title-announcebtn">
-              {winnerannounced ?'View Winner' : 'Announce Winner'}
+              {winnerannounced ? 'View Winner' : 'Announce Winner'}
             </button>
           </Link>
         </div>

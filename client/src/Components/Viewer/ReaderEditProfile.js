@@ -17,9 +17,15 @@ function ReaderEditProfile() {
     age: "",
     profilePicture: { filename: "" },
   });
-
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    userCategory: "",
+    contact: "",
+    age: "",
+  });
   const [profileImage, setProfileImage] = useState(null);
-
+  let formIsValid = true;
   useEffect(() => {
     // Fetch reader data when component mounts
     const fetchReaderData = async () => {
@@ -49,10 +55,62 @@ function ReaderEditProfile() {
       }));
     }
   };
-
+  const validateField = (fieldName, value) => {
+    if (fieldName === "name" && /^\d/.test(value)) {
+      return "Name must not start with a number.";
+    }
+    if (typeof value === "string" && !value.trim()) {
+      return `${fieldName} is required`;
+    }
+    if (fieldName === "email" && !value.endsWith("@gmail.com")) {
+      return "Email must be a valid Gmail address.";
+    }
+    return "";
+  };
+  const validateContact = (fieldName, value) => {
+    if (!value.trim()) {
+      return `${fieldName} is required`;
+    } else if (value.length !== 10) {
+      return "Please enter a valid Contact Number";
+    }
+    return "";
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
+     formIsValid = true;
+    let validationErrors = {};
 
+    Object.keys(data).forEach((key) => {
+      if (key === "contact") {
+        validationErrors[key] = validateContact(key, data[key]);
+      } else {
+        validationErrors[key] = validateField(key, data[key]);
+      }
+      if (validationErrors[key]) {
+        formIsValid = false;
+      }
+    });
+
+
+
+   
+    // Output the validation results for debugging
+    console.log(formIsValid);
+    console.log(validationErrors);
+    
+    if (!data.userCategory.trim()) {
+      validationErrors.userCategory = "please choose a category";
+      formIsValid = false;
+    }
+
+    const regex = /^[a-zA-Z\s]*$/;
+    if (!regex.test(data.name)) {
+      formIsValid = false;
+      validationErrors.name = 'Input should contain alphabets or spaces only';
+    }
+
+    setErrors(validationErrors);
+    if (formIsValid) {
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("email", data.email);
@@ -81,7 +139,8 @@ function ReaderEditProfile() {
       console.error("Error updating reader profile:", error);
       alert("An error occurred");
     }
-  };
+  }
+}
 
   return (
     <div>
@@ -134,7 +193,12 @@ function ReaderEditProfile() {
                   value={data.name}
                   onChange={handleChange}
                 />
-                <hr />
+              
+                <hr className=""/>
+                
+                {errors.name && (
+                    <div className="text-danger mb-3">{errors.name}</div>
+                  )}
               </div>
             </div>
             <div className="row">
@@ -149,6 +213,9 @@ function ReaderEditProfile() {
                   onChange={handleChange}
                 />
                 <hr />
+                {errors.email && (
+                    <div className="text-danger  mb-3">{errors.email}</div>
+                  )}
               </div>
             </div>
             <div className="row">
@@ -164,6 +231,9 @@ function ReaderEditProfile() {
                   disabled
                 />
                 <hr />
+                {errors.userCategory && (
+                    <div className="text-danger mb-3">{errors.userCategory}</div>
+                  )}
               </div>
             </div>
             <div className="row">
@@ -178,6 +248,9 @@ function ReaderEditProfile() {
                   onChange={handleChange}
                 />
                 <hr />
+                {errors.contact && (
+                    <div className="text-danger mb-3">{errors.contact}</div>
+                  )}
               </div>
             </div>
             <div className="row">
@@ -192,6 +265,9 @@ function ReaderEditProfile() {
                   onChange={handleChange}
                 />
                 <hr />
+                {errors.age && (
+                    <div className="text-danger mb-3">{errors.age}</div>
+                  )}
               </div>
             </div>
             <div className="text-center mt-5">

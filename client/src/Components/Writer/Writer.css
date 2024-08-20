@@ -110,8 +110,11 @@
 .writer_edit_pro_input {
   border: none;
   outline: none;
+  /* border-bottom-color: #000000; */
 }
-
+.writer_edit_pro_divError{
+  margin-bottom: 10px;
+}
 /* Writer Story Add Page */
 
 .writer-story-addpage-navdiv {

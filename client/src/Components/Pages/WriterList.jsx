@@ -21,7 +21,7 @@ function WriterList({ url }) {
       .then((res) => {
         console.log(res, "res writers");
         if (res.status === 200) {
-          setData(res.data.data);
+          setData(res.data.data||[]);
         }
       })
       .catch((err) => {
@@ -69,7 +69,7 @@ function WriterList({ url }) {
           <h1 className="text-center">Loading...</h1>
         ) : (
           <div>
-            {data?.length === 0 ? (
+            {data?.length == 0 ? (
               <h1 className="text-center">No Writers Found</h1>
             ) : (
               <div>

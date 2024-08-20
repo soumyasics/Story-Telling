@@ -161,6 +161,7 @@ function UpgradeToWriter() {
                 name="Expirydate"
                 onChange={handleChange}
                 value={data.Expirydate}
+                min={new Date().toISOString().split("T")[0]}
               />
               {errors.Expirydate && (
                 <div className="text-danger">{errors.Expirydate}</div>
