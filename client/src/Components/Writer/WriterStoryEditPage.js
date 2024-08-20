@@ -215,7 +215,7 @@ function WriterStoryEditPage() {
       }
       console.log("Response:", response);
       if (response.status == 200) {
-        alert(response.data.message);
+        alert('Story Published Successfully');
         navigate('/writer-view-stories')
       }
     } catch (error) {

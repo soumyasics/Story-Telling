@@ -10,7 +10,7 @@ function AdminLoginform() {
 
   const Adminemail = "admin@gmail.com";
   const Adminpassword = "Admin@123";
-
+  let formValid = true;
   const change = (e) => {
     const { name, value } = e.target;
     SetloginData({ ...loginData, [name]: value });
@@ -18,14 +18,22 @@ function AdminLoginform() {
   console.log(loginData, "loginData");
   const formValidating = (fieldName, value) => {
     if (!value.trim()) {
+      formValid=false
       return `${fieldName} is required`;
     }
     if (fieldName === "Email" && !value.endsWith("@gmail.com")) {
+      formValid=false
       return "Email must be a valid Gmail address";
     }
     if (fieldName === "Password") {
+    
       const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z]).{6,}$/;
+      if (!value.trim()) {
+        formValid=false
+        return `${fieldName} is required`;
+      }
       if (!passwordRegex.test(value)) {
+        formValid=false
         return "Password must contain at least one number,one special character, and one capital letter";
       }
     }
@@ -35,17 +43,19 @@ function AdminLoginform() {
   const handleSubmit = (e) => {
     e.preventDefault();
     let errors = {};
-    let formValid = true;
+    formValid = true;
     errors.email = formValidating("Email", loginData.email);
     errors.password = formValidating("Password", loginData.password);
-    formValid = false;
+
     setErrors(errors);
 
-    if (loginData.email && loginData.password) {
-      formValid = true;
-    }
-
-    if (!errors.email && !errors.password && formValid) {
+    // if (loginData.email && loginData.password) {
+    //   formValid = true;
+    // }
+    console.log("form",formValid);
+    
+if(formValid){
+    
       if (loginData.email == Adminemail) {
         if (loginData.password == Adminpassword) {
           localStorage.setItem("admin","admin")
@@ -58,6 +68,7 @@ function AdminLoginform() {
         alert("Incorrect Mail id");
       }
     }
+  
   };
 
   return (
@@ -82,6 +93,9 @@ function AdminLoginform() {
                 aria-describedby="emailHelp"
                 placeholder="Email"
               ></input>
+               {errors.email && (
+                    <div className="text-danger">{errors.email}</div>
+                  )}
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">
@@ -95,6 +109,9 @@ function AdminLoginform() {
                 id="exampleInputPassword1"
                 placeholder="Password"
               ></input>
+               {errors.password && (
+                    <div className="text-danger">{errors.password}</div>
+                  )}
             </div>
             <div className="text-end mt-4">
               {" "}

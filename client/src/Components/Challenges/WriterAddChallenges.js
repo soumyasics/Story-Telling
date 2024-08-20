@@ -5,7 +5,7 @@ import { imageUrl } from '../../BaseAPIs/ImageUrl/imgApi';
 import axiosInstance from '../../BaseAPIs/axiosinstatnce';
 import axiosMultipartInstance from '../../BaseAPIs/AxiosMultipartInstance';
 import { FaCamera } from "react-icons/fa";
-
+import img1 from '../../Assets/image.png'
 function WriterAddChallenges() {
     const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ function WriterAddChallenges() {
     }, []);
 
     const [errorcover, setErrorCover] = useState(null);
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState(img1);
     const [challengedata, setChallengeData] = useState({
         title: '',
         description: '',

@@ -23,7 +23,7 @@ function AllReader() {
       .then((res) => {
         console.log(res, "");
         if (res.status === 200) {
-          setData(res.data.data);
+          setData(res.data.data||[]);
         }
       })
       .catch((err) => {

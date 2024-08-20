@@ -182,8 +182,8 @@ function WriterLogin({ userrole }) {
                 <div className="btn btn-secondary px-5" onClick={handleSubmit}>
                   LogIn
                 </div>
-                <div className="mt-4">
-                  New user?, <Link to="/register">Register</Link> Here!
+                <div className="mt-4 ">
+                  New user ? <Link to="/register">Register</Link> Here!
                 </div>
               </div>
             </div>

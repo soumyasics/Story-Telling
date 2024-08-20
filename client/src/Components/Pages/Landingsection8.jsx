@@ -58,7 +58,7 @@ function Landingsection8() {
             </Col>
             <Col>
               {" "}
-              <h5 className="text-center">Track Changerse</h5>
+              <h5 className="text-center">Track Changes</h5>
             </Col>
           </Row>
           <div className="p-5 m-5 text-center">

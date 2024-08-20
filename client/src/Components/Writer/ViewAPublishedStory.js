@@ -120,7 +120,7 @@ function ViewAPublishedStory() {
       .post(`/viewCommentsByStory/${storyid}`)
       .then((res) => {
         if (res.data.status === 200) {
-          setData(res.data.data);
+          setData(res.data.data||[]);
         }
       })
       .catch((err) => {
@@ -588,6 +588,7 @@ function ViewAPublishedStory() {
               return (
                 <div className="row mb-3">
                   <div className="col-2 ps-5">
+                    {console.log(com.readerId)}
                     <img
                       src={`${imageUrl}/${com?.readerId?.profilePicture.filename}`}
                       className="readerview-apublished-story-commentimg"
