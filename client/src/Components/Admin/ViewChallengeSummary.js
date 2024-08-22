@@ -25,15 +25,15 @@ function ViewChallengeSummary() {
   }, []);
   return (
     <div className="row">
-      <div className="col-3">
+      <div className="col-4">
         <AdminSidebar />
       </div>
-      <div className="col-9">
+      <div className="col-8">
         <div className="mt-5 pt-3">
-          <h1>Announce Challenge Summary</h1>
+          <h1> Challenge Winners</h1>
         </div>
         <div className="row mt-5">
-          <div className="col-2"></div>
+          {/* <div className="col-2"></div> */}
           {writerdata.first ? (
             <div className="col-2 view-challenge-summary-divbox">
               <h2 className="text-center mt-2">
@@ -58,9 +58,9 @@ function ViewChallengeSummary() {
             ""
           )}
 
-          <div className="col-1"></div>
+          {/* <div className="col-1"></div> */}
           {writerdata.second ? (
-            <div className="col-2 ms-3 view-challenge-summary-divbox">
+            <div className="col-2 ms-3 view-challenge-summary-divbox p-3 mx-2">
               <h2 className="text-center mt-2">
                 2nd<img src={trop} className="view-challenge-summary-img"></img>
               </h2>
@@ -108,7 +108,7 @@ function ViewChallengeSummary() {
           )}
         </div>
         <div className="row mt-5 pt-3">
-          <div className="col-3"></div>
+          {/* <div className="col-3"></div> */}
           {writerdata.fourth ?
           <div className="col-2 ms-5  view-challenge-summary-divbox">
             <h2 className="text-center mt-2">
@@ -146,7 +146,7 @@ function ViewChallengeSummary() {
               <h6>Points :{writerdata.fifthPoints}/100</h6>
             </div>
           </div> :''}
-          <div className="col-3"></div>
+          {/* <div className="col-3"></div> */}
         </div>
       </div>
     </div>

@@ -43,10 +43,10 @@ function ViewChallengersTitle() {
 
   return (
     <div className="row">
-      <div className="col-3">
+      <div className="col-4">
         <AdminSidebar />
       </div>
-      <div className="col-9 container">
+      <div className="col-8 container">
         <h1 className="mt-5">{c?.title}</h1>
         <label>
           ({c?.startDate?.split("T")[0]} to {c?.endDate?.split("T")[0]})

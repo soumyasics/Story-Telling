@@ -21,6 +21,6 @@ const sSchema=mongoose.Schema({
        
     },
     date:Date
-});
+},{timestamps:true});
 module.exports=mongoose.model('challengeParticipants',sSchema)
 

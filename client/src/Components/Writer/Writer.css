@@ -453,7 +453,7 @@
 .writer-view-challenge-summary-divbox{
   box-shadow: 6px 6px 8px 0px #00000040;
   background: #D3C6C0;
-  height: 20vh;
+  min-height: 20vh;
   border-radius: 16px; 
 }
 .writer-view-challenge-summary-img{

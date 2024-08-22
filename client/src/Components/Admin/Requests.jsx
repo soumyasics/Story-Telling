@@ -9,7 +9,7 @@ function Requests({url}) {
     <div>
         <AdminLoginMainNav/>
       <div className="row">
-        <div className="col-3"><AdminSidebar/></div>
+        <div className="col-4"><AdminSidebar/></div>
         <div className="col-8"><WritersRequestList url={url} /></div>
 
       </div>

@@ -86,7 +86,7 @@ const registerReader = async (req, res) => {
 
 // View all Readers
 const viewReaders = (req, res) => {
-  Reader.find()
+  Reader.find().sort({createdAt:-1})
     .exec()
     .then((data) => {
       if (data.length > 0) {

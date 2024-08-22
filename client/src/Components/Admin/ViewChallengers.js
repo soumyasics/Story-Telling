@@ -20,10 +20,10 @@ function ViewChallengers() {
       }, []);
   return (
     <div className='row'>
-        <div className='col-3'>
+        <div className='col-4'>
             <AdminSidebar/>
         </div>
-        <div className='col-9'>
+        <div className='col-8'>
             <h1 className='mt-5'> Announce challenge winners</h1>
         {data.map((d)=>{
             return(<>
@@ -31,9 +31,9 @@ function ViewChallengers() {
                 <div className='col-2'></div>
                 <div className='col-8 view-challengers-title1 mt-3'>
                     <div className='row ms-5 pt-4'>
-                        <div className='col-3'><b>Title</b></div>
+                        <div className='col-4'><b>Title</b></div>
                         <div className='col-1'><b>:</b></div>
-                        <div className='col-8'><b>{d.title}</b></div>
+                        <div className='col-7'><b>{d.title}</b></div>
                     </div>
                 </div>
                 <div className='col-2'></div>
@@ -42,9 +42,9 @@ function ViewChallengers() {
                 <div className='col-2'></div>
                 <div className='col-8 view-challengers-title mt-3'>
                     <div className='row ms-5 pt-4'>
-                        <div className='col-3'>Challenge End Date</div>
+                        <div className='col-4'>Challenge End Date</div>
                         <div className='col-1'>:</div>
-                        <div className='col-8'>{new Date(d.endDate).toLocaleDateString()}</div>
+                        <div className='col-7'>{new Date(d.endDate).toLocaleDateString()}</div>
                     </div>  
                 </div>
                 <div className='col-2'></div>
@@ -53,9 +53,9 @@ function ViewChallengers() {
                 <div className='col-2'></div>
                 <div className='col-8 view-challengers-description mt-3'> 
                     <div className='row ms-5 pt-4 me-3'>
-                        <div className='col-3'>Description</div>
+                        <div className='col-4'>Description</div>
                         <div className='col-1'>:</div>
-                        <div className='col-8 view-challengers-description-div'>
+                        <div className='col-7 view-challengers-description-div'>
                             {d.description}
                         </div>
                         <div className='mb-3 mt-3 text-end'>

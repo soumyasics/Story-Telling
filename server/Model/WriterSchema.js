@@ -62,6 +62,6 @@ const writerSchema=mongoose.Schema({
     }
     
     
-});
+},{timestamps:true});
 module.exports=mongoose.model('writers',writerSchema)
 

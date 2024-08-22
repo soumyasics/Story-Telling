@@ -29,7 +29,9 @@ function ReaderViewSummaryChallenge() {
     <div className="row" style={{minHeight:"100vh"}}>
       <div className="col-9">
         <div className="mt-5 pt-3">
-        <h2 className='text-center'> End Challenge Winners</h2>
+     
+          
+        <h2 className='text-center'>    {writerdata.challengeId ? writerdata.challengeId.title:'Challenge'} :  Winners</h2>
         </div>
         <div className="row mt-5">
           <div className="col-2"></div>

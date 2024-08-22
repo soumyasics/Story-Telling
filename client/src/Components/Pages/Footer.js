@@ -38,43 +38,35 @@ function Footer() {
           </Col>
           <Col>
             <div className="mt-5">
-              MARKETPLACE
+              STORY TELLING
               <div className="mt-4">
                 <div>Authors</div>
-                <div>Become a Freelancer</div>
-                <div>Hire a Freelance</div>
+                <div>Become a Story Writer</div>
+                <div>Read Stories</div>
               </div>
             </div>
           </Col>
           <Col>
             <div className="mt-5">LEARN</div>
             <div className="mt-4">
-              <div>Blog</div>
               <div>Learning</div>
-              <div>Live</div>
-              <div>Freelancer</div>
-              <div>Guides</div>
-              <div>Discovery</div>
+              <div>Stroies</div>
+              <div>Challenges</div>
             </div>
           </Col>
           <Col>
             <div className="mt-5">COMPANY</div>
             <div className="mt-4">
               <div>About</div>
-              <div>Team</div>
-              <div>Press</div>
-              <div>Stories</div>
+                         <div>Stories</div>
             </div>
           </Col>
           <Col>
             <div className="mt-5 ">RESOURCES</div>
             <div className="mt-4">
-              <div>Book Review</div>
-              <div>Blog</div>
-              <div>Literary Agents</div>
-              <div>Title Generator</div>
-              <div>Name Generator</div>
-              <div>Short Story Ideas</div>
+       
+                       <div>Literary Agents</div>
+            
               <div>Short Story Ideas</div>
             </div>
           </Col>
@@ -83,8 +75,7 @@ function Footer() {
             <div className="mt-5 pt-5">
               <div>Writing Contests</div>
               <div>Writing Exercises</div>
-              <div>Writing Prompts</div>
-              <div>Writing Tools</div>
+             
             </div>
           </Col>
         </Row>

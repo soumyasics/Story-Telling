@@ -8,7 +8,7 @@ const Comment = require('../Model/commentsSchema');
 
 // Create a new comment
 const createComment = async (req, res) => {
-    const { storyId, comment, readerId, writerId } = req.body;
+    const { storyId, comment, readerId, writerId,comWriterId } = req.body;
 
     if (!storyId || !comment) {
         return res.status(400).json({
@@ -22,7 +22,8 @@ const createComment = async (req, res) => {
         storyId,
         comment,
         readerId,
-        writerId
+        writerId,
+        comWriterId
     });
 
     try {
@@ -33,6 +34,8 @@ const createComment = async (req, res) => {
             data: savedComment
         });
     } catch (err) {
+        console.log(err);
+        
         res.status(500).json({
             status: 500,
             msg: "Data not Inserted",
@@ -43,8 +46,8 @@ const createComment = async (req, res) => {
 
 // View all comments
 const viewCommentsByStory = (req, res) => {
-    Comment.find({storyId:req.params.id})
-        .populate('readerId writerId')
+    Comment.find({storyId:req.params.id}).sort({createdAt:-1})
+        .populate('readerId writerId comWriterId')
         .exec()
         .then(data => {
             res.json({

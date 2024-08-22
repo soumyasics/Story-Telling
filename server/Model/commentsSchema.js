@@ -17,11 +17,16 @@ const sSchema=mongoose.Schema({
         ref:'readers',
        
     },
+    comWriterId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'writers',
+       
+    },
     writerId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'writers',
        
     }
-});
+},{timestamps:true});
 module.exports=mongoose.model('comments',sSchema)
 

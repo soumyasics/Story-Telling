@@ -8,8 +8,8 @@ function AdminDashBoard() {
     <div className="admindashboardbackground">
       <AdminLoginMainNav />
      <div className="row">
-        <div className="col-3"> <AdminSidebar/></div>
-        <div className="col"><AdminDashboardSub/></div>
+        <div className="col-4"> <AdminSidebar/></div>
+        <div className="col-8"><AdminDashboardSub/></div>
        </div>
     </div>
   );

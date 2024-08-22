@@ -148,7 +148,7 @@ function WriterEditProfile({ url }) {
                   value={data.name}
                   onChange={handleChange}
                 />
-                {errors.name && <p className="error">{errors.name}</p>}
+                {errors.name && <p className="text-danger error">{errors.name}</p>}
               </div>
             </div>
             <hr />
@@ -164,7 +164,7 @@ function WriterEditProfile({ url }) {
                   onChange={handleChange}
                   disabled
                 />
-                {errors.email && <p className="error">{errors.email}</p>}
+                {errors.email && <p className="text-danger error">{errors.email}</p>}
               </div>
             </div>
             <hr />
@@ -194,7 +194,7 @@ function WriterEditProfile({ url }) {
                   value={data.contact}
                   onChange={handleChange}
                 />
-                {errors.contact && <p className="error">{errors.contact}</p>}
+                {errors.contact && <p className="text-danger error">{errors.contact}</p>}
               </div>
             </div>
             <hr />
@@ -209,7 +209,7 @@ function WriterEditProfile({ url }) {
                   value={data.age}
                   onChange={handleChange}
                 />
-                {errors.age && <p className="error">{errors.age}</p>}
+                {errors.age && <p className="text-danger error">{errors.age}</p>}
               </div>
             </div>
             <hr />

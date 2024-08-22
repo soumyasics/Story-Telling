@@ -112,7 +112,7 @@ function AnnounceChallengeSummary() {
         if(res.status==400){
           console.log(res.data)
         }
-        alert('done')
+        alert('Updates Added Successfully')
         navigate('/viewchallengesummary/'+id)
       })
       .catch((err) => {
@@ -121,10 +121,10 @@ function AnnounceChallengeSummary() {
   }
   return (
     <div className="row mb-5">
-      <div className="col-3">
+      <div className="col-4">
         <AdminSidebar />
       </div>
-      <div className="col-9">
+      <div className="col-8">
         <h1 className="mt-5">Announce Challenge Summary</h1>
         <div className=" row  container">
           <div className="col-1"></div>
@@ -152,7 +152,7 @@ function AnnounceChallengeSummary() {
                   <div className="col-4 pt-2 ps-5">
                     <h3>{position[i]}</h3>
                   </div>
-                  <div className="col-4 pt-3 ps-5">
+                  <div className="col-4 pt-2 ps-5">
                     <select name="winner" id="cars" onChange={(e)=>handlech(e,i)}>
                     <option value=''>choose</option>
                       {pup.map((names) => {
@@ -160,7 +160,7 @@ function AnnounceChallengeSummary() {
                       })}
                     </select>
                   </div>
-                  <div className="col-4 pt-3 ps-5">
+                  <div className="col-4 pt-2 ps-5">
                   <input type="text" name='point' onChange={(e)=>handlech(e,i)}></input>
                   </div>
                 </div>

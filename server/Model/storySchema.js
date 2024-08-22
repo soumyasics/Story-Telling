@@ -55,6 +55,6 @@ const sSchema=mongoose.Schema({
     }
    
     
-});
+},{timestamps:true});
 module.exports=mongoose.model('stories',sSchema)
 

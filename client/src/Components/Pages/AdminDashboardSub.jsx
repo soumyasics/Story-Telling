@@ -71,6 +71,7 @@ function AdminDashboardSub() {
   const [readers, setReaders] = useState([]);
   const [writers, setWriters] = useState([]);
   const [requests, setRequests] = useState([]);
+  const [chartData, setchartData] = useState([]);
 
   useEffect(() => {
     axiosInstance.post("/viewWriterReqsforAdmin")
@@ -101,6 +102,17 @@ function AdminDashboardSub() {
       })
       .catch((error) => {
         console.error("Failed to fetch readers:", error);
+      });
+
+
+      axiosInstance.post("/productSales")
+      .then((response) => {
+        console.log(response, "Writer Requests");
+        if (response.data.data != null) setchartData(response.data.data);
+        else setchartData([]);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch writer requests:", error);
       });
   }, []);
 
@@ -138,7 +150,7 @@ function AdminDashboardSub() {
       </div>
       <div className="mt-5">
         <div className="mt-4">
-          <AreaChart width={1000} height={400} data={productSales}>
+          <AreaChart width={1000} height={400} data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis />
