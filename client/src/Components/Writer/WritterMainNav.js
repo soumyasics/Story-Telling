@@ -53,7 +53,7 @@ function WritterMainNav() {
                 className="d-inline-block align-top"
               />{" "}
               <label className="text-light mt-3" fon>
-                Collaborative Story Telling
+              Collaborative Story Telling-StoryFusion
               </label>
             </Navbar.Brand>
             <div className="bg-light text-light">

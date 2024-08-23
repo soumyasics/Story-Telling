@@ -527,7 +527,7 @@ function ViewAPublishedStory() {
                   <div className="col writer-story-addpage-div2">
                     <div className="text-center mt-3">
                       <h5>Part {index + 1}</h5>
-                      {part.partText ? (
+                      {part.partText!="undefined" ? (
                         <p>{part.partText}</p>
                       ) : (
                         <audio

@@ -565,7 +565,7 @@ function ReaderViewOneCustomizedStory() {
                   <Modal show={show2} onHide={handlepartClose}>
                     <Modal.Header closeButton></Modal.Header>
                     <div className="m-3 text-center">
-                      {apartid.partText ? (
+                      {apartid.partText!="undefined" ? (
                         <p>{apartid.partText}</p>
                       ) : (
                         <audio
