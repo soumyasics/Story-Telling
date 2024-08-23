@@ -30,7 +30,7 @@ function Header() {
           className="d-inline-block align-top"
         />{" "}
         <label className="text-light mt-3" fon>
-          Collaborative Story Telling
+          Collaborative Story Telling-StoryFusion
         </label></Link>
            
           </Navbar.Brand>
