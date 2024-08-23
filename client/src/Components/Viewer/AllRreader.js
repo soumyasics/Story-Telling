@@ -50,7 +50,7 @@ function AllReader() {
     <div>
       <AdminLoginMainNav />
       <div className="row">
-        <div className="col-3">
+        <div className="col-4">
           <AdminSidebar />
         </div>
         <div className="col-8">

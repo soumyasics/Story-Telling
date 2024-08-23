@@ -148,7 +148,7 @@ const viewchallengeUpdatesById = (req, res) => {
 
 // View challengeUpdates by ID
 const viewmyChallengesByReaderId = (req, res) => {
-  challengeUpdates.find({readerId: req.params.id })
+  challengeUpdates.find({readerId: req.params.id }).sort({createdAt:-1})
       .populate('challengeId readerId')
       .exec()
       .then(data => {
@@ -336,6 +336,7 @@ const getAllChallengeWinners = async (req, res) => {
 const getChallengeWinnersByChallengeId = async (req, res) => {
   try {
     const  challengeId  = req.params.id;
+console.log("cid",challengeId);
 
     const challengeWinners = await ChallengeWinner.findOne({ challengeId })
 

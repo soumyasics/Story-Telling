@@ -10,6 +10,11 @@ function ReaderViewParticipatebychallengeid() {
   const [status, setStatus] = useState('');
   const [error, setError] = useState('');
   const [challengeId, setChallengeId] = useState(null);
+  const [challe, setChalle] = useState({
+    description:'',
+    title:'',
+    picture:{filename:''}
+      });
   const navigate = useNavigate();
 
   const readerId = localStorage.getItem("reader");
@@ -17,6 +22,20 @@ function ReaderViewParticipatebychallengeid() {
   const {challengeid}=useParams()
   console.log(challengeid);
 
+  useEffect(() => {
+    axiosInstance
+      .post(`/viewChallengeById/${challengeid}`)
+      .then((res) => {
+     
+       console.log("res",res);
+       
+            setChalle(res.data.data);
+          })
+          .catch((err) => {
+            alert('Challenge Not Found')
+          });
+     
+  }, []);
   const handleDailyUpdateSubmit = () => {
     if (!status) {
       setError('Status is required');
@@ -53,16 +72,13 @@ function ReaderViewParticipatebychallengeid() {
       <div className='row mt-5'>
         <div className='col-1'></div>
         <div className='col-5'>
-          <img src={image1} className='writer-participate-challenge-img' alt='Challenge' />
-        </div>
+          <img src={`${imageUrl}/${challe.picture?.filename}`} className='writer-participate-challenge-img' alt='Challenge' />
+        </div> 
         <div className='col-5 writer-participate-challenge-divcol-5'>
-          <h2 className='text-center pt-4'>The Star of July</h2>
+          <h2 className='text-center pt-4'>{challe.title}</h2>
           <div className='ps-5 pe-5 pt-3 '>
             <p className='writer-participate-challenge-para'>
-              Task yourself with writing something that forms a complete
-              whole every day. It might be only be a couple of hundred
-              words long – or even less – but the challenge here is
-              to create something regularly that stands on its own.
+              {challe.description}.
             </p>
             <div className='row pt-3'>
               <div className='col-4'>

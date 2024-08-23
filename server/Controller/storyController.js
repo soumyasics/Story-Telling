@@ -170,7 +170,7 @@ const coverPicture = req.files.coverPicture ? req.files.coverPicture[0] : null;
 
 
 const viewAllStories = (req, res) => {
-  Story.find()
+  Story.find().sort({createdAt:-1})
     .populate('writerId')
     .exec()
     .then(stories => {
@@ -231,7 +231,7 @@ const viewStoryById = (req, res) => {
 };
 
 const viewAllStorYByCategory = (req, res) => {
-  Story.find({ category: req.params.category })
+  Story.find({ category: req.params.category }).sort({createdAt:-1})
     .exec()
     .then(story => {
       res.json({
@@ -250,7 +250,7 @@ const viewAllStorYByCategory = (req, res) => {
     });
 };
 const viewStoriesByWriterId = (req, res) => {
-  Story.find({ writerId: req.params.id , published:false })
+  Story.find({ writerId: req.params.id , published:false }).sort({createdAt:-1})
     .exec()
     .then(stories => {
       res.json({

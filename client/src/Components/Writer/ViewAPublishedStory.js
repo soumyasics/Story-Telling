@@ -18,6 +18,7 @@ function ViewAPublishedStory() {
   const navigate = useNavigate();
   const [id, setId] = useState(localStorage.getItem("writer"));
   const readerid = localStorage.getItem("reader");
+  const writerId = localStorage.getItem("writer")?localStorage.getItem("writer"):null;
   const [comment, setComment] = useState();
   const [storypart, setStorypart] = useState([]);
   const [partlikecountobj, setPartlikecountobj] = useState({});
@@ -136,6 +137,7 @@ function ViewAPublishedStory() {
     comment: comment,
     readerId: readerid,
     writerId: id,
+    comWriterId:writerId
   };
 
   const handleSubmit = (e) => {
@@ -463,12 +465,13 @@ function ViewAPublishedStory() {
                       ></img>
                     </div>
                   </div>
-                  <div className="pt-5 ms-5">
+                {(storydata.writerId!=id)? (<div className="pt-5 ms-5">
                     <div onClick={handleCommantsShow}>
                       <AiOutlineMessage className="readerview-apublished-story-icon" /><label>Comment</label>
                       {data.length}
                     </div>
-                  </div>
+                  </div>):('')
+}
                   <div className="text-center p-3">
                     <button
                       className="btn btn-dark me-5 px-5"
@@ -578,7 +581,7 @@ function ViewAPublishedStory() {
         </div>
 
         <div className="container readerview-apublished-story-commentdiv">
-          <div className="pt-4 ms-5">
+         <div className="pt-4 ms-5">
             <h5>Comments</h5>
           </div>
           <hr></hr>
@@ -590,7 +593,7 @@ function ViewAPublishedStory() {
                   <div className="col-2 ps-5">
                     {console.log(com.readerId)}
                     <img
-                      src={`${imageUrl}/${com?.readerId?.profilePicture.filename}`}
+                      src={`${imageUrl}/${com?.readerId?(com.readerId.profilePicture.filename):(com?.comWriterId?(com.comWriterId.profilePicture.filename):'')}`}
                       className="readerview-apublished-story-commentimg"
                     ></img>
                   </div>
