@@ -22,7 +22,7 @@ const transporter = nodemailer.createTransport({
       from: 'supprot.web.application@gmail.com',
       to: email,
       subject: 'Reset Password From Story_Telling Application',
-      text: `Dear ${data.name},${'\n'}please check this link : ${config.serverUrl}${data._id} to reset your password`
+      text: `Dear ${data.name},${'\n'}please check this link : ${config.localUrl}${data._id} to reset your password`
     };
   
     transporter.sendMail(mailOptions, function (error, info) {

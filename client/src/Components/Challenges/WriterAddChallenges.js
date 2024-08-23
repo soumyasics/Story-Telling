@@ -101,6 +101,11 @@ function WriterAddChallenges() {
             console.log("z5", formValid);
             errors.endDate = "End Date is required";
         }
+        if (challengedata.endDate<challengedata.startDate) {
+            formValid = false;
+            console.log("z5", formValid);
+            errors.endDate = "End Date Should be greater than start date";
+        }
         if (!challengedata.picture) {
             formValid = false;
             console.log("z5", formValid);
