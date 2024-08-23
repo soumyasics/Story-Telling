@@ -51,6 +51,6 @@ isActive:{
     default:true
 }
 
-});
+},{timestamps:true});
 module.exports=mongoose.model('readers',readerSchema)
 

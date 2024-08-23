@@ -28,6 +28,7 @@ router.post("/viewWriters", Writer.viewWriters);
 router.post("/viewWriterById/:id", Writer.viewWriterById);
 router.post("/editWriterById/:id",Writer.upload, Writer.editWriterById);
 router.post("/addPayment/:id", Writer.addPayment);
+router.post("/productSales", Writer.viewReaderWriterCounts);
 
 //reader routes
 router.post("/registerReader", Reader.upload, Reader.registerReader);

@@ -87,6 +87,6 @@ const sSchema = new mongoose.Schema({
         fourth: participantSchema,
         fifth: participantSchema
     }
-});
+},{timestamps:true});
 
 module.exports = mongoose.model('challengeWinners', sSchema);

@@ -155,7 +155,7 @@
 .view-challenge-summary-divbox{
   box-shadow: 6px 6px 8px 0px #00000040;
   background: #BAE6DD;
-  height: 20vh;
+  min-height: 20vh;
   border-radius: 16px; 
 }
 .view-challenge-summary-img{

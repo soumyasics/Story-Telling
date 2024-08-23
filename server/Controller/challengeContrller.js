@@ -119,7 +119,7 @@ const deleteChallengeById = async (req, res) => {
 // View all challenges
 const viewChallenges = async (req, res) => {
     try {
-        const challenges = await Challenge.find().populate('writerId');
+        const challenges = await Challenge.find().populate('writerId').sort({createdAt:-1});
         res.status(200).json({
             status: 200,
             msg: "Challenges retrieved successfully",
@@ -166,7 +166,7 @@ const viewChallengeById = async (req, res) => {
 const viewActiveChallenges = async (req, res) => {
     try {
         const currentDate = new Date();
-        const activeChallenges = await Challenge.find({ endDate: { $gte: currentDate } }).populate('writerId');
+        const activeChallenges = await Challenge.find({ endDate: { $gte: currentDate } }).populate('writerId').sort({createdAt:-1});
 
         res.status(200).json({
             status: 200,
@@ -184,7 +184,7 @@ const viewActiveChallenges = async (req, res) => {
 const viewActiveChallengesByWriterId = async (req, res) => {
     try {
         const currentDate = new Date();
-        const activeChallenges = await Challenge.find({ writerId:req.params.id })
+        const activeChallenges = await Challenge.find({ writerId:req.params.id }).sort({createdAt:-1})
 
         res.status(200).json({
             status: 200,
@@ -202,7 +202,7 @@ const viewActiveChallengesByWriterId = async (req, res) => {
 const viewPreviousChallenges = async (req, res) => {
     try {
         const currentDate = new Date();
-        const prevChallenges = await Challenge.find({ endDate: { $lte: currentDate } }).populate('writerId');
+        const prevChallenges = await Challenge.find({ endDate: { $lte: currentDate } }).populate('writerId').sort({createdAt:-1});
 
         res.status(200).json({
             status: 200,
@@ -249,7 +249,7 @@ const viewChallengeParticipants = async (req, res) => {
         res.status(200).json({
             status: 200,
             msg: "participants retrieved successfully",
-            data: prevChallenges
+            data: participants
         });
     } catch (err) {
         res.status(500).json({
@@ -262,7 +262,7 @@ const viewChallengeParticipants = async (req, res) => {
 
 const viewChallengeByWriter = async (req, res) => {
     try {
-        const participants = await challengeParticipants.find({writerId:req.params.id}).populate('writerId readerId challengeId');
+        const participants = await challengeParticipants.find({writerId:req.params.id}).populate('writerId readerId challengeId').sort({createdAt:-1});
 
         res.status(200).json({
             status: 200,

@@ -41,9 +41,9 @@ function WriterPublishedStoryChallenge() {
       <div className='text-center mt-5'>
         <h4>Published Challenge</h4>
       </div>
-      <div className='mt-3 text-end me-5 pe-5'>
+      <div className='mt-3 text-end me-5 pe-5 w-100 p-3'>
         <Link to='/writer-end-challenge'>
-          <button className='writerview-challenges-endedbtn'>Ended Challenge</button>
+          <button className='writerview-challenges-endedbtn w-25'>Completed Challenge</button>
         </Link>
       </div>
       {writerdata.map((challenge, index) => (
@@ -54,7 +54,7 @@ function WriterPublishedStoryChallenge() {
               <img src={`${imageUrl}/${challenge.picture?.filename}`} className='writerview-challenges-img' alt='Challenge' />
             </div>
           </div>
-          <div className='col-4'>
+          <div className='col-6'>
             <div className='writerview-challenges-img1'>
               <div className='text-center pt-2'>
                 <h3>{challenge.title}</h3>
@@ -69,7 +69,7 @@ function WriterPublishedStoryChallenge() {
               </div>
             </div>
           </div>
-          <div className='col-2'></div>
+       
         </div>
       ))}
     </div>                                                                         

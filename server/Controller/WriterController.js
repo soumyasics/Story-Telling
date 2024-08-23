@@ -108,7 +108,7 @@ const registerWriter = async (req, res) => {
 
 // View all Writers
 const viewWriters = (req, res) => {
-    Writer.find({adminApproved:true})
+    Writer.find({adminApproved:true}).sort({createdAt:-1})
         .exec()
         .then(data => {
             if (data.length > 0) {
@@ -135,7 +135,7 @@ const viewWriters = (req, res) => {
 
 // View all Writers
 const viewWriterReqsforAdmin = (req, res) => {
-    Writer.find({adminApproved:false})
+    Writer.find({adminApproved:false}).sort({createdAt:-1})
         .exec()
         .then(data => {
             if (data.length > 0) {
@@ -513,6 +513,78 @@ const addPayment = (req, res) => {
             });
         });
 };
+
+
+
+const viewReaderWriterCounts = async (req, res) => {
+  try {
+    // Get month-wise count of readers
+    const readersByMonth = await ReaderSchema.aggregate([
+      {
+        $group: {
+          _id: { $month: "$createdAt" },
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $project: {
+          month: "$_id",
+          count: 1,
+          _id: 0
+        }
+      }
+    ]);
+
+    // Get month-wise count of writers
+    const writersByMonth = await Writer.aggregate([
+      {
+        $group: {
+          _id: { $month: "$createdAt" },
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $project: {
+          month: "$_id",
+          count: 1,
+          _id: 0
+        }
+      }
+    ]);
+
+    // Initialize the productSales array with 12 months
+    let productSales = Array(12).fill(0).map((_, i) => ({
+      name: new Date(0, i).toLocaleString('default', { month: 'short' }),
+      reader: 0,
+      writer: 0
+    }));
+
+    // Fill in the reader counts
+    readersByMonth.forEach(data => {
+      productSales[data.month - 1].reader = data.count;
+    });
+
+    // Fill in the writer counts
+    writersByMonth.forEach(data => {
+      productSales[data.month - 1].writer = data.count;
+    });
+
+    // Send the response with the data
+    res.status(200).json({
+      status: 200,
+      message: "Month-wise reader and writer counts retrieved successfully",
+      data: productSales,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: 500,
+      message: "Error retrieving reader and writer counts",
+      error: err,
+    });
+  }
+};
+
 module.exports = {
     registerWriter,
     viewWriters,
@@ -528,6 +600,6 @@ module.exports = {
     viewWriterReqsforAdmin,
 activateWriterById,
 deActivateWriterById,
-acceptWriterById
-    
+acceptWriterById,
+viewReaderWriterCounts
 };

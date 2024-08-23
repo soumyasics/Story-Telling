@@ -77,9 +77,9 @@ function WriterNewStoryChallenge() {
       <div className='text-center mt-5'>
         <h4>New Challenge</h4>
       </div>
-      <div className='mt-3 text-end me-5 pe-5'>
+      <div className='mt-3 text-end me-5 pe-5 w-100'>
         <Link to='/writer-end-challenge'>
-          <button className='writerview-challenges-endedbtn'>Ended Challenge</button>
+          <button className='writerview-challenges-endedbtn w-25'>Completed Challenges</button>
         </Link>
       </div>
       {writerdata

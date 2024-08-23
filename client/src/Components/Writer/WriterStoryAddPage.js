@@ -80,7 +80,7 @@ function WriterStoryAddPage() {
     if (name === "summary" && value.length > 150) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        summary: `Summary cannot exceed ${150} characters`,
+        summary: `Summary cannot exceed ${150} characters . Remaining Characters will be Ignored`,
       }));
       return;
     }

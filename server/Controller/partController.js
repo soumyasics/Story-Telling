@@ -74,7 +74,7 @@ const addPart = async (req, res) => {
 // Get all parts
 const getAllParts = async (req, res) => {
   try {
-    const parts = await Part.find()
+    const parts = await Part.find().sort({createdAt:-1})
       .populate('storyId')
       .populate('ownerId')
       .populate('writerId');
@@ -128,7 +128,7 @@ const getPartById = async (req, res) => {
 // Get part by Story ID
 const getPartByStoryId = async (req, res) => {
     try {
-      const part = await Part.find({storyId:req.params.id})
+      const part = await Part.find({storyId:req.params.id}).sort({createdAt:-1})
         .populate('ownerId')
         .populate('writerId');
   

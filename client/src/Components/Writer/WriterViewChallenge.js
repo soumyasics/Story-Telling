@@ -33,7 +33,7 @@ function WriterViewChallenge() {
       </div>
       <div className='mt-3 text-end me-5 pe-5'>
         <Link to='/writer-end-challenge'>
-          <button className='writerview-challenges-endedbtn'>Ended Challenge</button>
+          <button className='writerview-challenges-endedbtn w-25'>Completed Challenges</button>
         </Link>
       </div>
       {writerdata.map((challenge, index) => (
@@ -48,13 +48,13 @@ function WriterViewChallenge() {
               />
               <button
                 onClick={() => handleParticipate(challenge.challengeId._id)}
-                className='writerview-challenges-participatebtn ms-4'
+                className='writerview-challenges-participatebtn ms-4 mt-5'
               >
                 Update Status
               </button>
             </div>
           </div>
-          <div className='col-4'>
+          <div className='col-6'>
             <div className='writerview-challenges-img1'>
               <div className='text-center pt-2'>
                 <h3>{challenge.challengeId.title}</h3>
@@ -69,7 +69,6 @@ function WriterViewChallenge() {
               </div>
             </div>
           </div>
-          <div className='col-2'></div>
         </div>
       ))}
     </div>
