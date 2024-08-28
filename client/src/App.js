@@ -59,10 +59,16 @@ import Contact from "./Components/Pages/Contact";
 import ReaderViewOneCustomizedStory from "./Components/Viewer/ReaderViewOneCustomizedStory";
 import CommonViewStories from "./Components/Pages/CommonViewStories";
 import ChallengesView from "./Components/Admin/ChallengesView";
-function App() {
-  const url = "http://localhost:4025/";
 
-  // const url= "http://hybrid.srishticampus.in:4025/"
+
+
+
+
+function App() {
+  // const url = "http://localhost:4025/";
+
+  const url= "http://hybrid.srishticampus.in:4025/"
+
 
   return (
     <BrowserRouter basename="/story_telling">

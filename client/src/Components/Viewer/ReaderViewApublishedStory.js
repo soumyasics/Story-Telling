@@ -381,7 +381,6 @@ function ReaderViewApublishedStory() {
                         >
                           <option>Story Category</option>
                           <option>Horror</option>
-                          <option>Comedy</option>
                           <option>Tragedy</option>
                           <option>Romance</option>
                           <option>Fantasy</option>
