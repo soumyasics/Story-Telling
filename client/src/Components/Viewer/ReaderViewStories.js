@@ -162,14 +162,7 @@ function ReaderViewStories({ url }) {
                 />
                 <h4 className="mt-3">Fantasy</h4>
               </div>
-              <div class="col text-center">
-                <img
-                  className={`writer-viewstory-categoryimg ${filter.category == 'Comedy' ? sel : ''}`}
-                  src={Fantasy}
-                  onClick={() => applyFilter({ category: "Comedy" })}
-                />
-                <h4 className="mt-3">Comedy</h4>
-              </div>
+              
             </div>
 
             <div class="row row-cols-1 row-cols-md-2 g-4 mt-3 ">
