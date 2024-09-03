@@ -23,6 +23,8 @@ function ViewChallengeSummary() {
         alert("Failed to fetch user details");
       });
   }, []);
+  console.log(writerdata,"pp");
+  
   return (
     <div className="row">
       <div className="col-4">
@@ -42,7 +44,7 @@ function ViewChallengeSummary() {
               <div className="text-center">
                 <img
                   src={
-                    imageUrl + "/" + writerdata.first.profilePicture?.filename
+                    imageUrl + "/" + writerdata.first.profilePicture
                   }
                   className="view-challenge-summary-img"
                 ></img>

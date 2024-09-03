@@ -3,6 +3,7 @@ const router = express.Router();
 const Challenge = require('../Model/challengeSchema');
 const multer = require("multer");
 const challengeParticipants = require('../Model/challengeParticipants');
+const { listenerCount } = require('../Model/challengeWinners');
 
 const storage = multer.diskStorage({
   destination: function (req, res, cb) {
@@ -25,8 +26,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).single("picture");
 // Add a new challenge
 const addChallenge = async (req, res) => {
+
     try {
         const { title, description, startDate, endDate, writerId } = req.body;
+console.log(endDate);
 
         const newChallenge = new Challenge({
             title,
@@ -165,8 +168,10 @@ const viewChallengeById = async (req, res) => {
 // View active challenges
 const viewActiveChallenges = async (req, res) => {
     try {
-        const currentDate = new Date();
-        const activeChallenges = await Challenge.find({ endDate: { $gte: currentDate } }).populate('writerId').sort({createdAt:-1});
+        let currentDate = new Date();
+        // currentDate.setDate(currentDate.getDate() + 1);
+        currentDate.setHours(0,0,0,0)
+        const activeChallenges = await Challenge.find({ endDate: { $gt: currentDate } }).populate('writerId').sort({createdAt:-1});
 
         res.status(200).json({
             status: 200,
@@ -184,6 +189,7 @@ const viewActiveChallenges = async (req, res) => {
 const viewActiveChallengesByWriterId = async (req, res) => {
     try {
         const currentDate = new Date();
+        currentDate.setDate(currentDate.getDate() + 1);
         const activeChallenges = await Challenge.find({ writerId:req.params.id }).sort({createdAt:-1})
 
         res.status(200).json({
@@ -201,8 +207,16 @@ const viewActiveChallengesByWriterId = async (req, res) => {
 };
 const viewPreviousChallenges = async (req, res) => {
     try {
-        const currentDate = new Date();
-        const prevChallenges = await Challenge.find({ endDate: { $lte: currentDate } }).populate('writerId').sort({createdAt:-1});
+        // Get today's date
+        let currentDate = new Date();
+        
+        // Set currentDate to tomorrow by adding 1 day
+        
+        currentDate.setHours(0,0,0,0)
+        const prevChallenges = await Challenge.find({ endDate: { $lte: currentDate } })
+            .populate('writerId')
+            .sort({ createdAt: -1 });
+console.log(currentDate,"ll");
 
         res.status(200).json({
             status: 200,
@@ -217,6 +231,7 @@ const viewPreviousChallenges = async (req, res) => {
         });
     }
 };
+
 
 const addParticipants = async (req, res) => {
     try {
@@ -263,7 +278,6 @@ const viewChallengeParticipants = async (req, res) => {
 const viewChallengeByWriter = async (req, res) => {
     try {
         const participants = await challengeParticipants.find({writerId:req.params.id}).populate('writerId readerId challengeId').sort({createdAt:-1});
-
         res.status(200).json({
             status: 200,
             msg: "participants retrieved successfully",
