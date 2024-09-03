@@ -9,66 +9,74 @@ const Challenge = require('../Model/challengeSchema');
 
 
 
-// Create a new challengeUpdates
 const addchallengeUpdates = async (req, res) => {
-    const { status, readerId, challengeId, writerId } = req.body;
-// Get the start of today
-const today = new Date();
-today.setHours(0, 0, 0, 0);
-var data;
+  const { status, readerId, challengeId, writerId } = req.body;
 
-// Get the start of tomorrow
-const tomorrow = new Date(today);
-tomorrow.setDate(tomorrow.getDate() + 1);
-if (readerId) {
-  data = {
-    readerId: readerId,
-    challengeId: challengeId,
-    date: {
-        $gte: today,
-        $lt: tomorrow
-    }
-  }
-} else {
-  data = {
-    writerId: writerId,
-    challengeId: challengeId,
-    date: {
-        $gte: today,
-        $lt: tomorrow
-    }
-  }
-}
+  // Get the start of today
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-// Find if a challengeUpdate already exists for today
-let existingChallenge = await challengeUpdates.findOne(data);
+  // Get the start of tomorrow
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
 
- if(existingChallenge)
- {
-  return  res.status(200).json({
-        status: 400,
-        msg: "You Have already added Updates for Today",
-  })
- }
-    data.status = status;
-    data.date = new Date();
-    const newchallengeUpdates = new challengeUpdates(data);
+  // Define the query filter based on readerId or writerId
+  const filter = readerId
+    ? { readerId, challengeId, date: { $gte: today, $lt: tomorrow } }
+    : { writerId, challengeId, date: { $gte: today, $lt: tomorrow } };
 
-    try {
-        const savedchallengeUpdates = await newchallengeUpdates.save();
-        res.status(200).json({
-            status: 200,
-            msg: "Inserted successfully",
-            data: savedchallengeUpdates
+  try {
+    // Check if a challenge update already exists for today
+    const existingUpdate = await challengeUpdates.findOne(filter);
+
+    if (existingUpdate) {
+      // Check if the existing update has the same status
+      if (existingUpdate.status === status) {
+        return res.status(400).json({
+          status: 400,
+          msg: "Already submitted",
         });
-    } catch (err) {
-        res.status(500).json({
-            status: 500,
-            msg: "Data not Inserted",
-            Error: err.message
-        });
+      }
+
+      // If an update exists but the status is different, update it with the new status
+      existingUpdate.status = status;
+      existingUpdate.date = new Date(); // update the date to now if needed
+
+      // Save the updated challenge update
+      const updatedUpdate = await existingUpdate.save();
+
+      return res.status(200).json({
+        status: 200,
+        msg: "Updated successfully",
+        data: updatedUpdate,
+      });
     }
+
+    // If no update exists, create a new one
+    const newUpdate = new challengeUpdates({
+      ...filter,
+      status,
+      date: new Date(),
+    });
+
+    // Save the new update
+    const savedUpdate = await newUpdate.save();
+
+    res.status(200).json({
+      status: 200,
+      msg: "Inserted successfully",
+      data: savedUpdate,
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      status: 500,
+      msg: "Data not inserted or updated",
+      error: err.message,
+    });
+  }
 };
+
 
 // View all challengeUpdatess
 // const viewchallengeUpdatessBychallengeId = (req, res) => {

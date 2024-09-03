@@ -49,9 +49,13 @@ picture:{filename:''}
 
     axiosInstance
       .post('/addchallengeUpdates', data)
+
       .then((res) => {
-        if (res.data.status === 400) {
+        console.log(res,"[]");
+        
+        if (res.data.status == 400) {
           alert(res.data.msg);
+          
         } else {
           alert('Update submitted successfully');
           setStatus('');
