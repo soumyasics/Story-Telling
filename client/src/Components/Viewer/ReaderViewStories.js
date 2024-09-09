@@ -162,7 +162,6 @@ function ReaderViewStories({ url }) {
                 />
                 <h4 className="mt-3">Fantasy</h4>
               </div>
-              
             </div>
 
             <div class="row row-cols-1 row-cols-md-2 g-4 mt-3 ">
